@@ -1,5 +1,5 @@
 ## 简介：
-<div align="center">
+<p align="center">
 <a target="_blank" href="https://github.com/DoTheBetter/docker/tree/master/caddy2"><img alt="Static Badge" src="https://img.shields.io/badge/Github-DoTheBetter%2Fdocker-brightgreen"></a>
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/DoTheBetter/docker?label=GitHub%20repo%20size">
 <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/DoTheBetter/docker/DockerBuild_caddy2.yml?label=GitHub%20Actions%20Workflow%20Status">
@@ -9,11 +9,16 @@
 <img alt="Docker Image Version" src="https://img.shields.io/docker/v/dothebetter/caddy2?label=Docker%20Image%20Version">
 <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/dothebetter/caddy2?label=Docker%20Image%20Size">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/caddy2?label=Docker%20Pulls">
-</div>
+</p>
 
 自用Caddy2 Alpine镜像，支持amd64;arm64v8;arm32v7系统。在Caddy官方builder镜像添加常用插件，集成Maxmind官方[GeoIP Update](https://dev.maxmind.com/geoip/updating-databases?lang=en)程序（需要注册Maxmind账号）。  
 
 项目地址：https://github.com/DoTheBetter/docker/tree/master/caddy2
+
+#### 官网地址
+
+* https://caddyserver.com/ 
+* https://github.com/caddyserver/caddy
 
 ####  插件列表
 
@@ -32,10 +37,6 @@
 | caddy-dns/googleclouddns     | https://github.com/caddy-dns/googleclouddns         | https证书签署dns认证                                                                      |
 | caddy-dns/namecheap          | https://github.com/caddy-dns/namecheap              | https证书签署dns认证                                                                      |
 | caddy-dns/namesilo           | https://github.com/caddy-dns/namesilo               | https证书签署dns认证                                                                      |
-
-#### 官网地址
-
-* ‍https://caddyserver.com/ 
 
 ## 相关参数：
 
