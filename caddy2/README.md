@@ -118,23 +118,5 @@ networks:
   web:
     external: true
 ```
-## 更新历史：
-
-<details>
-<summary>展开查看</summary>
-2024年10月5日<br>
-    更新镜像版本：dothebetter/caddy2:2.8.4<br>
-    1、更新基础镜像alpine:3.20<br>
-    2、更新Caddyfile版本v2.8.4<br>
-    3、更新MaxMind的GeoIP Update程序版本v7.0.1<br>
-<br>
-2024年3月17日<br>
-    1、更新基础镜像alpine:3.19<br>
-    2、更新Caddyfile版本v2.7.6<br>
-    3、更新MaxMind的GeoIP Update程序版本v6.1.0<br>
-<br>
-2022年3月27日<br>
-    1、基础镜像alpine:3.15<br>
-    2、集成MaxMind的GeoIP Update程序https://dev.maxmind.com/geoip/updating-databases?lang=en<br>
-    3、Caddyfile默认配置文件修改<br>
-</details>
+## 更新日志：
+详见 **[CHANGELOG.md](./CHANGELOG.md)**
