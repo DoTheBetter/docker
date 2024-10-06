@@ -63,5 +63,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/caddy2
-          short-description: caddy2:${{ env.CADDY_VER }} amd64;arm64v8;arm32v7，集成常用插件及geoipupdate
+          short-description: caddy2:${{ env.CADDY_VER }}，支持amd64;arm64v8;arm32v7，集成常用插件及geoipupdate
           readme-filepath: ./caddy2/README.md

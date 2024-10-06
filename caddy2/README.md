@@ -82,8 +82,6 @@ docker run -d \
 	-v /docker/caddy2/data:/data \
 	ghcr.io/dothebetter/caddy2:latest
 	#dothebetter/caddy2:latest
-
-
 ```
 
 #### docker-compose.yml
@@ -125,6 +123,7 @@ networks:
 <details>
 <summary>展开查看</summary>
 2024年10月5日<br>
+    更新镜像版本：dothebetter/caddy2:2.8.4<br>
     1、更新基础镜像alpine:3.20<br>
     2、更新Caddyfile版本v2.8.4<br>
     3、更新MaxMind的GeoIP Update程序版本v7.0.1<br>
