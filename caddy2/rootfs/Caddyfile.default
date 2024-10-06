@@ -1,0 +1,59 @@
+# caddy reload --config /config/Caddyfile
+# https://caddyserver.com/docs/caddyfile
+#####################全局选项#############################
+{
+  ## 用于创建https证书ACME帐户
+  #email email@example.com
+  ## caddy-webdav
+  #order webdav before file_server
+  ## 用于创建https证书dns帐户
+  #acme_dns alidns {
+  #  access_key_id {env.ALIYUN_ACCESS_KEY_ID}
+  #  access_key_secret {env.ALIYUN_ACCESS_KEY_SECRET}
+  #}
+}
+
+####################自定义块##########################
+#GeoLite2-Country.mmdb下载地址：https://www.maxmind.com/en/accounts/current/geoip/downloads
+#国家代码https://dev.maxmind.com/geoip/legacy/codes 
+#(mygeofilter) {
+#  @geofilter {
+#    not maxmind_geolocation {
+#      db_path "/config/GeoIP/GeoLite2-Country.mmdb"
+#      allow_countries CN
+#    }
+#    #白名单ip
+#    not remote_ip 192.168.10.0/24
+#  }
+#  respond @geofilter 403
+#  #redir @geofilter https://www.bing.com
+#}
+
+####################站点####################
+#webdav.example.com {
+#  import mygeofilter #引用自定义块
+#  encode zstd gzip # optional compression
+#  basicauth { # optional auth
+#    example-user HASHED_PASSWORD
+#  }
+#  webdav {
+#    root /opt/sites/Webdav-Site
+#  }
+#  tls {
+#    dns alidns {
+#      access_key_id {env.ALIYUN_ACCESS_KEY_ID}
+#      access_key_secret {env.ALIYUN_ACCESS_KEY_SECRET}
+#    }
+#  }
+#}
+
+:80 {
+    ## 网站根目录
+    root * /usr/share/caddy
+    ## 运行静态文件服务.
+    file_server
+    ## 反向代理
+    # reverse_proxy localhost:8080
+    ## php-fpm
+    # php_fastcgi localhost:9000
+}

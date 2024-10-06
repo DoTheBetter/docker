@@ -1,0 +1,55 @@
+#!/usr/bin/with-contenv sh
+#https://github.com/maxmind/geoipupdate/blob/main/docker/entry.sh
+
+if [ "$GEOIPUPDATE_AUTO" != "true" ]; then
+    echo "======【未设置启动geoipupdate，退出！】======"
+    s6-svc -O .
+    exit 0
+fi
+
+if [ "$GEOIPUPDATE_FREQUENCY" == "0" ]; then
+    echo "======【错误:GEOIPUPDATE_FREQUENCY参数不能为0，请重新设置！】======"
+    s6-svc -O .
+    exit 0
+fi
+
+pid=1
+
+export GEOIPUPDATE_CONF_FILE=""
+export GEOIPUPDATE_DB_DIR=${XDG_DATA_HOME}/GeoIP
+log_file=${GEOIPUPDATE_DB_DIR}/geoipupdate.log
+flags="--output"
+frequency=$((GEOIPUPDATE_FREQUENCY * 60 * 60))
+
+if [ -z "$GEOIPUPDATE_ACCOUNT_ID" ]; then
+    echo "======【错误: 必须设置GEOIPUPDATE_ACCOUNT_ID变量！】======"
+    s6-svc -O .
+    exit 0
+fi
+
+if [ -z "$GEOIPUPDATE_LICENSE_KEY" ]; then
+    echo "======【错误: 必须设置GEOIPUPDATE_LICENSE_KEY变量！】======"
+    s6-svc -O .
+    exit 0
+fi
+
+if [ -z "$GEOIPUPDATE_EDITION_IDS" ]; then
+    echo "======【错误: 必须设置GEOIPUPDATE_EDITION_IDS变量！】======"
+    s6-svc -O .
+    exit 0
+fi
+
+mkdir -p $GEOIPUPDATE_DB_DIR
+
+while true; do
+    echo "======$(date "+%Y-%m-%d %H:%M:%S")：【正在下载更新geoip数据至$GEOIPUPDATE_DB_DIR】======"
+    /usr/bin/geoipupdate $flags 1>$log_file
+    if [ "$frequency" -eq 0 ]; then
+        break
+    fi
+
+    echo "======$(date "+%Y-%m-%d %H:%M:%S")：【$GEOIPUPDATE_FREQUENCY小时后进行下一次geoip数据更新】======"
+    sleep "$frequency" &
+    pid=$!
+    wait $!
+done
