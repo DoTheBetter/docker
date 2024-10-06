@@ -1,7 +1,7 @@
 ## 简介：
 自用Caddy2 Alpine镜像，支持amd64;arm64v8;arm32v7系统。在Caddy官方builder镜像添加常用插件，集成Maxmind官方[GeoIP Update](https://dev.maxmind.com/geoip/updating-databases?lang=en)程序（需要注册Maxmind账号）。  
 
-项目地址：https://github.com/DoTheBetter/docker/caddy2
+项目地址：https://github.com/DoTheBetter/docker/tree/master/caddy2
 
 ####  插件列表
 
