@@ -72,6 +72,8 @@
 
 ## 部署方法：
 
+> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用是可使用ghcr.io
+
 #### Docker Run
 
 ```bash
@@ -93,8 +95,7 @@ docker run -d \
 	-v /var/run/docker.sock:/var/run/docker.sock:ro \
 	-v /docker/caddy2/config:/config \
 	-v /docker/caddy2/data:/data \
-	ghcr.io/dothebetter/caddy2:latest
-	#dothebetter/caddy2:latest
+	dothebetter/caddy2:latest  #ghcr.io/dothebetter/caddy2:latest
 ```
 
 #### docker-compose.yml
@@ -103,8 +104,7 @@ docker run -d \
 version: '3'
 services:
   caddy2:
-    image: ghcr.io/dothebetter/caddy2:latest
-    #image: dothebetter/caddy2:latest
+    image: dothebetter/caddy2:latest  #image: ghcr.io/dothebetter/caddy2:latest
     container_name: caddy2
     restart: always
     networks:
