@@ -65,7 +65,7 @@
 
 > 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用是可使用ghcr.io
 
-- ### #在源端使用时
+### 1. 在源端使用时
 
 #### Docker Run
   ```bash
@@ -99,7 +99,7 @@ services:
         - /backup:/backup
 ```
 
-- ### #在复制端使用时：只拉取时可以不映射端口
+### 2. 在复制端使用时：只拉取时可以不映射端口
 
 #### Docker Run
   ```bash
