@@ -1,0 +1,68 @@
+name: DockerBuild_rsync
+
+on:
+  push:
+    paths:
+    - 'rsync/Dockerfile'
+    - 'rsync/rootfs/**'
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: buildx tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 'Set env'
+        run: |
+          echo "RSYNC_VER=$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./rsync
+          file: ./rsync/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: |
+            dothebetter/rsync:latest
+            dothebetter/rsync:${{ env.RSYNC_VER }}
+            ghcr.io/dothebetter/rsync:latest
+            ghcr.io/dothebetter/rsync:${{ env.RSYNC_VER }}
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: dothebetter/rsync
+          short-description: rsync:${{ env.RSYNC_VER }}，支持amd64;arm64v8;arm32v7，ssh+cron+rsync+lsyncd
+          readme-filepath: ./rsync/README.md
+          enable-url-completion: true

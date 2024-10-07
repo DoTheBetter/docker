@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv sh
+
+if [ "$LSYNCD" == "true" ]; then
+	lsyncd -log Exec /conf/lsyncd.conf
+else
+    s6-svc -O .
+    exit 0
+fi

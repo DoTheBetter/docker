@@ -1,0 +1,96 @@
+-- 官方说明 https://lsyncd.github.io/lsyncd/
+-- 官方说明中文翻译 https://www.cnblogs.com/sunsky303/p/8976445.html
+-- 用法介绍 https://segmentfault.com/a/1190000002737213
+-- 配置文件采用 Lua 语言编写，注意格式
+
+settings {
+    logfile = "/conf/lsyncd.log", -- 定义日志文件
+    statusFile = "/conf/lsyncd.status", -- 定义状态文件
+    inotifyMode = "CloseWrite", -- 指定 inotify 监控的事件
+    maxProcesses = 8, -- 同步进程的最大个数
+    nodaemon = true, -- 不启用守护模式
+}
+
+-- I. 本地目录同步，direct：cp/rm/mv。 适用：500+万文件，变动不大
+sync {
+    default.direct,
+    source    = "/tmp/src",
+    target    = "/tmp/dest",
+    delay = 1
+    maxProcesses = 1
+    }
+
+-- II. 本地目录同步，rsync模式：rsync
+sync {
+    default.rsync,
+    source    = "/tmp/src",
+    target    = "/tmp/dest1",
+    excludeFrom = "/etc/rsyncd.d/rsync_exclude.lst",
+    rsync     = {
+        binary = "/usr/bin/rsync",
+        archive = true,
+        compress = true,
+        bwlimit   = 2000
+        } 
+    }
+
+-- III. 远程目录同步，rsync模式 + rsyncd daemon
+sync {
+    default.rsync,
+    source    = "/tmp/src",
+    target    = "syncuser@172.29.88.223::module1",
+    delete="running",
+    exclude = { ".*", ".tmp" },
+    delay = 30,
+    init = false,
+    rsync     = {
+        binary = "/usr/bin/rsync",
+        archive = true,
+        compress = true,
+        verbose   = true,
+        password_file = "/etc/rsyncd.d/rsync.pwd",
+        _extra    = {"--bwlimit=200"}
+        }
+    }
+
+-- IV. 远程目录同步，rsync模式 + ssh shell
+sync {
+    default.rsync,
+    source    = "/tmp/src",
+    target    = "172.29.88.223:/tmp/dest",
+    -- target    = "root@172.29.88.223:/remote/dest",
+    -- 上面target，注意如果是普通用户，必须拥有写权限
+    maxDelays = 5,
+    delay = 30,
+    -- init = true,
+    rsync     = {
+        binary = "/usr/bin/rsync",
+        archive = true,
+        compress = true,
+        bwlimit   = 2000
+        -- rsh = "/usr/bin/ssh -p 22 -o StrictHostKeyChecking=no"
+        -- 如果要指定其它端口，请用上面的rsh
+        }
+    }
+
+-- V. 远程目录同步，rsync模式 + rsyncssh，效果与上面相同
+sync {
+    default.rsyncssh,
+    source    = "/tmp/src2",
+    host      = "172.29.88.223",
+    targetdir = "/remote/dir",
+    excludeFrom = "/etc/rsyncd.d/rsync_exclude.lst",
+    -- maxDelays = 5,
+    delay = 0,
+    -- init = false,
+    rsync    = {
+        binary = "/usr/bin/rsync",
+        archive = true,
+        compress = true,
+        verbose   = true,
+        _extra = {"--bwlimit=2000"},
+        },
+    ssh      = {
+        port  =  1234
+        }
+    }

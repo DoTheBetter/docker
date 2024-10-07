@@ -1,0 +1,23 @@
+#官方文档https://download.samba.org/pub/rsync/rsyncd.conf.5
+#可以参照https://www.cnblogs.com/leixixi/p/14751914.html
+#全局参数
+port = 873
+uid = root
+gid = root
+use chroot = no
+max connections = 10
+timeout = 300
+lock file = /conf/rsync.lock
+log file = /dev/stdout
+
+#模块
+[backup]
+path = /backup
+comment = backup file
+ignore errors
+read only = yes
+list = false
+#hosts allow = 172.16.1.0/24
+#hosts deny = 0.0.0.0/32
+auth users = rsync_backup_user
+secrets file = /conf/rsync.password
