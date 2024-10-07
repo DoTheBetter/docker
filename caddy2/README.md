@@ -104,7 +104,7 @@ docker run -d \
 version: '3'
 services:
   caddy2:
-    image: dothebetter/caddy2:latest  #image: ghcr.io/dothebetter/caddy2:latest
+    image: dothebetter/caddy2:latest  #ghcr.io/dothebetter/caddy2:latest
     container_name: caddy2
     restart: always
     networks:
