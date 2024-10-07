@@ -72,7 +72,7 @@
 
 ## 部署方法：
 
-> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用是可使用ghcr.io
+> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用时可使用ghcr.io
 
 #### Docker Run
 
