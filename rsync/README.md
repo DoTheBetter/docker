@@ -107,7 +107,7 @@ services:
   	--name rsync \
   	--restart always \
   	-e SSH=true \
-  	-e RSYNC=true \
+  	-e CRON=true \
   	-v /docker/rsync:/conf \
   	-v /backup:/backup \
   	dothebetter/rsync:latest  #ghcr.io/dothebetter/rsync:latest
