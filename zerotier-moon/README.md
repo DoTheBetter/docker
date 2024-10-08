@@ -1,8 +1,8 @@
 ## 简介：
 <p align="center">
 <a target="_blank" href="https://github.com/DoTheBetter/docker/tree/master/zerotier-moon"><img alt="Static Badge" src="https://img.shields.io/badge/Github-DoTheBetter%2Fdocker-brightgreen"></a>
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/DoTheBetter/docker?label=Repo%20Size">
-<img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/DoTheBetter/docker/DockerBuild_zerotier-moon.yml?label=Actions%20Status">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/DoTheBetter/docker?label=GitHub%20Repo%20Size">
+<img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/DoTheBetter/docker/DockerBuild_zerotier-moon.yml?label=GitHub%20Actions%20Workflow%20Status">
 <br>
 <a target="_blank" href="https://github.com/DoTheBetter/docker/pkgs/container/zerotier-moon"><img alt="Static Badge" src="https://img.shields.io/badge/ghcr.io-dothebetter%2Fzerotier--moon-brightgreen"></a>
 <a target="_blank" href="https://hub.docker.com/r/dothebetter/zerotier-moon"><img alt="Static Badge" src="https://img.shields.io/badge/docker.io-dothebetter%2Fzerotier--moon-brightgreen"></a>
@@ -10,6 +10,7 @@
 <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/dothebetter/zerotier-moon?label=Image%20Size">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/zerotier-moon?label=Docker%20Pulls">
 </p>
+
 自用zerotier-moon节点镜像，基础系统为alpine，支持amd64;arm64v8;arm32v7系统。
 
 **使用前提条件：**
