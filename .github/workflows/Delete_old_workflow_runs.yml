@@ -1,22 +1,20 @@
 name: Delete old workflow runs
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       days:
-        description: '工作流要保留的运行天数'
+        description: 'Days-worth of runs to keep for each workflow'
         required: true
-        default: '3'
+        default: '30'
       minimum_runs:
-        description: '工作流程要保留的最小运行数'
+        description: 'Minimum runs to keep for each workflow'
         required: true
-        default: '1'
+        default: '6'
       delete_workflow_pattern:
-        description: '工作流的名称或文件名（如果未设置，则以所有工作流为目标）'
+        description: 'Name or filename of the workflow (if not set, all workflows are targeted)'
         required: false
       delete_workflow_by_state_pattern:
-        description: '按状态筛选工作流'
+        description: 'Filter workflows by state: active, deleted, disabled_fork, disabled_inactivity, disabled_manually'
         required: true
         default: "ALL"
         type: choice
@@ -24,14 +22,12 @@ on:
           - "ALL"
           - active
           - deleted
-          - disabled_fork
           - disabled_inactivity
           - disabled_manually
       delete_run_by_conclusion_pattern:
-        description: '按运行结果筛选工作流'
+        description: 'Remove runs based on conclusion: action_required, cancelled, failure, skipped, success'
         required: true
-        #default: "ALL"
-        default: "Unsuccessful: action_required,cancelled,failure,skipped"
+        default: "ALL"
         type: choice
         options:
           - "ALL"
@@ -42,7 +38,7 @@ on:
           - skipped
           - success
       dry_run:
-        description: '模拟更改，不执行任何删除'
+        description: 'Logs simulated changes, no deletions are performed'
         required: false
 
 jobs:
