@@ -1,17 +1,6 @@
-ARG ZeroTierOne_VER=1.14.1
+ARG ZeroTierOne_VER=1.14.2
 
-#编译ZeroTierOne
-#https://git.alpinelinux.org/aports/tree/community/zerotier-one?id=eab757ac9e60bc25cf5d0c5b07785b12e7a4bb04
-FROM alpine:3.20 AS builder
-RUN apk upgrade --update \
-	&& apk add linux-headers cargo openssl-dev \
-	&& apk add make g++ \
-	&& wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/1.14.1.zip -O /zerotier.zip \
-	&& unzip /zerotier.zip -d / \
-	&& cd /ZeroTierOne-1.14.1 \
-	&& make \
-	&& make DESTDIR=/tmp/build install
-
+FROM ghcr.io/dothebetter/baseimage_zerotier:latest AS builder
 
 FROM alpine:3.20
 
