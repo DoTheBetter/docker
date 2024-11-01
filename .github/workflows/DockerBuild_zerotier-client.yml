@@ -64,6 +64,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/zerotier-client
-          short-description: zerotier-client:${{ env.ZeroTierOne_VER }} alpine镜像，支持amd64;arm64v8;arm32v7，支持以网关模式访问内网
+          short-description: zerotier-client:${{ env.ZeroTierOne_VER }} alpine镜像，支持amd64;arm64v8;arm32v7，以网关模式访问内网
           readme-filepath: ./zerotier-client/README.md
           enable-url-completion: true
