@@ -24,19 +24,20 @@
 
 **各插件用法详见插件地址，镜像自带部分插件配置使用示例Caddyfile.default**
 
-| 名称                           | 插件地址                                                | 说明                                                                                  |
-|:---------------------------- |:--------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 名称                         | 插件地址                                            | 说明                                                         |
+| :--------------------------- | :-------------------------------------------------- | ------------------------------------------------------------ |
 | caddy-docker-proxy/plugin/v2 | https://github.com/lucaslorentz/caddy-docker-proxy  | 该插件使 Caddy 能够通过标签用作 Docker 容器的反向代理，labels标签可与Caddyfile配置文件同时使用，Caddyfile配置文件修改后自动重载 |
-| caddy-webdav                 | https://github.com/mholt/caddy-webdav               | 提供webdav服务                                                                          |
-| caddy-maxmind-geolocation    | https://github.com/porech/caddy-maxmind-geolocation | 根据geoip数据库 IP 地理位置过滤请求                                                              |
-| caddy-security               | https://github.com/greenpau/caddy-security          | 安全认证插件                                                                              |
-| caddy-dns/cloudflare         | https://github.com/caddy-dns/cloudflare             | https证书签署dns认证                                                                      |
-| caddy-dns/dnspod             | https://github.com/caddy-dns/dnspod                 | https证书签署dns认证                                                                      |
-| caddy-dns/alidns             | https://github.com/caddy-dns/alidns                 | https证书签署dns认证                                                                      |
-| caddy-dns/godaddy            | https://github.com/caddy-dns/godaddy                | https证书签署dns认证                                                                      |
-| caddy-dns/googleclouddns     | https://github.com/caddy-dns/googleclouddns         | https证书签署dns认证                                                                      |
-| caddy-dns/namecheap          | https://github.com/caddy-dns/namecheap              | https证书签署dns认证                                                                      |
-| caddy-dns/namesilo           | https://github.com/caddy-dns/namesilo               | https证书签署dns认证                                                                      |
+| caddy-webdav                 | https://github.com/mholt/caddy-webdav               | 提供webdav服务                                               |
+| caddy-maxmind-geolocation    | https://github.com/porech/caddy-maxmind-geolocation | 根据geoip数据库 IP 地理位置过滤请求                          |
+| caddy-security               | https://github.com/greenpau/caddy-security          | 安全认证插件                                                 |
+| caddy-dns/cloudflare         | https://github.com/caddy-dns/cloudflare             | https证书签署dns认证                                         |
+| caddy-dns/dnspod             | https://github.com/caddy-dns/dnspod                 | https证书签署dns认证                                         |
+| caddy-dns/alidns             | https://github.com/caddy-dns/alidns                 | https证书签署dns认证                                         |
+| caddy-dns/godaddy            | https://github.com/caddy-dns/godaddy                | https证书签署dns认证                                         |
+| caddy-dns/googleclouddns     | https://github.com/caddy-dns/googleclouddns         | https证书签署dns认证                                         |
+| caddy-dns/namecheap          | https://github.com/caddy-dns/namecheap              | https证书签署dns认证                                         |
+| caddy-dns/namesilo           | https://github.com/caddy-dns/namesilo               | https证书签署dns认证                                         |
+| caddy-git                    | https://github.com/greenpau/caddy-git               | 通过在 Caddy 克隆来从 git 存储库的文件，克隆操作在启动或站点被访问时发生 |
 
 ## 相关参数：
 

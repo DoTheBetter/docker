@@ -12,7 +12,7 @@ RUN apk upgrade --update \
 	&& make \
 	&& make DESTDIR=/tmp/build install
 
-	
+
 FROM alpine:3.20
 
 ARG S6_VER=3.2.0.0

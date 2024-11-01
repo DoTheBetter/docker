@@ -1,19 +1,6 @@
 ARG CADDY_VER=2.8.4
 
-FROM caddy:2.8.4-builder-alpine AS caddybuilder
-#https://github.com/docker-library/docs/tree/master/caddy
-RUN xcaddy build \
-	--with github.com/lucaslorentz/caddy-docker-proxy/v2 \
-	--with github.com/mholt/caddy-webdav \
-	--with github.com/porech/caddy-maxmind-geolocation \
-	--with github.com/greenpau/caddy-security \
-	--with github.com/caddy-dns/cloudflare \
-	--with github.com/caddy-dns/dnspod \
-	--with github.com/caddy-dns/alidns \
-	--with github.com/caddy-dns/godaddy \
-	--with github.com/caddy-dns/googleclouddns \
-	--with github.com/caddy-dns/namecheap \
-	--with github.com/caddy-dns/namesilo
+FROM ghcr.io/dothebetter/baseimage_caddy2:latest AS caddybuilder
 
 FROM golang:alpine3.20 AS geoipbuilder
 #https://github.com/maxmind/geoipupdate/blob/main/README.md

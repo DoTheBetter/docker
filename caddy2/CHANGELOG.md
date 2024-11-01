@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2024年11月1日 更新
+更新镜像版本：dothebetter/caddy2:2.8.4
+1. 基础镜像单独构建：ghcr.io/dothebetter/baseimage_caddy2:latest
+2. 添加Caddyfile插件github.com/greenpau/caddy-git
 
 ## 2024年10月5日 更新
 更新镜像版本：dothebetter/caddy2:2.8.4
