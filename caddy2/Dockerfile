@@ -1,4 +1,4 @@
-ARG CADDY_VER=2.8.4
+ARG CADDY_VER=2.9.0
 
 FROM ghcr.io/dothebetter/baseimage_caddy2:latest AS caddybuilder
 
