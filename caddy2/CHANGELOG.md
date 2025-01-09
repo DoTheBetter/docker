@@ -1,5 +1,10 @@
 # 更新日志
 
+## 2025年1月9日 更新
+更新镜像版本：dothebetter/caddy2:2.9.1
+1. 更新Caddyfile版本v2.9.1
+2. 更新MaxMind的GeoIP Update程序版本 v7.1.0
+
 ## 2025年1月1日 更新
 更新镜像版本：dothebetter/caddy2:2.9.0
 1. 更新Caddyfile版本v2.9.0
