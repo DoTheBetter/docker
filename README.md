@@ -1,5 +1,10 @@
 <h3 align="center">自用Docker容器构建</h3>
-<p align="center">
+
+本仓库地址：https://github.com/DoTheBetter/docker
+
+<p align="left">
+自建Docker容器版本、地址、大小如下：
+<br>
 <a target="_blank" href="https://github.com/DoTheBetter/docker/pkgs/container/caddy2"><img alt="Static Badge" src="https://img.shields.io/badge/ghcr.io-dothebetter%2Fcaddy2-brightgreen"></a>
 <a target="_blank" href="https://hub.docker.com/r/dothebetter/caddy2"><img alt="Static Badge" src="https://img.shields.io/badge/docker.io-dothebetter%2Fcaddy2-brightgreen"></a>
 <img alt="Docker Image Version" src="https://img.shields.io/docker/v/dothebetter/caddy2?label=Image%20Version">
