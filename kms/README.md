@@ -12,7 +12,9 @@
 </p>
 为实现自用的KMS激活功能，构建了一个基于Alpine镜像的服务，支持多种架构，包括amd64、arm64v8和arm32v7。
 
-KMS服务通过配置`vlmcsd.ini`配置文件来启动，便于后期根据需要修改启动参数。同时，该服务还提供了基于Web的说明界面，方便用户参考操作。
+KMS服务通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，便于后期根据需要修改启动参数，**注意：命令行参数优先**。
+
+同时，该服务还提供了基于Web的说明界面，方便用户参考操作。
 
 项目地址：https://github.com/DoTheBetter/docker/tree/master/kms
 
