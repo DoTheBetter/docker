@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>KMS在线激活使用说明</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="/css/themes-vue.css">
+  <!-- docsify-plugin-toc -->
+  <link rel="stylesheet" type="text/css" href="/css/docsify-plugin-toc.light.css">
+</head>
+<body>
+  <div id="app">加载中...</div>
+  <script>
+    window.$docsify = {
+      name: '使用说明',
+      // 入口文件改为 /home.md
+      homepage: 'doc/home.md',
+      // 加载 _sidebar.md
+      loadSidebar: true,
+      // 自动跳转到页面顶部 
+      auto2top: true,
+      // 启用相对路径
+      relativePath: true,
+     // docsify-plugin-toc
+     toc: {
+       tocMaxLevel: 3,
+       target: 'h2, h3, h4, h5, h6',
+       ignoreHeaders:  ['<!-- {docsify-ignore} -->', '<!-- {docsify-ignore-all} -->']
+     },
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="/js/docsify.min.js"></script>
+  <!-- docsify-plugin-toc.min.js -->
+  <script src="/js/docsify-plugin-toc.min.js"></script>
+</body>
+</html>

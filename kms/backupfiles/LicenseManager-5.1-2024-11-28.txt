@@ -1,0 +1,15 @@
+https://forums.mydigitallife.net/threads/miscellaneous-kms-related-developments.52594/page-44#post-1736669
+
+
+License Manager 5.1 refreshed.
+Code:
+   File: LicenseManager-5.1-2024-11-28.7z
+  SHA-1: bd2d00dc0d090e4fcf382c4338e7a590aa0c3dd0
+SHA-256: e69a4b52670b36a55304a259ea19f741de11b96144befb6357e861cc53a4abe4
+
+7z password is 2024
+
+https://www.upload.ee/files/17450299/LicenseManager-5.1-2024-11-28.7z.html
+Updated KmsDataBase.xml and fixed vlmcsd.kmd
+Updated pkeyconfig file for Win10 22H2 ESU
+Updated Key Type detection for "PGS:TB" and "VT:IA" keys

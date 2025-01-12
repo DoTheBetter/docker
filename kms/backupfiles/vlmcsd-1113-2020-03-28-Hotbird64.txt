@@ -1,0 +1,43 @@
+https://forums.mydigitallife.net/threads/emulated-kms-servers-on-non-windows-platforms.50234/
+
+
+vlmcsd - portable open-source KMS Emulator in C
+
+
+Supported operating systems / run-time environments
+Linux, GNU/Linux, uclibc/Linux, musl/Linux, Android (bionic/Linux), FreeBSD, FreeBSD with glibc (e.g. debian/kFreeBSD), OpenBSD, NetBSD, DragonflyBSD, Solaris, Open Indiana, Dyson, Minix, Darwin, Mac OS, iOS, Windows, Cygwin, WSL, Wine, The Hurd.
+Supported CPUs
+x86, arm, mips, PowerPC, Sparc, s390
+Number of binaries included in distribution: 163
+Number of explicitly supported products to activate: 202
+
+vlmcsd is
+a replacement for Microsoft's KMS server
+It contains vlmcs, a KMS test client, mainly for debugging purposes, that also can "charge" a genuine KMS server
+designed to run on an always-on or often-on device, e.g. router, NAS Box, ...
+intended to help people who lost activation of their legally-owned licenses, e.g. due to a change of hardware (motherboard, CPU, ...)
+vlmcsd is not
+a one-click activation or crack tool
+intended to activate illegal copies of software (Windows, Office, Project, Visio)
+
+Source and binaries: https://www.upload.ee/files/11363704/vlmcsd-1113-2020-03-28-Hotbird64.7z.html
+Source only: https://www.upload.ee/files/11363713/vlmcsd-1113-2020-03-28-Hotbird64-source-only.7z.html
+7z password is 2020
+
+Source and binaries checksums:
+SHA256: 16f06ca6d377bc4b8ebbf2aaf3fafba6cd484e017f432cfdd9cf3a7af100c841
+SHA1: ed5310ce6c0cad526feef81e5fc712fe07f55b36
+MD5: 99752a4ca7a6da3e0917230a4b29fe80
+
+CHANGES
+2020-03-28 (1113)
+.kmd file format changed to version 2.0 (version 1.x files cannot be used any more)
+host builds are now configurable in the .kmd file
+Bugfix: vlmcs did not use the configured CSVLKs when used with -G
+Bugfix: .kmd file version was not displayed correctly on big-endian systems
+Bugfix: Posix versions of vlmcsd were unable to read MS-DOS/Windows text files with crlf line termination
+Bugfix: the NO_INI_FILE CFLAG did not work in combination with some other directives
+New CFLAG NO_COMPILER_UAA disables all compiler/platform support for big-endian/little-endian conversion. Required on some toolchains that are incorrectly configured
+The bootable floppy directory now contains a .vmx file that can be used to directly start the floppy in VMware products, e.g. the free VMware player
+When you use -v all CSVLK available in the .kmd file are now logged at program startup.
+If you do not use -N0 or -N1 to force disable/enable the NDR64 protocol, vlmcsd now uses the host build to decide if it uses NDR64 depending if a genuine KMS is using NDR64 on that build.

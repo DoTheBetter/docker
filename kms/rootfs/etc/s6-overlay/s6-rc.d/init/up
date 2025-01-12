@@ -1,0 +1,5 @@
+#!/command/execlineb
+# up和down文件很特殊：它们不是 shell 脚本，而是由execlineb解释的单个命令行。
+# 如果您需要一个包含多个指令的脚本，可以在任意位置编写脚本，使其可执行，在up文件中调用该脚本。
+
+/etc/s6-overlay/s6-rc.d/init/init.sh
