@@ -1,1 +1,1 @@
-#!/bin/sh
+#!/command/with-contenv sh
