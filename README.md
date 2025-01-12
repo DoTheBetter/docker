@@ -35,4 +35,10 @@
 <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/dothebetter/hello-world?label=Image%20Size">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/hello-world?label=Docker%20Pulls">
 <br>
+<a target="_blank" href="https://github.com/DoTheBetter/docker/pkgs/container/kms"><img alt="Static Badge" src="https://img.shields.io/badge/ghcr.io-dothebetter%2Fkms-brightgreen"></a>
+<a target="_blank" href="https://hub.docker.com/r/dothebetter/kms"><img alt="Static Badge" src="https://img.shields.io/badge/docker.io-dothebetter%2Fkms-brightgreen"></a>
+<img alt="Docker Image Version" src="https://img.shields.io/docker/v/dothebetter/kms?label=Image%20Version">
+<img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/dothebetter/kms?label=Image%20Size">
+<img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/kms?label=Docker%20Pulls">
+<br>
 </p>
