@@ -1,5 +1,9 @@
 #!/command/with-contenv sh
 
 echo "+正在启动 vlmcsd 服务..."
-echo "启动命令：\"vlmcsd -i /vlmcsd/vlmcsd.ini -D -e\""
-exec s6-setuidgid kms vlmcsd -i /vlmcsd/vlmcsd.ini -D -e
+if [ -z "${VLKMCSD_OPTS}" ]; then
+    echo "变量 VLKMCSD_OPTS 为空，使用默认值"
+    VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e"
+fi
+echo "启动命令：\"vlmcsd ${VLKMCSD_OPTS}\""
+exec s6-setuidgid kms vlmcsd ${VLKMCSD_OPTS}

@@ -1,4 +1,4 @@
-ARG KMS_VER=20250112
+ARG KMS_VER=20250114
 
 FROM alpine:3.21 AS builder
 
@@ -27,6 +27,7 @@ FROM alpine:3.21
 ARG S6_VER=3.2.0.2
 
 ENV TZ=Asia/Shanghai \
+    VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e" \
 	WEB=true \
 	S6_VERBOSITY=1
 

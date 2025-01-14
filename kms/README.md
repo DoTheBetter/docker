@@ -12,7 +12,7 @@
 </p>
 为实现自用的KMS激活功能，构建了一个基于Alpine镜像的服务，支持多种架构，包括amd64、arm64v8和arm32v7。
 
-KMS服务通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，便于后期根据需要修改启动参数，**注意：命令行参数优先**。
+KMS服务默认通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，便于后期根据需要修改。**注意：命令行参数优先**。
 
 同时，该服务还提供了基于Web的说明界面，方便用户参考操作。
 
@@ -28,6 +28,7 @@ KMS服务通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，便于�
 |变量名|是否必须|默认值|说明|
 | :------: | :--------: | :------: | :----: |
 |`TZ`|可选|`Asia/Shanghai`|设置时区|
+|`VLKMCSD_OPTS`|可选|`"-i /vlmcsd/vlmcsd.ini -D -e"`|vlmcsd启动参数，注意用双引号包裹|
 |`WEB`|可选|`true`|web服务启用开关，`true`为开启|
 
 #### 开放的端口
@@ -57,6 +58,7 @@ docker run -d \
     --name kms \
     --restart always \
     -e TZ=Asia/Shanghai \
+    -e VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e" \
     -e WEB=true \
     -p 8080:8080 \
     -p 1688:1688 \
@@ -74,6 +76,7 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e"
       - WEB=true
     ports:
       - "8080:8080"
