@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2025年1月19日 更新
+镜像版本：dothebetter/kms:20250119
+1. 修复访问fonts.googleapis.com缓慢，将字体文件全部本地化
+
 ## 2025年1月14日 更新
 镜像版本：dothebetter/kms:20250114
 1. 增加变量VLKMCSD_OPTS来自定义vlmcsd启动参数

@@ -1,4 +1,18 @@
 #!/command/with-contenv sh
 
 echo "+正在停止 vlmcsd 服务..."
-pkill vlmcsd
+
+# 获取服务的退出代码
+if [ "$1" -eq 256 ]; then
+  # 如果服务是被信号杀死的，计算退出代码
+  exit_code=$((128 + $2))
+else
+  # 否则直接使用服务的退出代码
+  exit_code="$1"
+fi
+
+# 将退出代码写入指定文件
+echo "$exit_code" > /run/s6-linux-init-container-results/exitcode
+
+# 停止容器
+/run/s6/basedir/bin/halt

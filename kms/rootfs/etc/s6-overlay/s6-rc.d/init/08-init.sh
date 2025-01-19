@@ -14,4 +14,3 @@ chmod -R 755 /vlmcsd
 
 chown -R http:http /www
 chmod -R 755 /www
-

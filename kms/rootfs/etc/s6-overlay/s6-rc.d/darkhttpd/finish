@@ -2,8 +2,6 @@
 
 if [ "$WEB" == "true" ]; then
   echo "+正在停止 darkhttpd 服务..."
-  pkill darkhttpd
 else
-  s6-svc -Od .
   exit 0
 fi
