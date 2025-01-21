@@ -19,9 +19,9 @@ jobs:
         run: |
           echo "RSYNC_VER=$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sed -i "s@RSYNC_VER@$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.txt
-          sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.txt
-          cat rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.txt
+          sed -i "s@RSYNC_VER@$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          cat rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
 
       - name: Set up QEMU
         id: qemu
