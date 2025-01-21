@@ -9,7 +9,7 @@ echo "1.设置系统时区"
 # 设置时区 https://wiki.alpinelinux.org/wiki/Setting_the_timezone
 ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 # 显示当前服务器时间
-echo "当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
+echo "→当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
 
 echo "2.配置SSH服务"
 if [ "$SSH" == "true" ]; then
@@ -39,18 +39,18 @@ if [ "$SSH" == "true" ]; then
 
     # 初始化 OpenRC（如果尚未初始化）
     if [ ! -e "/run/openrc/softlevel" ]; then
-        echo "初始化 OpenRC..."
+        echo "→初始化 OpenRC..."
         mkdir -p /run/openrc
         touch /run/openrc/softlevel
     fi
 	
     # 启动SSH服务
-	echo "启动SSH服务..."
+	echo "→启动SSH服务..."
     rc-status
     rc-update add sshd
     rc-service sshd start
 
-    
+    echo "→说明："
     echo "SSH密钥位于 /conf/.ssh 目录中"
     echo "您可以将发起同步的客户端 *.pub 文件内容复制到远程主机的 authorized_keys 文件中，以实现免密登录。"
 else
@@ -71,7 +71,7 @@ if [ "$CRON" == "true" ]; then
     # 创建符号链接
     ln -sf /conf/crontabs /var/spool/cron/crontabs/root
 else
-    echo "系统crontabs服务未启用。"
+    echo "→系统crontabs服务未启用。"
 fi
 
 echo "4.配置rsync"
@@ -85,6 +85,7 @@ if [ "$RSYNC" == "true" ]; then
     if [ ! -e "/conf/rsyncd.conf" ]; then
         cp -f /rsyncd.conf.server /conf/rsyncd.conf
     fi
+	ln -sf /conf/rsyncd.conf /etc/rsyncd.conf
 	
     # 首次运行复制rsync密码文件
     if [ ! -e "/conf/rsync.password" ]; then
@@ -92,7 +93,7 @@ if [ "$RSYNC" == "true" ]; then
     fi
     chmod 0400 /conf/rsync.password  # 设置密码文件权限
 else
-    echo "Rsync daemon守护进程服务未启用。"
+    echo "→Rsync daemon守护进程服务未启用。"
 fi
 
 echo "5.配置Lsyncd"
@@ -104,6 +105,9 @@ if [ "$LSYNCD" == "true" ]; then
 
     # 复制示例配置文件
     cp -f /lsyncd.conf.example /conf/lsyncd.conf.example
+	# 建立示例文件夹
+	mkdir -p /tmp/src
+	mkdir -p /tmp/dest1
 else
-    echo "Lsyncd守护进程服务未启用。"
+    echo "→Lsyncd守护进程服务未启用。"
 fi
