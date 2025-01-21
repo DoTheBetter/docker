@@ -45,16 +45,16 @@ if [ "$SSH" == "true" ]; then
     fi
 
     # 启动SSH服务
-	echo "→启动SSH服务..."
+    echo "→启动SSH服务..."
     rc-status
     rc-update add sshd
     rc-service sshd start
 
-	echo "说明："
+    echo "说明："
     echo "SSH密钥位于 /conf/.ssh 目录中。"
     echo "您可以将发起同步的客户端 *.pub 文件内容复制到远程主机的 authorized_keys 文件中，以实现免密登录。"
 else
-    echo "→SSH服务未启用"
+    echo "→SSH服务未启用。"
 fi
 
 echo "3.配置cron计划任务"
@@ -85,7 +85,7 @@ if [ "$RSYNC" == "true" ]; then
     if [ ! -e "/conf/rsyncd.conf" ]; then
         cp -f /rsyncd.conf.server /conf/rsyncd.conf
     fi
-	ln -sf /conf/rsyncd.conf /etc/rsyncd.conf
+    ln -sf /conf/rsyncd.conf /etc/rsyncd.conf
 
     # 首次运行复制rsync密码文件
     if [ ! -e "/conf/rsync.password" ]; then
@@ -105,9 +105,9 @@ if [ "$LSYNCD" == "true" ]; then
 
     # 复制示例配置文件
     cp -f /lsyncd.conf.example /conf/lsyncd.conf.example
-	# 建立示例文件夹
-	mkdir -p /tmp/src
-	mkdir -p /tmp/dest1
+    # 建立示例文件夹
+    mkdir -p /tmp/src
+    mkdir -p /tmp/dest1
 else
     echo "→Lsyncd守护进程服务未启用。"
 fi
