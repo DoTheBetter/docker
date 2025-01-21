@@ -2,7 +2,7 @@
 
 if [ "$RSYNC" = "true" ]; then
     echo "+已开启Rsync daemon守护进程，请编辑/conf/rsyncd.conf配置文件..."
-    rsync --daemon --no-detach --config=/conf/rsyncd.conf
+    rsync --daemon --no-detach
 else
     s6-svc -Od .
     exit 0
