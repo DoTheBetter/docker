@@ -1,0 +1,9 @@
+#!/command/with-contenv sh
+
+if [ "$LSYNCD" = "true" ]; then
+    echo "+已开启Lsyncd守护进程，请编辑/conf/lsyncd.conf配置文件..."
+	lsyncd -log Exec /conf/lsyncd.conf
+else
+    s6-svc -Od .
+    exit 0
+fi

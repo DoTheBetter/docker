@@ -1,9 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-if [ "$RSYNC" == "true" ]; then
-#	exec rsync --daemon --config=/conf/rsyncd.conf
-	rsync --daemon --no-detach
-else
-    s6-svc -O .
-    exit 0
-fi

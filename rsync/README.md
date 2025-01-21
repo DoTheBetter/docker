@@ -22,8 +22,8 @@
 
 #### 用法
 
-1. 作为**源端为server模式**，可以选用组合模式：`lsyncd`、`lsyncd+ssh`或者`rsync`、`rsync+cron`、`rsync+cron+ssh`
-2. 作为**同步复制发起端为client模式**，不需要开启守护进程，可以选用组合模式：`cron`或者`cron+ssh`
+1. 作为**源端，为server模式**，可以选用组合模式：`lsyncd`、`lsyncd+ssh`或者`rsync`、`rsync+cron`、`rsync+cron+ssh`
+2. 作为**同步或复制发起端，为client模式**，不需要开启守护进程，可以选用组合模式：`cron`或者`cron+ssh`
 
 #### 其他说明
 1. root账户使用`date +%s | sha256sum | base64 | head -c 32 ; echo`在每次启动容器时自动生成32位随机密码。

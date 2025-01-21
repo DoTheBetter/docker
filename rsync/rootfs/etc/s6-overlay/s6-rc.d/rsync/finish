@@ -1,0 +1,7 @@
+#!/command/with-contenv sh
+
+if [ "$RSYNC" = "true" ]; then
+    echo "+正在停止 Rsync daemon 守护进程..."
+else
+    exit 0
+fi
