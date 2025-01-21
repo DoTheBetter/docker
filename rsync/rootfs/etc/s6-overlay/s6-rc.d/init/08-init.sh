@@ -43,7 +43,7 @@ if [ "$SSH" == "true" ]; then
         mkdir -p /run/openrc
         touch /run/openrc/softlevel
     fi
-	
+
     # 启动SSH服务
 	echo "→启动SSH服务..."
     rc-status
@@ -86,7 +86,7 @@ if [ "$RSYNC" == "true" ]; then
         cp -f /rsyncd.conf.server /conf/rsyncd.conf
     fi
 	ln -sf /conf/rsyncd.conf /etc/rsyncd.conf
-	
+
     # 首次运行复制rsync密码文件
     if [ ! -e "/conf/rsync.password" ]; then
         cp -f /rsync.password /conf/rsync.password
