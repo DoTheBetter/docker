@@ -12,7 +12,7 @@ ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 echo "→当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
 
 echo "2.配置SSH服务"
-if [ "$SSH" == "true" ]; then
+if [ "$SSH" = "true" ]; then
     # 每次重启设置root账户随机密码
     passwd=$(date +%s | sha256sum | base64 | head -c 32)
     echo "root:$passwd" | chpasswd
@@ -49,16 +49,12 @@ if [ "$SSH" == "true" ]; then
     rc-status
     rc-update add sshd
     rc-service sshd start
-
-    echo "说明："
-    echo "SSH密钥位于 /conf/.ssh 目录中。"
-    echo "您可以将发起同步的客户端 *.pub 文件内容复制到远程主机的 authorized_keys 文件中，以实现免密登录。"
 else
     echo "→SSH服务未启用。"
 fi
 
 echo "3.配置cron计划任务"
-if [ "$CRON" == "true" ]; then
+if [ "$CRON" = "true" ]; then
     # 首次运行创建crontabs文件
     if [ ! -e "/conf/crontabs" ]; then
         touch /conf/crontabs
@@ -66,7 +62,7 @@ if [ "$CRON" == "true" ]; then
 
     # 设置crontabs文件权限
     chown root:root /conf/crontabs
-    chmod 0600 /conf/crontabs  # 通常crontab文件的权限应为0600
+    chmod 0600 /conf/crontabs
 
     # 创建符号链接
     ln -sf /conf/crontabs /var/spool/cron/crontabs/root
@@ -78,9 +74,9 @@ echo "4.配置rsync"
 if [ ! -e "/conf/rsync.password.example" ]; then
     cp -f /rsync.password.example /conf/rsync.password.example
 fi
-chmod 0400 /conf/rsync.password.example  # 设置示例密码文件权限
+chmod 0400 /conf/rsync.password.example
 
-if [ "$RSYNC" == "true" ]; then
+if [ "$RSYNC" = "true" ]; then
     # 首次运行复制rsyncd.conf配置文件
     if [ ! -e "/conf/rsyncd.conf" ]; then
         cp -f /rsyncd.conf.server /conf/rsyncd.conf
@@ -91,13 +87,13 @@ if [ "$RSYNC" == "true" ]; then
     if [ ! -e "/conf/rsync.password" ]; then
         cp -f /rsync.password /conf/rsync.password
     fi
-    chmod 0400 /conf/rsync.password  # 设置密码文件权限
+    chmod 0400 /conf/rsync.password
 else
     echo "→Rsync daemon守护进程服务未启用。"
 fi
 
 echo "5.配置Lsyncd"
-if [ "$LSYNCD" == "true" ]; then
+if [ "$LSYNCD" = "true" ]; then
     # 首次运行复制lsyncd.conf配置文件
     if [ ! -e "/conf/lsyncd.conf" ]; then
         cp -f /lsyncd.conf /conf/lsyncd.conf

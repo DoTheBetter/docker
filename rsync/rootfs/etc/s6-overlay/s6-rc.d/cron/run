@@ -1,7 +1,7 @@
 #!/command/with-contenv sh
 
 if [ "$CRON" = "true" ]; then
-    echo "+已开启系统crontabs服务，请编辑/conf/crontabs文件..."
+    echo "+正在启动系统crontabs服务，请编辑/conf/crontabs文件..."
     /usr/sbin/crond -b -L /dev/null
     # 检测文件变化并执行命令
     md5_old=$(md5sum /conf/crontabs | cut -d ' ' -f1)
