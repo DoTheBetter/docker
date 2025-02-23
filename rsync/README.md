@@ -17,7 +17,7 @@
 
 #### 官网地址
 
-* rsync官方文档：https://rsync.samba.org/
+* rsync官方文档：https://github.com/RsyncProject/rsync
 * lsyncd官方文档：https://lsyncd.github.io/lsyncd/
 
 #### 用法
@@ -26,7 +26,7 @@
 2. 作为**同步或复制发起端，为client模式**，不需要开启守护进程，可以选用组合模式：`cron`或者`cron+ssh`
 
 #### 其他说明
-1. root账户使用`date +%s | sha256sum | base64 | head -c 32 ; echo`在每次启动容器时自动生成32位随机密码。
+1. root账户使用`passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c32)`在每次启动容器时自动生成32位随机密码。
 2. 禁止root账户使用密码登录，只允许使用密钥认证登录。
 3. 禁止其他账户使用密码进行身份验证登录。
 4. ssh模式生成密钥类型为ed25519。

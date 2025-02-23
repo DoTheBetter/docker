@@ -14,7 +14,8 @@ echo "→当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
 echo "2.配置SSH服务"
 if [ "$SSH" = "true" ]; then
     # 每次重启设置root账户随机密码
-    passwd=$(date +%s | sha256sum | base64 | head -c 32)
+    # passwd=$(date +%s | sha256sum | base64 | head -c 32)
+    passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c32)
     echo "root:$passwd" | chpasswd
 
     # 创建.ssh目录并设置权限

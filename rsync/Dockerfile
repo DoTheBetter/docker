@@ -24,7 +24,7 @@ RUN set +ex \
 	&& wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
 	&& tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
 # sshd_config设置
-	&& passwd=$(date +%s | sha256sum | base64 | head -c 32) \
+	&& passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c32) \
 	&& echo "root:$passwd" | chpasswd \
 	&& sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin without-password/g" /etc/ssh/sshd_config \
 	&& sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g" /etc/ssh/sshd_config \
