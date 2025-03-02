@@ -31,7 +31,7 @@ KMS 服务默认通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，�
 |变量名|是否必须|默认值|说明|
 | :------: | :--------: | :------: | :----: |
 |`TZ`|可选|`Asia/Shanghai`|设置时区|
-|`VLKMCSD_OPTS`|可选|`"-i /vlmcsd/vlmcsd.ini -D -e"`|vlmcsd 启动参数，注意用双引号包裹|
+|`VLKMCSD_OPTS`|可选|`-i /vlmcsd/vlmcsd.ini -D -e`|vlmcsd 启动参数|
 |`WEB`|可选|`true`|web 服务启用开关，`true`为开启|
 
 #### 开放的端口
@@ -61,11 +61,13 @@ docker run -d \
     --name kms \
     --restart always \
     -e TZ=Asia/Shanghai \
-    -e VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e" \
+    -e VLKMCSD_OPTS=-i /vlmcsd/vlmcsd.ini -D -e \
     -e WEB=true \
     -p 8080:8080 \
     -p 1688:1688 \
-    dothebetter/kms:latest  #ghcr.io/dothebetter/kms:latest
+    dothebetter/kms:latest
+    #ghcr.io/dothebetter/kms:latest
+    #registry.cn-hangzhou.aliyuncs.com/dothebetter/kms:latest
 ```
 
 #### docker-compose.yml
@@ -74,12 +76,14 @@ docker run -d \
 version: "3"
 services:
   kms:
-    image: dothebetter/kms:latest #ghcr.io/dothebetter/kms:latest
+    image: dothebetter/kms:latest
+    #ghcr.io/dothebetter/kms:latest
+    #registry.cn-hangzhou.aliyuncs.com/dothebetter/kms:latest
     container_name: kms
     restart: always
     environment:
       - TZ=Asia/Shanghai
-      - VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e"
+      - VLKMCSD_OPTS=-i /vlmcsd/vlmcsd.ini -D -e
       - WEB=true
     ports:
       - "8080:8080"

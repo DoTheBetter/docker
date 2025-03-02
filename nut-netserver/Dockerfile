@@ -60,9 +60,9 @@ ENV PATH="/nut/bin:/nut/sbin:${PATH}" \
     TZ=Asia/Shanghai \
     NUT_UID=1000 \
     NUT_GID=1000 \
-    UPSDRVCTL_OPTS=-FF \
-    UPSD_OPTS=-FF \
-    UPSMON_OPTS=-F \
+    UPSDRVCTL_OPTS="-FF" \
+    UPSD_OPTS="-FF" \
+    UPSMON_OPTS="-F" \
     WEB=true
 
 COPY --from=builder /nut /nut
