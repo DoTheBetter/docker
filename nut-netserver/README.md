@@ -10,7 +10,7 @@
 <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/dothebetter/nut-netserver?label=Image%20Size">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/nut-netserver?label=Docker%20Pulls">
 </p>
-自用NUT(Network UPS Tools)镜像，默认使用netserver模式，自带lighttpd支持nut-cgi显示web界面。基础系统为alpine，支持amd64;arm64v8;arm32v7系统。
+自用NUT(Network UPS Tools)镜像，默认使用netserver模式，自带lighttpd支持nut-cgi显示web界面，集成驱动：serial、usb、snmp、neon、modbus、avahi。基础系统为alpine，支持amd64;arm64v8;arm32v7系统。
 
 1. 在群晖NAS中使用时的设置方法
     + UPS 标识：ups、用户名：monuser、密码：secret
@@ -33,9 +33,9 @@
 |   `TZ`   |   可选   | `Asia/Shanghai` |                        设置时区                        |
 | `NUT_UID` |   可选   |     `1000`     |        `nut`用户的uid        |
 |  `NUT_GID`  |   可选   |     `1000`     | `nut`用户的gid |
-| `UPSDRVCTL_OPTS` |   可选   |     `"-FF"`     | `upsdrvctl`（驱动控制器）的启动参数，注意用双引号包裹，如`"-D -FF"`，可在容器内使用`upsdrvctl -h`查看全部参数 |
-| `UPSD_OPTS` |   可选   |     `"-FF"`     | `upsd`（服务端）的启动参数，注意用双引号包裹，可在容器内使用`upsd -h`查看全部参数 |
-| `UPSMON_OPTS` | 可选 | `"-F"` | `upsmon`（监控客户端）的启动参数，注意用双引号包裹，可在容器内使用`upsmon -h`查看全部参数 |
+| `UPSDRVCTL_OPTS` |   可选   |     `-FF`     | `upsdrvctl`（驱动控制器）的启动参数，多参数用空格分开，如`-D -FF`，可在容器内使用`upsdrvctl -h`查看全部参数 |
+| `UPSD_OPTS` |   可选   |     `-FF`     | `upsd`（服务端）的启动参数，可在容器内使用`upsd -h`查看全部参数 |
+| `UPSMON_OPTS` | 可选 | `-F` | `upsmon`（监控客户端）的启动参数，可在容器内使用`upsmon -h`查看全部参数 |
 | `WEB` | 可选 | `true` | web 服务启用开关，`true`为开启，其余为关闭 |
 
 ##### **核心参数推荐**
@@ -91,9 +91,9 @@
       -e TZ=Asia/Shanghai \
       -e NUT_UID=1000 \
       -e NUT_GID=1000 \
-      -e UPSDRVCTL_OPTS="-FF" \
-      -e UPSD_OPTS="-FF" \
-      -e UPSMON_OPTS="-F" \
+      -e UPSDRVCTL_OPTS=-FF \
+      -e UPSD_OPTS=-FF \
+      -e UPSMON_OPTS=-F \
       -e WEB=true \
       dothebetter/nut-netserver:latest
       #ghcr.io/dothebetter/nut-netserver:latest
@@ -114,9 +114,9 @@ services:
       - TZ=Asia/Shanghai
       - NUT_UID=1000
       - NUT_GID=1000
-      - UPSDRVCTL_OPTS="-FF"
-      - UPSD_OPTS="-FF"
-      - UPSMON_OPTS="-F"
+      - UPSDRVCTL_OPTS=-FF
+      - UPSD_OPTS=-FF
+      - UPSMON_OPTS=-F
       - WEB=true
     ports:
       - "3493:3493"
