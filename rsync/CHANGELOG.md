@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2025年3月2日 更新
+镜像版本：dothebetter/rsync:3.4.1
+1. 修改使用s6管理ssh服务
+
 ## 2025年1月21日 更新
 镜像版本：dothebetter/rsync:3.4.1
 1. 更新基础镜像alpine:edge

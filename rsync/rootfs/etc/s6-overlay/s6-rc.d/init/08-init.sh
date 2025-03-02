@@ -14,7 +14,6 @@ echo "→当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
 echo "2.配置SSH服务"
 if [ "$SSH" = "true" ]; then
     # 每次重启设置root账户随机密码
-    # passwd=$(date +%s | sha256sum | base64 | head -c 32)
     passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c32)
     echo "root:$passwd" | chpasswd
 
@@ -30,27 +29,14 @@ if [ "$SSH" = "true" ]; then
     if [ ! -e "/conf/.ssh/id_ed25519" ]; then
         ssh-keygen -t ed25519 -f /root/.ssh/id_ed25519 -N "" -q -C "docker_rsync"
     fi
-
+    chmod 0600 /root/.ssh/id_ed25519
+    
     # 创建authorized_keys文件并设置权限
     if [ ! -e "/conf/.ssh/authorized_keys" ]; then
         touch /conf/.ssh/authorized_keys
     fi
-    chown root:root /conf/.ssh/authorized_keys
     chmod 0600 /conf/.ssh/authorized_keys
-
-    # 初始化 OpenRC（如果尚未初始化）
-    if [ ! -e "/run/openrc/softlevel" ]; then
-        echo "→初始化 OpenRC..."
-        mkdir -p /run/openrc
-        touch /run/openrc/softlevel
-    fi
-
-    # 启动SSH服务
-    echo "→启动SSH服务..."
-    rc-status
-    rc-update add sshd
-    rc-service sshd start
-
+    
     echo "说明："
     echo "SSH密钥位于 /conf/.ssh 目录中。"
     echo "您可以将发起同步的客户端 *.pub 文件内容复制到远程主机的 authorized_keys 文件中，以实现免密登录。"
