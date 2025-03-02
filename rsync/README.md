@@ -31,7 +31,7 @@
 3. 禁止其他账户使用密码进行身份验证登录。
 4. ssh模式生成密钥类型为ed25519。
 5. 启用`cron`计划任务时，每隔1分钟检测`/conf/crontabs`规则变化并在变化时重启`crond`。
-6. 要改变默认端口，使用`--port=8081`指定rsync 端口(默认873)，使用`-e "ssh -p 2022"`指定SSH端口(默认22)。
+6. 对于默认端口的，使用`rsync`命令同步时，使用`--port=8081`指定rsync 端口(默认873)，使用`-e "ssh -p 2022"`指定SSH端口(默认22)。
 
 ## 相关参数：
 
@@ -78,14 +78,18 @@
   	-p 8873:873 \
   	-v /docker/rsync:/conf \
   	-v /backup:/backup \
-  	dothebetter/rsync:latest  #ghcr.io/dothebetter/rsync:latest
+  	dothebetter/rsync:latest
+  	#ghcr.io/dothebetter/rsync:latest
+  	#registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:latest
   ```
 #### docker-compose.yml
 ```yml
 version: '3'
 services:
   rsync:
-    image: dothebetter/rsync:latest  #ghcr.io/dothebetter/rsync:latest
+    image: dothebetter/rsync:latest
+    #ghcr.io/dothebetter/rsync:latest
+    #registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:latest
     container_name: rsync
     restart: always
     environment:
@@ -110,14 +114,18 @@ services:
   	-e CRON=true \
   	-v /docker/rsync:/conf \
   	-v /backup:/backup \
-  	dothebetter/rsync:latest  #ghcr.io/dothebetter/rsync:latest
+  	dothebetter/rsync:latest
+  	#ghcr.io/dothebetter/rsync:latest
+  	#registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:latest
   ```
 #### docker-compose.yml
 ```yml
 version: '3'
 services:
   rsync:
-    image: dothebetter/rsync:latest  #ghcr.io/dothebetter/rsync:latest
+    image: dothebetter/rsync:latest
+    #ghcr.io/dothebetter/rsync:latest
+    #registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:latest
     container_name: rsync
     restart: always
     environment:
