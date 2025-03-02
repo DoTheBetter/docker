@@ -1,0 +1,12 @@
+#!/command/with-contenv sh
+
+sleep 3
+if [ "$WEB" = "true" ]; then
+  echo "+4.正在启动 lighttpd 服务..."
+  #前台模式
+  exec s6-setuidgid http lighttpd -D -f /lighttpd.conf
+else
+  echo "+4.未设置启动 lighttpd 服务，退出！"
+  s6-svc -Od .
+  exit 0
+fi

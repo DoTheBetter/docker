@@ -1,0 +1,81 @@
+name: DockerBuild_nut-netserver
+
+on:
+  push:
+    paths:
+      - "nut-netserver/Dockerfile"
+      - "nut-netserver/rootfs/**"
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: buildx tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set env and banner
+        run: |
+          echo "NUT_VER=$(echo `grep -n "NUT_VER=" nut-netserver/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          sed -i "s@NUT_VER@$(echo `grep -n "NUT_VER=" nut-netserver/Dockerfile`|awk -F= '{print $2}')@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          cat nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Aliyun Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./nut-netserver
+          file: ./nut-netserver/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: |
+            dothebetter/nut-netserver:latest
+            dothebetter/nut-netserver:${{ env.NUT_VER }}
+            ghcr.io/dothebetter/nut-netserver:latest
+            ghcr.io/dothebetter/nut-netserver:${{ env.NUT_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver:latest
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver:${{ env.NUT_VER }}
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: dothebetter/nut-netserver
+          short-description: nut-netserver:${{ env.NUT_VER }}，自用NUT镜像带web界面，集成常用驱动，支持amd64;arm64v8;arm32v7
+          readme-filepath: ./nut-netserver/README.md
+          enable-url-completion: true
