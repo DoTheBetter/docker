@@ -14,11 +14,11 @@ if [ "$CRON" = "true" ]; then
             pid_old=$(pgrep -f "/usr/sbin/crond")
             if [ -n "$pid_old" ]; then
                 kill -15 "$pid_old" || kill -9 "$pid_old"
-                echo "stopping... $pid_old"
+                echo "stopping... pid：$pid_old"
             fi
             /usr/sbin/crond -b -L /dev/null
             pid_new=$(pgrep -f "/usr/sbin/crond")
-            echo "running... $pid_new"
+            echo "running... pid：$pid_new"
         fi
         sleep 60
     done
