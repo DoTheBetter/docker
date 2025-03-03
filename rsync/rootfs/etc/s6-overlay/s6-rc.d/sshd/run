@@ -1,7 +1,7 @@
 #!/command/with-contenv sh
 
 if [ "$SSH" = "true" ]; then
-    echo "+正在启动 SSH 守护进程..."
+    echo "+正在启动 SSD 守护进程..."
     exec /usr/sbin/sshd -D -e
 else
     s6-svc -Od .
