@@ -21,12 +21,33 @@ RUN apk add --no-cache tzdata lsyncd rsync openssh \
 	&& wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
 	&& tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
 # sshd_config设置
-	&& passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c32) \
+	&& passwd=$(tr -dc 'A-Za-z0-9!@#$%^&*()' < /dev/urandom | head -c64) \
 	&& echo "root:$passwd" | chpasswd \
-	&& sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin without-password/g" /etc/ssh/sshd_config \
-	&& sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g" /etc/ssh/sshd_config \
-	&& sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config \
-	&& echo -e "Host *\nStrictHostKeyChecking accept-new" > /etc/ssh/ssh_config \
+	##修改SSH服务端配置
+	# 禁用所有账户的密码登录
+	&& echo "PasswordAuthentication no" >> /etc/ssh/sshd_config \
+	&& echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config \
+	&& echo "KbdInteractiveAuthentication no" >> /etc/ssh/sshd_config \
+	# 限制Root用户仅允许密钥登录
+	&& echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config \
+	# 限制最大认证尝试次数
+	&& echo "MaxAuthTries 3" >> /etc/ssh/sshd_config \
+	# 禁用端口转发和其他网络功能
+	&& echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config \
+	&& echo "X11Forwarding no" >> /etc/ssh/sshd_config \
+	&& echo "GatewayPorts no" >> /etc/ssh/sshd_config \
+	# 禁用DNS反向解析加速连接
+	&& echo "UseDNS no" >> /etc/ssh/sshd_config \
+	# 设置会话超时（300秒无活动自动断开）
+	&& echo "ClientAliveInterval 300" >> /etc/ssh/sshd_config \
+	&& echo "ClientAliveCountMax 2" >> /etc/ssh/sshd_config \
+	# 限制并发会话数
+	&& echo "MaxSessions 5" >> /etc/ssh/sshd_config \
+	# 启用详细日志
+	&& echo "LogLevel VERBOSE" >> /etc/ssh/sshd_config \
+	## 修改SSH客户端配置（自动接受新主机密钥）
+	&& echo "Host *" >> /etc/ssh/ssh_config \
+	&& echo "    StrictHostKeyChecking accept-new" >> /etc/ssh/ssh_config \
 # 清除缓存
 	&& rm -rf /var/cache/apk/* \
 	&& rm -rf /var/lib/apt/lists/* \
