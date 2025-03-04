@@ -20,6 +20,9 @@ if [ "$SSH" = "true" ]; then
     # 创建.ssh目录并设置权限
     mkdir -p /conf/.ssh
     chmod 0700 /conf/.ssh
+    if [ -L "/root/.ssh" ] || [ -d "/root/.ssh" ]; then
+        rm -rf /root/.ssh
+    fi
     ln -sf /conf/.ssh /root/.ssh
 
     # 生成SSH主机密钥
