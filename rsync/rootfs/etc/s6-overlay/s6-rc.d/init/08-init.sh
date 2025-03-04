@@ -27,9 +27,10 @@ if [ "$SSH" = "true" ]; then
 
     # 生成SSH密钥对（如果不存在）
     if [ ! -e "/conf/.ssh/id_ed25519" ]; then
-        ssh-keygen -t ed25519 -f /root/.ssh/id_ed25519 -N "" -q -C "docker_rsync"
+        ssh-keygen -t ed25519 -a 100 -f /conf/.ssh/id_ed25519 -N "" -q -C "docker_rsync"
     fi
-    chmod 0600 /root/.ssh/id_ed25519
+    chmod 0600 /conf/.ssh/id_ed25519
+    chmod 0644 /conf/.ssh/id_ed25519.pub
     
     # 创建authorized_keys文件并设置权限
     if [ ! -e "/conf/.ssh/authorized_keys" ]; then
