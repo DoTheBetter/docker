@@ -93,6 +93,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/composerize
-          short-description: composerize:${{ env.COMPOSERIZE_DOCKER_VER }}，Docker run与Docker Compose互转工具，支持amd64;arm64v8;arm32v7
+          short-description: composerize:${{ env.COMPOSERIZE_DOCKER_VER }}，Docker run与Docker Compose互转，支持amd64;arm64v8;arm32v7
           readme-filepath: ./composerize/README.md
           enable-url-completion: true
