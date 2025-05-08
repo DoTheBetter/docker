@@ -27,6 +27,7 @@
 ```bash
 docker run --rm dothebetter/hello-world:latest
 #docker run --rm ghcr.io/dothebetter/hello-world:latest
+#docker run --rm registry.cn-hangzhou.aliyuncs.com/dothebetter/hello-world:latest
 ```
 
 如果一切正常，你应该会看到输出：
