@@ -1,9 +1,9 @@
-ARG COMPOSERIZE_DOCKER_VER=1.7.1-1.4.4-1.7.4
+ARG COMPOSERIZE_DOCKER_VER=20250508
 ARG COMPOSERIZE_VER=1.7.1
 ARG DECOMPOSERIZE_VER=1.4.4
 ARG COMPOSEVERTER_VER=1.7.4
 
-FROM ghcr.io/dothebetter/baseimage_composerize:${COMPOSERIZE_DOCKER_VER} AS builder
+FROM ghcr.io/dothebetter/baseimage_composerize:latest AS builder
 
 FROM alpine:3.21
 ARG S6_VER=3.2.0.3

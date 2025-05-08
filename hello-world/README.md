@@ -22,7 +22,7 @@
 
 ## 使用方法：
 
-> 本镜像在docker.io及ghcr.io同步推送，docker.io不能使用时可使用ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 ### 拉取并运行镜像
 ```bash
 docker run --rm dothebetter/hello-world:latest
