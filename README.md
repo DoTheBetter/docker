@@ -4,3 +4,11 @@
 
 | 镜像仓库 | 镜像版本 | 镜像大小 | 支持架构 | 拉取地址 |
 |---------|------|-----|----------|----------|
+|[dothebetter/rsync](https://github.com/dothebetter/docker/tree/master/rsync)|3.4.1|9.25MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/rsync</li><li>ghcr.io/dothebetter/rsync</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync</li></ul>|
+|[dothebetter/caddy2](https://github.com/dothebetter/docker/tree/master/caddy2)|2.9.1|33.59MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/caddy2</li><li>ghcr.io/dothebetter/caddy2</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2</li></ul>|
+|[dothebetter/kms](https://github.com/dothebetter/docker/tree/master/kms)|20250119|6.37MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/kms</li><li>ghcr.io/dothebetter/kms</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/kms</li></ul>|
+|[dothebetter/hello-world](https://github.com/dothebetter/docker/tree/master/hello-world)|latest|1.25MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/hello-world</li><li>ghcr.io/dothebetter/hello-world</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/hello-world</li></ul>|
+|[dothebetter/zerotier-client](https://github.com/dothebetter/docker/tree/master/zerotier-client)|1.14.2|25.52MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/zerotier-client</li><li>ghcr.io/dothebetter/zerotier-client</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-client</li></ul>|
+|[dothebetter/zerotier-moon](https://github.com/dothebetter/docker/tree/master/zerotier-moon)|1.14.2|25.07MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/zerotier-moon</li><li>ghcr.io/dothebetter/zerotier-moon</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-moon</li></ul>|
+|[dothebetter/composerize](https://github.com/dothebetter/docker/tree/master/composerize)|1.7.1-1.4.4-1.7.4|8.15MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/composerize</li><li>ghcr.io/dothebetter/composerize</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/composerize</li></ul>|
+|[dothebetter/nut-netserver](https://github.com/dothebetter/docker/tree/master/nut-netserver)|2.8.2|76.32MB|amd64,arm/v7,arm64|<ul><li>docker.io/dothebetter/nut-netserver</li><li>ghcr.io/dothebetter/nut-netserver</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver</li></ul>|
