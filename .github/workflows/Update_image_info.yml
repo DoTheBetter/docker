@@ -1,0 +1,135 @@
+name: Update DockerImage Information
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 21 * * *'
+
+
+jobs:
+  check-image-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo jq
+          sudo timedatectl set-timezone "Asia/Shanghai"
+
+      - name: Create Image Info Function Script
+        id: create-function
+        shell: bash
+        run: |
+          # 创建临时脚本文件
+          cat > /tmp/image_info.sh << 'EOF'
+          #!/bin/bash
+          get_image_info() {
+              local image_name=$1
+              [ -z "$image_name" ] && { echo "Usage: $0 <image-name>"; return 1; }
+          
+              # 获取最新标签（如果只有latest标签则使用latest）
+              latest_tag=$(skopeo list-tags "docker://$image_name" | jq -r '.Tags | map(select(. != "latest")) | .[-1] // "latest"')
+              [ -z "$latest_tag" ] && { echo "Error: No tags found"; return 1; }
+          
+              # 获取manifest list
+              manifest_list=$(skopeo inspect --raw "docker://$image_name:$latest_tag")
+              
+              # 获取所有支持的架构信息
+              architectures=$(echo "$manifest_list" | jq -r '.manifests[].platform | if .variant then .architecture + "/" + .variant else .architecture end' | grep -v "unknown" | sort | uniq | paste -sd"," )
+              
+              # 选择amd64架构的manifest用于获取其他信息
+              selected_manifest=$(echo "$manifest_list" | jq 'if (.manifests | map(select(.platform.architecture == "amd64")) | length) > 0 
+                    then .manifests[] | select(.platform.architecture == "amd64") 
+                    else .manifests[0] end')
+              
+              # 获取选中的manifest信息
+              manifest_digest=$(echo "$selected_manifest" | jq -r '.digest')
+              [ -z "$manifest_digest" ] && { echo "Error: No valid manifest found"; return 1; }
+          
+              # 获取实际镜像manifest
+              manifest=$(skopeo inspect --raw "docker://$image_name@$manifest_digest")
+              
+              # 计算总大小（各层大小之和）
+              size_bytes=$(echo "$manifest" | jq -r '[.layers[].size] | add')
+              size_human=$(numfmt --to=iec --suffix=B --format="%.2f" $size_bytes 2>/dev/null || echo "$size_bytes B")
+          
+              # 获取其他信息
+              repo_tags=$(skopeo inspect "docker://$image_name:$latest_tag" | jq -r '.RepoTags | join(", ")')
+          
+              # 输出结果
+              cat <<EOFINNER
+          ====================================
+          镜像信息:
+          ------------------------------------
+          仓库地址: $image_name
+          最新版本: $latest_tag
+          Digest:  $manifest_digest
+          镜像大小: $size_human ($size_bytes 字节)
+          标签列表: $repo_tags
+          支持架构: $architectures
+          ====================================
+          EOFINNER
+
+              # 分割镜像地址获取用户名和容器名
+              IFS='/' read -r registry username container_name <<< "$image_name"
+              # 如果是docker.io，则container_name可能包含在username中
+              if [ "$registry" = "docker.io" ] && [ -z "$container_name" ]; then
+                  container_name=$username
+                  username="library"
+              fi
+              # 创建临时输出文件
+              output_file="/tmp/image_info.txt"
+              echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|<ul><li>docker.io/$username/$container_name</li><li>ghcr.io/$username/$container_name</li><li>registry.cn-hangzhou.aliyuncs.com/$username/$container_name</li></ul>|" >> "$output_file"
+          }
+          EOF
+          chmod +x /tmp/image_info.sh
+
+      - name: Execute Image Info Retrieval
+        id: get-image-info
+        shell: bash
+        run: |
+          # 加载函数定义并执行
+          source /tmp/image_info.sh
+          get_image_info "ghcr.io/dothebetter/rsync"
+          get_image_info "ghcr.io/dothebetter/caddy2"
+          get_image_info "ghcr.io/dothebetter/kms"
+          get_image_info "ghcr.io/dothebetter/hello-world"
+          get_image_info "ghcr.io/dothebetter/zerotier-client"
+          get_image_info "ghcr.io/dothebetter/zerotier-moon"
+          get_image_info "ghcr.io/dothebetter/composerize"
+          get_image_info "ghcr.io/dothebetter/nut-netserver"
+
+      - name: Display Output File Content
+        shell: bash
+        run: |
+          echo "输出文件内容:"
+          cat /tmp/image_info.txt
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Update README.md
+        shell: bash
+        run: |
+          # 删除表格分隔行后的所有内容
+          sed -i '/|---------|------|-----|----------|----------|/,$d' README.md
+          # 重新添加表格分隔行
+          echo "|---------|------|-----|----------|----------|" >> README.md
+          # 添加新的镜像信息
+          cat /tmp/image_info.txt >> README.md
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: 更新镜像信息表格"
+          git push
+
+  Delete_Workflow:
+    needs: [check-image-info]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 2
