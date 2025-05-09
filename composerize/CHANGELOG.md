@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2025年5月9日 更新
+镜像版本：dothebetter/composerize:20250509
+1. 更新composerize版本：1.7.2
+
 ## 2025年5月8日 更新
 镜像版本：dothebetter/composerize:20250508
 1. 修改版本号为日期形式

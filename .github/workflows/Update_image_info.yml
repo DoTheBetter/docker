@@ -111,17 +111,27 @@ jobs:
       - name: Update README.md
         shell: bash
         run: |
+          # 保存原始README.md的副本
+          cp README.md README.md.old
+          
           # 删除表格分隔行后的所有内容
           sed -i '/|---------|------|-----|----------|----------|/,$d' README.md
           # 重新添加表格分隔行
           echo "|---------|------|-----|----------|----------|" >> README.md
           # 添加新的镜像信息
           cat /tmp/image_info.txt >> README.md
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "docs: 更新镜像信息表格"
-          git push
+          
+          # 比较内容是否有实质性变化（忽略空白字符差异）
+          if diff -wB README.md README.md.old > /dev/null; then
+            echo "没有检测到实质性内容变化，跳过提交"
+          else
+            echo "检测到内容变化，提交更新"
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add README.md
+            git commit -m "docs: 更新镜像信息表格"
+            git push
+          fi
 
   Delete_Workflow:
     needs: [check-image-info]
