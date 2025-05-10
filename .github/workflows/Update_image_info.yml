@@ -79,7 +79,7 @@ jobs:
               fi
               # 创建临时输出文件
               output_file="/tmp/image_info.txt"
-              echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|<ul><li>docker.io/$username/$container_name</li><li>ghcr.io/$username/$container_name</li><li>registry.cn-hangzhou.aliyuncs.com/$username/$container_name</li></ul>|" >> "$output_file"
+              echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|docker.io/$username/$container_name<br>ghcr.io/$username/$container_name<br>registry.cn-hangzhou.aliyuncs.com/$username/$container_name|" >> "$output_file"
           }
           EOF
           chmod +x /tmp/image_info.sh
