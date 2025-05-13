@@ -3,6 +3,7 @@
 ## 2025年5月9日 更新
 镜像版本：dothebetter/composerize:20250509
 1. 更新composerize版本：1.7.2
+2. 更新s6-overlay:v3.2.1.0
 
 ## 2025年5月8日 更新
 镜像版本：dothebetter/composerize:20250508

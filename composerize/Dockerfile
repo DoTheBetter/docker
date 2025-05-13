@@ -6,7 +6,7 @@ ARG COMPOSEVERTER_VER=1.7.4
 FROM ghcr.io/dothebetter/baseimage_composerize:latest AS builder
 
 FROM alpine:3.21
-ARG S6_VER=3.2.0.3
+ARG S6_VER=3.2.1.0
 
 ENV TZ=Asia/Shanghai \
 	S6_VERBOSITY=1
