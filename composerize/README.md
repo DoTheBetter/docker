@@ -13,9 +13,9 @@
 </p>
 自用的Docker run命令行与Docker Compose互转工具，基于Alpine，支持多种架构，包括amd64、arm64v8和arm32v7。
 
-- composerize将 Docker run 命令转换为 Docker Compose 配置文件的工具
-- decomposerize将 Docker Compose 配置反向转换为 Docker run 命令的工具
-- composeverter支持 Docker Compose v1/v2/v3 格式互转
+- composerize将 Docker run 命令转换为 Docker Compose 配置文件的工具，访问地址：http://localhost:8080
+- decomposerize将 Docker Compose 配置反向转换为 Docker run 命令的工具，访问地址：http://localhost:8080/decomposerize
+- composeverter支持 Docker Compose v1/v2/v3 格式互转，访问地址：http://localhost:8080/composeverter
 
 项目地址：https://github.com/DoTheBetter/docker/tree/master/composerize
 
