@@ -34,8 +34,8 @@ jobs:
               # 获取manifest list
               manifest_list=$(skopeo inspect --raw "docker://$image_name:$latest_tag")
               
-              # 获取所有支持的架构信息
-              architectures=$(echo "$manifest_list" | jq -r '.manifests[].platform | if .variant then .architecture + "/" + .variant else .architecture end' | grep -v "unknown" | sort | uniq | paste -sd"," )
+              # 获取所有支持的架构信息并用<br>分隔
+              architectures=$(echo "$manifest_list" | jq -r '.manifests[].platform | if .variant then .architecture + "/" + .variant else .architecture end' | grep -v "unknown" | sort | uniq | tr '\n' '<' | sed 's/<$//' | sed 's/<br>$//' | sed 's/</<br>/g')
               
               # 选择amd64架构的manifest用于获取其他信息
               selected_manifest=$(echo "$manifest_list" | jq 'if (.manifests | map(select(.platform.architecture == "amd64")) | length) > 0 
@@ -79,7 +79,8 @@ jobs:
               fi
               # 创建临时输出文件
               output_file="/tmp/image_info.txt"
-              echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|docker.io/$username/$container_name<br>ghcr.io/$username/$container_name<br>registry.cn-hangzhou.aliyuncs.com/$username/$container_name|" >> "$output_file"
+              #echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|docker.io/$username/$container_name<br>ghcr.io/$username/$container_name<br>registry.cn-hangzhou.aliyuncs.com/$username/$container_name|" >> "$output_file"
+              echo "|[$username/$container_name](https://github.com/$username/docker/tree/master/$container_name)|$latest_tag|$size_human|$architectures|<ul><li>docker.io/$username/$container_name</li><li>ghcr.io/$username/$container_name</li><li>registry.cn-hangzhou.aliyuncs.com/$username/$container_name</li></ul>|" >> "$output_file"
           }
           EOF
           chmod +x /tmp/image_info.sh
@@ -98,6 +99,7 @@ jobs:
           get_image_info "ghcr.io/dothebetter/zerotier-moon"
           get_image_info "ghcr.io/dothebetter/composerize"
           get_image_info "ghcr.io/dothebetter/nut-netserver"
+          get_image_info "ghcr.io/dothebetter/aria2"
 
       - name: Display Output File Content
         shell: bash

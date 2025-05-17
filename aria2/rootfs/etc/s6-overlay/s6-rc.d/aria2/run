@@ -1,0 +1,8 @@
+#!/command/with-contenv sh
+
+#设置umask
+umask "$UMASK"
+
+#启动aria2
+echo "+正在启动 aria2 服务..."
+exec s6-setuidgid download aria2c --conf-path=/aria2/config/aria2.conf --enable-rpc --rpc-listen-all

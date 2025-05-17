@@ -1,0 +1,10 @@
+#!/command/with-contenv sh
+
+#启动filebrowser
+if [ "${ENABLE_FILEBROWSER}" = "true" ]; then
+    echo "+正在启动 filebrowser 服务..."
+	exec s6-setuidgid download filebrowser -c /aria2/config/filebrowser.json -d /aria2/config/filebrowser.db
+else
+    s6-svc -Od .
+    exit 0
+fi

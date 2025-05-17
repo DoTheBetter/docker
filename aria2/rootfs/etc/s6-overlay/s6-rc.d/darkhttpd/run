@@ -1,0 +1,9 @@
+#!/command/with-contenv sh
+
+if [ "$ENABLE_ARIANG" = "true" ]; then
+    echo "+正在启动 darkhttpd 服务..."
+	exec s6-setuidgid http darkhttpd /aria2/www --port ${HTTP_PORT} >/dev/null 2>&1
+else
+    s6-svc -Od .
+    exit 0
+fi

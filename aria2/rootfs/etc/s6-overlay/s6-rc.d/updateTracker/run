@@ -1,0 +1,59 @@
+#!/command/with-contenv sh
+
+# 配置文件路径
+ARIA2_CONF="/aria2/config/aria2.conf"
+TRACKER_SCRIPT="/aria2/script/tracker.sh"
+
+# Tracker 更新相关配置
+TRACKER_UPDATE_INTERVAL=${UPDATE_TRACKER}
+TRACKER_UPDATE_DISABLED=0
+TRACKER_LAST_UPDATE=0
+TRACKER_UPDATE_SECONDS=0
+
+# 配置文件监控相关配置
+CONF_LAST_MODIFIED=0
+
+# 检查是否禁用更新
+if [ -z "${UPDATE_TRACKER}" ] || [ "${UPDATE_TRACKER}" = "0" ]; then
+    TRACKER_UPDATE_DISABLED=1
+    echo "+[定时任务] Tracker 更新已禁用"
+fi
+
+# 转换更新间隔天数为秒数（支持小数）
+TRACKER_UPDATE_SECONDS=$(echo "${TRACKER_UPDATE_INTERVAL} * 24 * 60 * 60" | bc | cut -d'.' -f1)
+
+while true; do
+    CURRENT_TIME=$(date +%s)
+
+    # 检查是否需要执行tracker更新
+    if [ "$TRACKER_UPDATE_DISABLED" = "0" ]; then
+        if [ $((CURRENT_TIME - TRACKER_LAST_UPDATE)) -ge $TRACKER_UPDATE_SECONDS ]; then
+            echo "+[定时任务] 正在执行 Tracker 更新..."
+            # 记录文件原始权限和所有者
+            FILE_ORIGINAL_PERMS=$(stat -c %a "${ARIA2_CONF}")
+            FILE_ORIGINAL_OWNER=$(stat -c %u:%g "${ARIA2_CONF}")
+            
+            "${TRACKER_SCRIPT}" "${ARIA2_CONF}" 2>&1
+            
+            # 恢复文件原始权限和所有者
+            chmod "${FILE_ORIGINAL_PERMS}" "${ARIA2_CONF}"
+            chown "${FILE_ORIGINAL_OWNER}" "${ARIA2_CONF}"
+            
+            TRACKER_LAST_UPDATE=$CURRENT_TIME
+            echo "+[定时任务] Tracker 更新完成，更新间隔 ${UPDATE_TRACKER} 天，下次更新时间: $(date -d @$((CURRENT_TIME + TRACKER_UPDATE_SECONDS)) '+%Y-%m-%d %H:%M:%S')"
+        fi
+    fi
+
+    # 检查aria2配置文件是否发生变化
+    if [ -f "$ARIA2_CONF" ]; then
+        CURRENT_MODIFIED=$(stat -c %Y "$ARIA2_CONF")
+        if [ "$CURRENT_MODIFIED" != "$CONF_LAST_MODIFIED" ]; then
+            echo "+[定时任务] 检测到配置文件变更，正在重启 Aria2..."
+            pkill aria2c
+            CONF_LAST_MODIFIED=$CURRENT_MODIFIED
+        fi
+    fi
+
+    # 每分钟检查一次
+    sleep 60
+done
