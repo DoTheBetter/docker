@@ -100,7 +100,7 @@ else
     modify_config "${ARIA2_CONF}" "dht-file-path6" "${ARIA2_DHT6}"
 fi
 # 修改单服务器最大连接线程数
-modify_config "${ARIA2_CONF}" "max-connection-per-server" "32"
+#modify_config "${ARIA2_CONF}" "max-connection-per-server" "32"
 # 增强扩展设置(非官方)
 modify_config "${ARIA2_CONF}" "retry-on-400" "true"
 modify_config "${ARIA2_CONF}" "retry-on-403" "true"
