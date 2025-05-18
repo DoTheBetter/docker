@@ -26,7 +26,7 @@ ARG S6_VER=3.2.1.0
 
 ENV S6_VERBOSITY=1 \
 	TZ=Asia/Shanghai \
-	VLKMCSD_OPTS=-i /vlmcsd/vlmcsd.ini -D -e \
+	VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e" \
 	WEB=true
 
 COPY --chmod=755 rootfs /
