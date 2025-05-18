@@ -52,7 +52,7 @@ KMS 服务默认通过命令行`vlmcsd -i /vlmcsd/vlmcsd.ini -D -e`来启动，�
 
 ## 部署方法：
 
-> 本镜像在 docker hub 及 ghcr.io 同步推送，docker hub 不能使用时可使用 ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 
 #### Docker Run
 

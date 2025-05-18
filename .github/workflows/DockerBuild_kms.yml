@@ -17,10 +17,23 @@ jobs:
 
       - name: Set env and banner
         run: |
-          echo "KMS_VER=$(echo `grep -n "KMS_VER=" kms/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
+          # 同时设置 shell 变量和写入 GITHUB_ENV
+          KMS_DOCKER_VER=$(grep -n "KMS_DOCKER_VER=" kms/Dockerfile | awk -F= '{print $2}' | head -n1)
+          echo "KMS_DOCKER_VER=$KMS_DOCKER_VER" >> $GITHUB_ENV
+
+          # 提取版本号
+          VLMCSD_VER=$(grep -n "VLMCSD_VER=" kms/Dockerfile | awk -F= '{print $2}' | head -n1)
+
+          # 设置时区
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sed -i "s@KMS_VER@$(echo `grep -n "KMS_VER=" kms/Dockerfile`|awk -F= '{print $2}')@" kms/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+
+          # 替换 banner 文件中的占位符
+          sed -i "s@KMS_DOCKER_VER@$KMS_DOCKER_VER@" kms/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
           sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" kms/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          
+          sed -i "s@VLMCSD_VER@$VLMCSD_VER@" kms/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.sh
+
+          # 打印文件内容查看结果
           cat kms/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
 
       - name: Set up QEMU

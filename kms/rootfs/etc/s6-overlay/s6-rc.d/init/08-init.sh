@@ -10,7 +10,7 @@ echo "→当前服务器时间:$(date "+%Y-%m-%d %H:%M:%S")"
 
 echo "2.修改文件夹权限"
 chown -R kms:kms /vlmcsd
-chmod -R 755 /vlmcsd
+chmod -R 644 /vlmcsd
 
 chown -R http:http /www
 chmod -R 755 /www
