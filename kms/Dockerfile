@@ -24,18 +24,21 @@ FROM alpine:3.21
 
 ARG S6_VER=3.2.1.0
 
-ENV S6_VERBOSITY=1 \
+ENV PATH="/vlmcsd/bin:${PATH}" \
+    S6_VERBOSITY=1 \
     TZ=Asia/Shanghai \
-    VLKMCSD_OPTS="-i /vlmcsd/vlmcsd.ini -D -e" \
+    UID=1000 \
+    GID=1000 \
+    VLKMCSD_OPTS="-i /vlmcsd/config/vlmcsd.ini -D -e" \
     WEB=true
 
 COPY --chmod=755 rootfs /
-COPY --from=builder --chmod=755 /build/vlmcsd/bin/vlmcsd /usr/bin/vlmcsd
+COPY --from=builder --chmod=755 /usr/bin/vlmcsd /vlmcsd/bin/vlmcsd
 
 RUN set +ex \
-    # 安装应用
-    && apk add --no-cache ca-certificates tzdata darkhttpd \
-    # 安装s6-overlay
+# 安装应用
+    && apk add --no-cache ca-certificates shadow tzdata darkhttpd \
+# 安装s6-overlay
     && if [ "$(uname -m)" = "x86_64" ]; then s6_arch=x86_64; \
     elif [ "$(uname -m)" = "aarch64" ]; then s6_arch=aarch64; \
     elif [ "$(uname -m)" = "armv7l" ]; then s6_arch=arm; \
@@ -44,17 +47,26 @@ RUN set +ex \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
     && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
-    # 创建用户组和用户
+# 检查vlmcsd
+    && vlmcsd -V \
+# 创建用户组和用户
     && addgroup kms \
     && adduser -D -H -G kms -s /sbin/nologin kms \
     && addgroup http \
     && adduser -D -H -G http -s /sbin/nologin http \
-    # 清除缓存
+# 设置目录权限
+    && chown -R kms:kms /vlmcsd/bin \
+    && chmod -R 755 /vlmcsd/bin \
+    && chown -R http:http /vlmcsd/www \
+    && chmod -R 755 /vlmcsd/www \
+# 清除缓存
     && rm -rf \
         /tmp/* \
         /var/cache/apk/* \
         /var/tmp/* \
         $HOME/.cache
 
+WORKDIR /vlmcsd
+VOLUME /vlmcsd/config
 EXPOSE 1688 8080
 ENTRYPOINT ["/init"]
