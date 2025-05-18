@@ -77,11 +77,11 @@ jobs:
           push: true
           tags: |
             dothebetter/kms:latest
-            dothebetter/kms:${{ env.KMS_VER }}
+            dothebetter/kms:${{ env.KMS_DOCKER_VER }}
             ghcr.io/dothebetter/kms:latest
-            ghcr.io/dothebetter/kms:${{ env.KMS_VER }}
+            ghcr.io/dothebetter/kms:${{ env.KMS_DOCKER_VER }}
             registry.cn-hangzhou.aliyuncs.com/dothebetter/kms:latest
-            registry.cn-hangzhou.aliyuncs.com/dothebetter/kms:${{ env.KMS_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/kms:${{ env.KMS_DOCKER_VER }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
@@ -89,6 +89,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/kms
-          short-description: kms:${{ env.KMS_VER }}，自建KMS激活服务，带web说明，支持amd64;arm64v8;arm32v7
+          short-description: kms:${{ env.KMS_DOCKER_VER }}，自建KMS激活服务，带web说明，支持amd64;arm64v8;arm32v7
           readme-filepath: ./kms/README.md
           enable-url-completion: true
