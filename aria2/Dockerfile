@@ -45,11 +45,8 @@ RUN apk add --no-cache \
     && aria2c --version \
 # 安装AriaNg
     && mkdir -p /aria2/www \
-    && wget -P /tmp https://github.com/alexhua/Aria2-Explorer/archive/refs/heads/master.zip \
-    && mkdir -p /tmp/Aria2-Explorer \
-    && unzip /tmp/master.zip -d /tmp/Aria2-Explorer \
-    && cp -r /tmp/Aria2-Explorer/Aria2-Explorer-master/ui/ariang/* /aria2/www/ \
-    && ls /aria2/www \
+    && wget -P /tmp https://github.com/mayswind/AriaNg/releases/download/${AriaNg_VER}/AriaNg-${AriaNg_VER}.zip \
+    && unzip /tmp/AriaNg-${AriaNg_VER}.zip -d /aria2/www \
 # 安装filebrowser
     && wget -P /tmp https://github.com/filebrowser/filebrowser/releases/download/v${FileBrowser_VER}/linux-${filemanager_arch}-filebrowser.tar.gz \
     && tar -C /aria2/bin -xzf "/tmp/linux-${filemanager_arch}-filebrowser.tar.gz" "filebrowser" \
