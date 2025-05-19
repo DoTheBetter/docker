@@ -6,4 +6,4 @@ if [ -z "${VLKMCSD_OPTS}" ]; then
     VLKMCSD_OPTS="-i /vlmcsd/config/vlmcsd.ini -D -e"
 fi
 echo "启动命令：\"vlmcsd ${VLKMCSD_OPTS}\""
-exec s6-setuidgid kms vlmcsd ${VLKMCSD_OPTS}
+exec s6-setuidgid kms vlmcsd ${VLKMCSD_OPTS} 2>&1 | awk '{print "[Vlmcsd] " $0}'
