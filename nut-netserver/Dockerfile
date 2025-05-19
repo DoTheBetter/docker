@@ -71,7 +71,7 @@ COPY --from=builder /nut /nut
 COPY --chmod=755 rootfs /
 
 RUN apk add --no-cache \
-    tzdata ca-certificates lighttpd perl util-linux nss-tools \
+    tzdata ca-certificates lighttpd perl util-linux \
     libtool hidapi eudev openssl-dev libmodbus-dev libusb-dev net-snmp-dev \
     neon-dev nss-dev nss_wrapper-dev gd-dev avahi-dev i2c-tools-dev \
 # 安装s6-overlay
@@ -82,10 +82,6 @@ RUN apk add --no-cache \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
     && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
-# 解决Init SSL without certificate database提示
-    && mkdir -p /etc/pki/nssdb \
-    && certutil -d /etc/pki/nssdb -N --empty-password \
-    && chmod 644 /etc/pki/nssdb/* \
 # 备份nut配置文件并重命名
     && mv /nut/etc /nut/etc.bak \
 # 清除缓存
