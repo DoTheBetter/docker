@@ -24,7 +24,7 @@
 #### 官网地址
 
 - https://github.com/aria2/aria2
-- https://github.com/mayswind/AriaNg
+- https://github.com/mayswind/AriaNg ，https://github.com/alexhua/Aria2-Explorer
 - https://github.com/filebrowser/filebrowser
 
 ## 相关参数：

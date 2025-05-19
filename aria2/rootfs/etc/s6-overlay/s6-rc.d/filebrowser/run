@@ -3,7 +3,7 @@
 #启动filebrowser
 if [ "${ENABLE_FILEBROWSER}" = "true" ]; then
     echo "+正在启动 filebrowser 服务..."
-	exec s6-setuidgid download filebrowser -c /aria2/config/filebrowser.json -d /aria2/config/filebrowser.db
+	exec s6-setuidgid download filebrowser -c /aria2/config/filebrowser.json -d /aria2/config/filebrowser.db 2>&1 | awk '{print "[FileBrowser] " $0}'
 else
     s6-svc -Od .
     exit 0
