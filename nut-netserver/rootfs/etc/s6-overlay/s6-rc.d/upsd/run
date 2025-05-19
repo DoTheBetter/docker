@@ -2,4 +2,4 @@
 
 sleep 3
 echo "+2.正在启动 upsd 服务端...启动命令：\"upsd $UPSD_OPTS\""
-exec upsd $UPSD_OPTS
+exec upsd $UPSD_OPTS 2>&1 | awk '{print "[Upsd] " $0}'

@@ -17,10 +17,23 @@ jobs:
 
       - name: Set env and banner
         run: |
-          echo "NUT_VER=$(echo `grep -n "NUT_VER=" nut-netserver/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
+          # 同时设置 shell 变量和写入 GITHUB_ENV
+          NUT_DOCKER_VER=$(grep -n "NUT_DOCKER_VER=" nut-netserver/Dockerfile | awk -F= '{print $2}' | head -n1)
+          echo "NUT_DOCKER_VER=$NUT_DOCKER_VER" >> $GITHUB_ENV
+
+          # 提取版本号
+          NUT_VER=$(grep -n "NUT_VER=" nut-netserver/Dockerfile | awk -F= '{print $2}' | head -n1)
+
+          # 设置时区
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sed -i "s@NUT_VER@$(echo `grep -n "NUT_VER=" nut-netserver/Dockerfile`|awk -F= '{print $2}')@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+
+          # 替换 banner 文件中的占位符
+          sed -i "s@NUT_DOCKER_VER@$NUT_DOCKER_VER@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
           sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          
+          sed -i "s@NUT_VER@$NUT_VER@" nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.sh
+
+          # 打印文件内容查看结果
           cat nut-netserver/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
 
       - name: Set up QEMU
@@ -64,11 +77,11 @@ jobs:
           push: true
           tags: |
             dothebetter/nut-netserver:latest
-            dothebetter/nut-netserver:${{ env.NUT_VER }}
+            dothebetter/nut-netserver:${{ env.NUT_DOCKER_VER }}
             ghcr.io/dothebetter/nut-netserver:latest
-            ghcr.io/dothebetter/nut-netserver:${{ env.NUT_VER }}
+            ghcr.io/dothebetter/nut-netserver:${{ env.NUT_DOCKER_VER }}
             registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver:latest
-            registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver:${{ env.NUT_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/nut-netserver:${{ env.NUT_DOCKER_VER }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
@@ -76,6 +89,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/nut-netserver
-          short-description: nut-netserver:${{ env.NUT_VER }}，自用NUT镜像带web界面，集成常用驱动，支持amd64;arm64v8;arm32v7
+          short-description: nut-netserver:${{ env.NUT_DOCKER_VER }}，自用NUT镜像带web界面，集成常用驱动，支持amd64;arm64v8;arm32v7
           readme-filepath: ./nut-netserver/README.md
           enable-url-completion: true

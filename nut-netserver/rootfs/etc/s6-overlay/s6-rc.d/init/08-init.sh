@@ -156,6 +156,9 @@ if [ ! -e /conf/upsmon.conf ]; then
 # 配置本地或远程 UPS 监控策略
 # MONITOR qnapups@localhost 1 admin 123456 master
 MONITOR virtualups@localhost 1 admin 123456 master
+
+# 定义关机命令，由于在容器中运行，改为记录关机事件
+SHUTDOWNCMD "/usr/bin/logger -t upsd \"UPS shutdown event triggered\""
 EOF
 else
     echo "→ 文件存在，跳过 upsmon.conf 设置"

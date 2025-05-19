@@ -1,4 +1,4 @@
 #!/command/with-contenv sh
 
 echo "+1.正在启动 upsdrvctl 驱动服务...启动命令：\"upsdrvctl $UPSDRVCTL_OPTS\""
-exec upsdrvctl $UPSDRVCTL_OPTS start
+exec upsdrvctl $UPSDRVCTL_OPTS start 2>&1 | awk '{print "[Upsdrvctl] " $0}'

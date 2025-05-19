@@ -2,4 +2,4 @@
 
 sleep 3
 echo "+3.正在启动 upsmon 监控服务...启动命令：\"upsmon $UPSMON_OPTS\""
-exec upsmon $UPSMON_OPTS
+exec upsmon $UPSMON_OPTS 2>&1 | awk '{print "[Upsmon] " $0}'

@@ -1,4 +1,4 @@
 #!/command/with-contenv sh
 
-echo "+正在清理PID文件..."
+echo "-正在清理PID文件..."
 rm -rf /var/run/nut/*
