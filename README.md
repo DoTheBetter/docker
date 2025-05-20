@@ -4,7 +4,7 @@
 
 | 镜像仓库 | 镜像版本 | 镜像大小 | 支持架构 | 拉取地址 |
 |---------|------|-----|----------|----------|
-|[dothebetter/rsync](https://github.com/dothebetter/docker/tree/master/rsync)|3.4.1|9.25MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/rsync</li><li>ghcr.io/dothebetter/rsync</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync</li></ul>|
+|[dothebetter/rsync](https://github.com/dothebetter/docker/tree/master/rsync)|3.4.1|9.64MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/rsync</li><li>ghcr.io/dothebetter/rsync</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync</li></ul>|
 |[dothebetter/caddy2](https://github.com/dothebetter/docker/tree/master/caddy2)|2.9.1|33.59MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/caddy2</li><li>ghcr.io/dothebetter/caddy2</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2</li></ul>|
 |[dothebetter/kms](https://github.com/dothebetter/docker/tree/master/kms)|1113-20250518|7.35MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/kms</li><li>ghcr.io/dothebetter/kms</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/kms</li></ul>|
 |[dothebetter/hello-world](https://github.com/dothebetter/docker/tree/master/hello-world)|latest|1.29MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/hello-world</li><li>ghcr.io/dothebetter/hello-world</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/hello-world</li></ul>|
