@@ -2,7 +2,7 @@
 
 if [ "$SSH" = "true" ]; then
     echo "+正在启动 SSHD 守护进程..."
-    exec /usr/sbin/sshd -D -e
+    exec /usr/sbin/sshd -D -e 2>&1 | awk '{print "[SSHD] " $0}'
 else
     s6-svc -Od .
     exit 0

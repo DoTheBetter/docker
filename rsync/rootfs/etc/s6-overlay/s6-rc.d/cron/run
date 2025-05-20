@@ -10,7 +10,7 @@ if [ "$CRON" = "true" ]; then
         md5_new=$(md5sum /conf/crontabs | cut -d ' ' -f1)
         if [ "$md5_old" != "$md5_new" ]; then
             md5_old=$md5_new
-            echo "$(date "+%Y-%m-%d %H:%M:%S") 检测到计划任务规则发生变化，重启crond服务"
+            echo "[定时任务] $(date "+%Y-%m-%d %H:%M:%S") 检测到计划任务规则发生变化，重启crond服务"
             pid_old=$(pgrep -f "/usr/sbin/crond")
             if [ -n "$pid_old" ]; then
                 kill -15 "$pid_old" || kill -9 "$pid_old"

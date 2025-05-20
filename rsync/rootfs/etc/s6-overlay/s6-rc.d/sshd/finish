@@ -1,7 +1,7 @@
 #!/command/with-contenv sh
 
 if [ "$SSH" = "true" ]; then
-    echo "+正在停止 SSHD 守护进程..."
+    echo "-正在停止 SSHD 守护进程..."
     rm -f /conf/.ssh/known_hosts*
 else
     exit 0

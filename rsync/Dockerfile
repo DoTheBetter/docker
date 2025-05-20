@@ -1,8 +1,9 @@
+ARG RSYNC_DOCKER_VER=3.4.1
 ARG RSYNC_VER=3.4.1
 
 FROM alpine:edge
 
-ARG S6_VER=3.2.0.2
+ARG S6_VER=3.2.1.0
 
 ENV TZ=Asia/Shanghai \
 	SSH=false \

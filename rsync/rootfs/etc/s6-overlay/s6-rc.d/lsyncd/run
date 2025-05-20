@@ -2,7 +2,7 @@
 
 if [ "$LSYNCD" = "true" ]; then
     echo "+正在启动Lsyncd守护进程，请编辑/conf/lsyncd.conf配置文件..."
-	lsyncd -log Exec /conf/lsyncd.conf
+    exec lsyncd -log Exec /conf/lsyncd.conf 2>&1 | awk '{print "[Lsyncd] " $0}'
 else
     s6-svc -Od .
     exit 0

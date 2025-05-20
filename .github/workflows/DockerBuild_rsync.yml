@@ -17,10 +17,23 @@ jobs:
 
       - name: 'Set env'
         run: |
-          echo "RSYNC_VER=$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')" >> $GITHUB_ENV
+          # 同时设置 shell 变量和写入 GITHUB_ENV
+          RSYNC_DOCKER_VER=$(grep -n "RSYNC_DOCKER_VER=" rsync/Dockerfile | awk -F= '{print $2}' | head -n1)
+          echo "RSYNC_DOCKER_VER=$RSYNC_DOCKER_VER" >> $GITHUB_ENV
+
+          # 提取版本号
+          RSYNC_VER=$(grep -n "RSYNC_VER=" rsync/Dockerfile | awk -F= '{print $2}' | head -n1)
+
+          # 设置时区
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sed -i "s@RSYNC_VER@$(echo `grep -n "RSYNC_VER=" rsync/Dockerfile`|awk -F= '{print $2}')@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+
+          # 替换 banner 文件中的占位符
+          sed -i "s@RSYNC_DOCKER_VER@$RSYNC_DOCKER_VER@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
           sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          
+          sed -i "s@RSYNC_VER@$RSYNC_VER@" rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.sh
+
+          # 打印文件内容查看结果
           cat rsync/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
 
       - name: Set up QEMU
@@ -64,11 +77,11 @@ jobs:
           push: true
           tags: |
             dothebetter/rsync:latest
-            dothebetter/rsync:${{ env.RSYNC_VER }}
+            dothebetter/rsync:${{ env.RSYNC_DOCKER_VER }}
             ghcr.io/dothebetter/rsync:latest
-            ghcr.io/dothebetter/rsync:${{ env.RSYNC_VER }}
+            ghcr.io/dothebetter/rsync:${{ env.RSYNC_DOCKER_VER }}
             registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:latest
-            registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:${{ env.RSYNC_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/rsync:${{ env.RSYNC_DOCKER_VER }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
@@ -76,6 +89,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: dothebetter/rsync
-          short-description: rsync:${{ env.RSYNC_VER }}，支持amd64;arm64v8;arm32v7，ssh+cron+rsync+lsyncd
+          short-description: rsync:${{ env.RSYNC_DOCKER_VER }}，支持amd64;arm64v8;arm32v7，ssh+cron+rsync+lsyncd
           readme-filepath: ./rsync/README.md
           enable-url-completion: true

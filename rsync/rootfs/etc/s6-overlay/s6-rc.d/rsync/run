@@ -2,7 +2,7 @@
 
 if [ "$RSYNC" = "true" ]; then
     echo "+正在启动Rsync daemon守护进程，请编辑/conf/rsyncd.conf配置文件..."
-    rsync --daemon --no-detach
+    exec rsync --daemon --no-detach 2>&1 | awk '{print "[Rsync] " $0}'
 else
     s6-svc -Od .
     exit 0
