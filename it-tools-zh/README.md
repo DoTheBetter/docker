@@ -12,7 +12,7 @@
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/dothebetter/it-tools-zh?label=Docker%20Pulls">
 </p>
 
-自用的IT Tools中文翻译版，基于Alpine，支持多种架构，包括amd64、arm64v8和arm32v7。
+自用的IT Tools中文自翻译版，基于Alpine，支持多种架构，包括amd64、arm64v8和arm32v7。
 
 采用的IT Tools代码仓库为`sharevb/it-tools`，该仓库比it-tools官方仓库`CorentinTh/it-tools`更新更及时，工具更多。
 
