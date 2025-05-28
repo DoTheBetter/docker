@@ -100,6 +100,7 @@ jobs:
           get_image_info "ghcr.io/dothebetter/composerize"
           get_image_info "ghcr.io/dothebetter/nut-netserver"
           get_image_info "ghcr.io/dothebetter/aria2"
+          get_image_info "ghcr.io/dothebetter/it-tools-zh"
 
       - name: Display Output File Content
         shell: bash
