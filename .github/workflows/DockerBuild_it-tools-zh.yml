@@ -1,0 +1,94 @@
+name: DockerBuild_it-tools-zh
+
+on:
+  push:
+    paths:
+      - "it-tools-zh/Dockerfile"
+      - "it-tools-zh/rootfs/**"
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: buildx tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set env and banner
+        run: |
+          # 同时设置 shell 变量和写入 GITHUB_ENV
+          IT_TOOLS_ZH_DOCKER_VER=$(grep -n "IT_TOOLS_ZH_DOCKER_VER=" it-tools-zh/Dockerfile | awk -F= '{print $2}' | head -n1)
+          echo "IT_TOOLS_ZH_DOCKER_VER=$IT_TOOLS_ZH_DOCKER_VER" >> $GITHUB_ENV
+
+          # 提取版本号
+          IT_TOOLS_VER=$(grep -n "IT_TOOLS_VER=" it-tools-zh/Dockerfile | awk -F= '{print $2}' | head -n1)
+
+          # 设置时区
+          sudo timedatectl set-timezone "Asia/Shanghai"
+
+          # 替换 banner 文件中的占位符
+          sed -i "s@IT_TOOLS_ZH_DOCKER_VER@$IT_TOOLS_ZH_DOCKER_VER@" it-tools-zh/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          sed -i "s@DATE_TIME@$(date +"%Y/%m/%d %H:%M")@" it-tools-zh/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          
+          sed -i "s@IT_TOOLS_VER@$IT_TOOLS_VER@" it-tools-zh/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner.sh
+
+          # 打印文件内容查看结果
+          cat it-tools-zh/rootfs/etc/s6-overlay/s6-rc.d/init/00-banner
+          
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Aliyun Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./it-tools-zh
+          file: ./it-tools-zh/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: |
+            dothebetter/it-tools-zh:latest
+            dothebetter/it-tools-zh:${{ env.IT_TOOLS_ZH_DOCKER_VER }}
+            ghcr.io/dothebetter/it-tools-zh:latest
+            ghcr.io/dothebetter/it-tools-zh:${{ env.IT_TOOLS_ZH_DOCKER_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/it-tools-zh:latest
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/it-tools-zh:${{ env.IT_TOOLS_ZH_DOCKER_VER }}
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: dothebetter/it-tools-zh
+          short-description: it-tools-zh:${{ env.IT_TOOLS_ZH_DOCKER_VER }}，自用IT Tools中文增强版镜像，支持amd64;arm64v8;arm32v7
+          readme-filepath: ./it-tools-zh/README.md
+          enable-url-completion: true
