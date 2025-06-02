@@ -1,5 +1,0 @@
-#!/command/with-contenv sh
-
-echo "+正在启动 lighttpd 服务..."
-#前台模式
-exec s6-setuidgid http lighttpd -D -f /etc/lighttpd/lighttpd.conf 2>&1 | awk '{print "[Lighttpd] " $0}'

@@ -1,0 +1,15 @@
+{
+	log {
+		format json {
+			time_format wall_milli
+			time_local
+		}
+	}
+}
+
+:8080 {
+	root * /www
+	file_server
+	encode zstd gzip
+	try_files {path} /index.html
+}

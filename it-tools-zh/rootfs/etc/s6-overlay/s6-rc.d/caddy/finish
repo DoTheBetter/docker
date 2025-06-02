@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+
+echo "-正在停止 Caddy 服务..."

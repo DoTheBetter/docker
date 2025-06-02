@@ -1,0 +1,5 @@
+#!/command/with-contenv sh
+
+echo "+正在启动 Caddy 服务..."
+#前台模式
+exec s6-setuidgid http caddy run --config /etc/caddy/Caddyfile --adapter caddyfile 2>&1 | awk '{print "[Caddy] " $0}'

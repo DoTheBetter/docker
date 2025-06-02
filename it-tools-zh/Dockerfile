@@ -7,13 +7,15 @@ FROM alpine:3.21
 ARG S6_VER=3.2.1.0
 
 ENV S6_VERBOSITY=1 \
+	XDG_CONFIG_HOME=/etc \
+	XDG_DATA_HOME=/etc \
     TZ=Asia/Shanghai
 
 COPY --from=builder /www /www
 COPY --chmod=755 rootfs /
 
 RUN apk add --no-cache \
-    ca-certificates tzdata lighttpd \
+    ca-certificates tzdata caddy \
 # 安装s6-overlay
     && if [ "$(uname -m)" = "x86_64" ]; then s6_arch=x86_64; \
     elif [ "$(uname -m)" = "aarch64" ]; then s6_arch=aarch64; \
