@@ -1,7 +1,7 @@
 {
 	log {
-		format json {
-			time_format wall_milli
+		format console {
+			time_format wall
 			time_local
 		}
 	}
