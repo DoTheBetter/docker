@@ -1,5 +1,5 @@
-ARG IT_TOOLS_ZH_DOCKER_VER=20250602
-ARG IT_TOOLS_VER=8b7cdb4
+ARG IT_TOOLS_ZH_DOCKER_VER=20250603
+ARG IT_TOOLS_VER=b6a7a5a
 
 FROM ghcr.io/dothebetter/baseimage_it-tools-zh:latest AS builder
 
