@@ -1,5 +1,10 @@
 # 更新日志
 
+## 2025年6月10日 更新
+
+镜像版本：dothebetter/it-tools-zh:20250610
+1. 更新上游仓库commits版本8e9d921。
+
 ## 2025年6月2日 更新
 
 镜像版本：dothebetter/it-tools-zh:20250603
