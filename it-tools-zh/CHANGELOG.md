@@ -1,15 +1,17 @@
 # 更新日志
 
-## 2025年6月10日 更新
+## 2025年6月13日 更新
+镜像版本：dothebetter/it-tools-zh:20250613
+1. 更新上游仓库commits版本203f207。
+2. 升级基础镜像alpine版本为3.22。
 
+## 2025年6月10日 更新
 镜像版本：dothebetter/it-tools-zh:20250610
 1. 更新上游仓库commits版本8e9d921。
 
 ## 2025年6月2日 更新
-
 镜像版本：dothebetter/it-tools-zh:20250603
 1. 更新上游仓库commits版本b6a7a5a。
-
 
 ## 2025年6月2日 更新
 镜像版本：dothebetter/it-tools-zh:20250602

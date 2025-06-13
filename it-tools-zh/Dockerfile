@@ -1,9 +1,9 @@
-ARG IT_TOOLS_ZH_DOCKER_VER=20250610
-ARG IT_TOOLS_VER=8e9d921
+ARG IT_TOOLS_ZH_DOCKER_VER=20250613
+ARG IT_TOOLS_VER=203f207
 
 FROM ghcr.io/dothebetter/baseimage_it-tools-zh:latest AS builder
 
-FROM alpine:3.21
+FROM alpine:3.22
 ARG S6_VER=3.2.1.0
 
 ENV S6_VERBOSITY=1 \
