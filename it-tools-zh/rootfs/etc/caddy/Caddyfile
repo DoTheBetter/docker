@@ -8,8 +8,20 @@
 }
 
 :8080 {
-	root * /www
-	file_server
+    root * /www
+    file_server
 	encode zstd gzip
-	try_files {path} /index.html
+    index index.html
+
+    header {
+        X-Frame-Options SAMEORIGIN
+        X-Content-Type-Options nosniff
+        Referrer-Policy "strict-origin-when-cross-origin"
+        X-Permitted-Cross-Domain-Policies none
+        Cross-Origin-Resource-Policy same-site
+        Cross-Origin-Opener-Policy same-origin
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+    }
+
+    try_files {path} {path}/ /index.html
 }

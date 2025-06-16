@@ -1,5 +1,10 @@
 # 更新日志
 
+## 2025年6月16日 更新
+镜像版本：dothebetter/it-tools-zh:20250616
+1. 更新上游仓库commits版本5904fa7，release版本2025.06.15-20a26514。
+2. 跟随上游添加Caddy安全标头。
+
 ## 2025年6月13日 更新
 镜像版本：dothebetter/it-tools-zh:20250613
 1. 更新上游仓库commits版本203f207。
