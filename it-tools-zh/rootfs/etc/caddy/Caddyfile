@@ -9,9 +9,10 @@
 
 :8080 {
     root * /www
-    file_server
+    file_server {
+        index index.html
+    }
 	encode zstd gzip
-    index index.html
 
     header {
         X-Frame-Options SAMEORIGIN
