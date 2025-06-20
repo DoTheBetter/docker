@@ -2,8 +2,11 @@
 
 ## 2025年6月18日 更新
 
-镜像版本：dothebetter/aria2:1.37.0-20250618
+镜像版本：dothebetter/aria2:1.37.0-20250620
+1. 升级Filebrowser版本为v2.33.0
 
+## 2025年6月18日 更新
+镜像版本：dothebetter/aria2:1.37.0-20250618
 1. 升级Filebrowser版本为v2.32.3
 2. 升级Alpine版本为3.22
 
