@@ -1,5 +1,10 @@
 # 更新日志
 
+## 2025年6月23日 更新
+镜像版本：dothebetter/it-tools-zh:20250623
+1. 更新上游仓库commits版本a12c43b。
+	- 新增工具：图像水印
+
 ## 2025年6月16日 更新
 镜像版本：dothebetter/it-tools-zh:20250616
 1. 更新上游仓库commits版本5904fa7，release版本2025.06.15-20a26514。
