@@ -1,6 +1,11 @@
 # 更新日志
 
 ## 2025年6月23日 更新
+镜像版本：dothebetter/it-tools-zh:20250708
+1. 更新上游仓库commits版本7527853。
+	- 新增工具：Citation Generator、ANSI Escape Tester、Cli command editor、HTML Minifier、Json Query
+
+## 2025年6月23日 更新
 镜像版本：dothebetter/it-tools-zh:20250623
 1. 更新上游仓库commits版本a12c43b。
 	- 新增工具：图像水印
