@@ -1,6 +1,11 @@
 # 更新日志
 
 ## 2025年7月7日 更新
+镜像版本：dothebetter/aria2:1.37.0-20250722
+1. 升级Filebrowser版本为v2.40.2
+2. 升级AriaNg版本为1.3.11
+
+## 2025年7月7日 更新
 镜像版本：dothebetter/aria2:1.37.0-20250707
 1. 升级Filebrowser版本为v2.36.3
 
