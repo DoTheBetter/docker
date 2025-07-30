@@ -1,6 +1,12 @@
 # 更新日志
 
-## 2025年6月23日 更新
+## 2025年7月30日 更新
+镜像版本：dothebetter/it-tools-zh:20250730
+1. 更新上游仓库commits版本6cbfa60，release版本2025.07.20-3ccbd853。
+	- 新增工具：Swagger UI Tester、Compose to Quadlets、JSON Merger、JSON Flattener/Unflattener、Levenshtein Distance Calculator
+2. 使用上游仓库的中文翻译，该翻译已非常完整。
+
+## 2025年7月08日 更新
 镜像版本：dothebetter/it-tools-zh:20250708
 1. 更新上游仓库commits版本7527853。
 	- 新增工具：Citation Generator、ANSI Escape Tester、Cli command editor、HTML Minifier、Json Query
