@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2025年8月7日 更新
+镜像版本：dothebetter/it-tools-zh:20250807
+1. 更新上游仓库commits版本11e2ac8，release版本2025.08.06-0325b117。
+
 ## 2025年7月30日 更新
 镜像版本：dothebetter/it-tools-zh:20250730
 1. 更新上游仓库commits版本6cbfa60，release版本2025.07.20-3ccbd853。
