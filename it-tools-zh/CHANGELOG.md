@@ -1,5 +1,49 @@
 # 更新日志
 
+## 2025年9月29日 更新
+镜像版本：dothebetter/it-tools-zh:20250929
+1. 更新上游仓库commits版本116ee92，release版本2025.08.31-13b8f041。
+2. 自翻译新增模块页面。
+3. 新增模块：
+    1. 图像处理工具 (4个)
+		- Image Color Inverter - 图像颜色反转工具
+		- Favicon Generator - Favicon生成器
+		- Image Comparer - 图像比较器
+		- OCR Image - 图像OCR识别
+     2. 网络和安全工具 (5个)
+        - DNSBL Checker - DNS黑名单检查器
+        - Wireguard Config Generator - Wireguard配置生成器
+        - Dns Queries - DNS查询工具
+        - My IP - IP地址查询
+        - Port Numbers - 端口号查询
+    3. 开发工具 (8个)
+        - SQL Parameters Generator - SQL参数生成器
+        - Env Variables Converter - 环境变量转换器
+        - GPT Token Encoder/Decoder - GPT令牌编码器/解码器
+        - Charset Detector/Decoder - 字符集检测器/解码器
+        - Markdown to DOCX - Markdown转DOCX
+        - Text Translator - 文本翻译器
+        - Django Secret Key generator - Django密钥生成器
+        - Sed Command Generator + Cheatsheet - Sed命令生成器和备忘单
+    4. 数据转换工具 (6个)
+        - JSON to Data - JSON转数据
+        - TOML Linter - TOML语法检查器
+        - XML Linter - XML语法检查器
+        - Markdown Table Prettifier - Markdown表格美化器
+        - Unicode to GSM7 - Unicode转GSM7编码
+        - Properties Converter - 属性文件转换器
+    5. 计算和转换工具 (9个)
+        - Which Day Calculator - 日期计算器
+        - Random Numbers Generator - 随机数生成器
+        - Middle Endian Converter - 中间字节序转换器
+        - zxcvbn Password Strength - 密码强度分析器
+        - Mailto Generator - 邮件链接生成器
+        - Social Link Sharer - 社交链接分享器
+        - Resistor Data Calculator - 电阻数据计算器
+        - RAID Reliability Calculator/MTTDL - RAID可靠性计算器
+        - Font Comparer - 字体比较器
+
+
 ## 2025年8月7日 更新
 镜像版本：dothebetter/it-tools-zh:20250807
 1. 更新上游仓库commits版本11e2ac8，release版本2025.08.06-0325b117。
