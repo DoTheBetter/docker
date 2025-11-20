@@ -101,6 +101,7 @@ jobs:
           get_image_info "ghcr.io/dothebetter/nut-netserver"
           get_image_info "ghcr.io/dothebetter/aria2"
           get_image_info "ghcr.io/dothebetter/it-tools-zh"
+          get_image_info "ghcr.io/dothebetter/net-mssql"
 
       - name: Display Output File Content
         shell: bash
