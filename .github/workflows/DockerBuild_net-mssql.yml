@@ -99,7 +99,7 @@ jobs:
       - name: Upload Trivy report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: trivy-security-report-${{ env.NET_MSSQL_VER }}
+          name: trivy-security-report_net-mssql[${{ env.NET_MSSQL_VER }}]
           path: trivy-report/
           retention-days: 7
 
