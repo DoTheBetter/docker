@@ -1,0 +1,18 @@
+#!/command/with-contenv bash
+
+echo "+正在启动 .NET 应用程序..."
+
+# 检查应用程序是否存在
+APP_PATH="/data/app/${DOTNET_INDEX_NAME}"
+if [ ! -f "${APP_PATH}" ]; then
+    echo "错误: 应用程序文件 ${APP_PATH} 不存在"
+    s6-svc -Od .
+    exit 0
+fi
+
+# 切换到应用程序目录
+cd /data/app
+# 启动.NET应用程序
+exec s6-setuidgid dotnetuser sh -c '
+  exec dotnet "${DOTNET_INDEX_NAME}" 2>&1 | stdbuf -oL sed "s/^/[.NET] /"
+'

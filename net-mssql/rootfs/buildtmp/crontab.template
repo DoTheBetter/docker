@@ -1,0 +1,4 @@
+# 数据库定时备份任务
+# 使用环境变量 CRON_SCHEDULE 设置执行时间
+
+${CRON_SCHEDULE} /bin/bash -c "source /buildtmp/cron.env && /buildtmp/backup-db.sh 2>&1 | stdbuf -oL sed 's/^/[CRON] /' >> /proc/1/fd/1"

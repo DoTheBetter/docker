@@ -1,0 +1,9 @@
+#!/command/with-contenv bash
+
+if [ "${ENABLE_CRON}" = "true" ]; then
+    echo "+正在启动 Cron 服务..." 
+    exec cron -f -L /dev/stdout
+else
+    s6-svc -Od .
+    exit 0
+fi

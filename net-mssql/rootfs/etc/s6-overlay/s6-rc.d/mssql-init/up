@@ -1,0 +1,3 @@
+#!/command/execlineb
+
+/etc/s6-overlay/s6-rc.d/mssql-init/mssql-init.sh

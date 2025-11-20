@@ -1,0 +1,9 @@
+#!/command/with-contenv bash
+
+echo "+正在启动 MSSQL 服务..."
+
+#exec s6-setuidgid mssql sqlservr 2>&1 | awk '{print "[MSSQL] " $0}'
+
+exec s6-setuidgid mssql sh -c '
+  exec sqlservr 2>&1 | stdbuf -oL sed "s/^/[MSSQL] /"
+'

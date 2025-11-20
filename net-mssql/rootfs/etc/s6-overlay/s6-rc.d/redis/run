@@ -1,0 +1,14 @@
+#!/command/with-contenv bash
+
+#exec s6-setuidgid redis sh -c '
+#  exec redis-server /data/redis/redis.conf 2>&1 | awk "{
+#    print \"[Redis] \" \$0
+#    fflush()
+#  }"
+#'
+
+echo "+正在启动 Redis 服务..."
+
+exec s6-setuidgid redis sh -c '
+  exec redis-server /data/redis/redis.conf --daemonize no 2>&1 | stdbuf -oL sed "s/^/[Redis] /"
+'
