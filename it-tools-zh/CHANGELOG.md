@@ -1,5 +1,29 @@
 # 更新日志
 
+## 2025年11月21日 更新
+镜像版本：dothebetter/it-tools-zh:20251121
+1. 更新上游仓库commits版本c7d77e1，release版本2025.10.19。
+2. 自翻译部分新增模块页面。
+3. 新增工具：（9个）
+    - Binary Calculator (二进制计算器)
+    - EMV TLV Parser (EMV TLV 解析器)
+    - ETH Transaction Decoder (以太坊交易解码器)
+    - JSON Message Pack (JSON MessagePack)
+    - File Splitter (文件分割器，支持 json, txt, xml)
+    - Serial Terminal (串行终端)
+    - Docker Compose to .env file (Docker Compose 转 .env 文件)
+    - Keycode Info (键码信息)
+    - I or L checker (I 或 L 检查器)
+4. 有变动的工具（6个）
+    - Many Units Converter (单位换算器)：添加了对其他单位转换的引用
+    - JSON Linter (JSON 格式检查器)：添加了可复制的格式化 JSON 功能
+    - Chmod Calculator (chmod 计算器)：添加了速查表功能
+    - Image Formats Converter (图像格式转换器)：添加了 SVG 关键词支持
+    - Base64 File Converter (Base64 文件转换器)：添加了粘贴图片功能
+    - Data Storage Converter (数据存储转换器)：使 1.00 的精度为偶数
+5. 移除的工具
+    - Credit Card Generator (信用卡生成器)：因使用可能被滥用而移除(Nov 8, 2025)
+
 ## 2025年9月29日 更新
 镜像版本：dothebetter/it-tools-zh:20250929
 1. 更新上游仓库commits版本116ee92，release版本2025.08.31-13b8f041。
