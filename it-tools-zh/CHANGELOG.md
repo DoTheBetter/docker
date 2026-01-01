@@ -1,6 +1,50 @@
 # 更新日志
+## 2026年1月1日 更新
+镜像版本：dothebetter/it-tools-zh:20260101
+1. 更新上游仓库commits版本c24f94c，release版本2025.12.7。
+2. 新增工具（14个）
+    - Amortization Calculator (分期付款计算器) ：金融类工具，用于计算分期付款
+    - Trigonometric/Equation Curve Visualizer (三角函数/方程曲线可视化) ：数学类工具，可视化三角函数或方程曲线
+    - SVG Previewer (SVG 预览器) ：图像类工具，预览 SVG 文件
+    - Argon2 Hasher (Argon2 哈希器) ：加密类工具，生成 Argon2 哈希
+    - GitIgnore Generator (GitIgnore 生成器) ：开发类工具，生成 .gitignore 文件
+    - IP Subnets Lister (IP 子网列表器) ：网络类工具，列出 IP 子网信息
+    - Shamir's Secret Sharing (Shamir 秘密共享) ：加密类工具，实现秘密共享算法
+    - Short Urls Expander (短链接展开器) ：取证类工具，展开短链接
+    - Markdown Lorem Ipsum Generator (Markdown Lorem Ipsum 生成器) ：Markdown 类工具，生成占位文本
+    - CSS Units Converter (CSS 单位转换器) ：Web 类工具，转换 CSS 单位
+    - CSS Gradient Generator (CSS 渐变生成器) ：Web 类工具，生成 CSS 渐变
+    - PDF Compressor (PDF 压缩器) ：PDF 类工具，压缩 PDF 文件
+    - Screen Command Cheatsheet (Screen 命令速查表) ：速查表类工具，Screen 命令备忘
+    - Tmux Command Cheatsheet (Tmux 命令速查表) ：速查表类工具，Tmux 命令备忘
+3. 有变动的工具（10个）
+    - Docker Compose to Docker Run (Docker Compose 转 Docker Run) ：添加多行选项支持
+    - Case Converter (大小写转换器) ：添加 title、sponge 和 swap case 转换模式
+    - Git Semantic Commit Memo (Git 语义提交备忘录) ：增强版本功能
+    - JSON Editor (JSON 编辑器) ：添加修复和 schema 验证功能
+    - Docker Compose to Env File (Docker Compose 转 Env 文件) ：国际化改进
+    - Url Parser (URL 解析器) ：为包含 xxx:// 的 URL 参数添加打开 URL 按钮
+    - JSON Viewer (JSON 查看器) ：添加修复搜索关键词功能
+    - JSON Linter (JSON 语法检查器) ：添加自动修复选项
+    - Lorem Ipsum Generators (Lorem Ipsum 生成器) ：添加打印到 PDF 按钮
+    - Unicode Search (Unicode 搜索) ：添加使用 Unicode 字符进行搜索的能力
+
+## 2025年11月24日 更新
+镜像版本：dothebetter/it-tools-zh:20251124
+1. 更新上游仓库commits版本6af606b，release版本2025.10.19。
+2. 自翻译部分新增模块页面。
+3. 新增工具：（1个）
+    - JSON to TOON & TOON to JSON (JSON 与 TOON 互转工具)：支持双向数据格式转换
+4. 有变动的工具（4个）
+    - Docker Compose to Docker Run (Docker Compose 转 Docker Run)：添加多行选项支持
+    - JWT Generator (JWT 生成器)：支持粘贴现有 Token 编辑；新增密钥编码处理（Base64/Hex 数组/文本）
+    - JWT Parser (JWT 解析器)：支持密钥编码格式（文本/Hex 数组/Base64）
+    - CRC Calculator (CRC 校验计算器)：修复输入文本监视器逻辑错误
+
+
 
 ## 2025年11月21日 更新
+
 镜像版本：dothebetter/it-tools-zh:20251121
 1. 更新上游仓库commits版本c7d77e1，release版本2025.10.19。
 2. 自翻译部分新增模块页面。
