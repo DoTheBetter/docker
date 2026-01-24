@@ -1,0 +1,11 @@
+#!/command/with-contenv sh
+
+if [ ! -f /app/banban ]; then
+    echo "错误：/app/banban 文件不存在，请检查部署配置"
+    s6-svc -Od .
+    exit 0
+else
+    echo "+正在启动 斑斑低代码 服务..."  
+    cd /app
+    exec s6-setuidgid banban-user ./banban
+fi

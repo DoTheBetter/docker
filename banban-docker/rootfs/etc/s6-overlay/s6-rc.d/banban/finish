@@ -1,0 +1,2 @@
+#!/command/with-contenv sh
+echo "-正在停止 斑斑低代码 服务..."
