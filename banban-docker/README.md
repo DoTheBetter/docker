@@ -14,7 +14,7 @@
 
 自用斑斑低代码系统 Docker 镜像，基于 Debian Stable Slim 构建，仅支持 amd64 架构。使用非root用户运行，集成 S6-overlay 进程管理框架，提供完整的系统初始化和权限管理功能。
 
-项目地址：https://github.com/DoTheBetter/docker
+项目地址：https://github.com/DoTheBetter/docker/tree/master/banban-docker
 
 #### 官网地址
 
