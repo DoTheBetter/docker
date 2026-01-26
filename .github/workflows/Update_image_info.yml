@@ -91,17 +91,20 @@ jobs:
         run: |
           # 加载函数定义并执行
           source /tmp/image_info.sh
-          get_image_info "ghcr.io/dothebetter/rsync"
+          get_image_info "ghcr.io/dothebetter/aria2"
+          get_image_info "ghcr.io/dothebetter/banban-docker"
           get_image_info "ghcr.io/dothebetter/caddy2"
-          get_image_info "ghcr.io/dothebetter/kms"
+          get_image_info "ghcr.io/dothebetter/composerize"
           get_image_info "ghcr.io/dothebetter/hello-world"
+          get_image_info "ghcr.io/dothebetter/it-tools-zh"
+          get_image_info "ghcr.io/dothebetter/kms"
+          get_image_info "ghcr.io/dothebetter/net-mssql"
+          get_image_info "ghcr.io/dothebetter/nut-netserver"          
+          get_image_info "ghcr.io/dothebetter/rsync"
           get_image_info "ghcr.io/dothebetter/zerotier-client"
           get_image_info "ghcr.io/dothebetter/zerotier-moon"
-          get_image_info "ghcr.io/dothebetter/composerize"
-          get_image_info "ghcr.io/dothebetter/nut-netserver"
-          get_image_info "ghcr.io/dothebetter/aria2"
-          get_image_info "ghcr.io/dothebetter/it-tools-zh"
-          get_image_info "ghcr.io/dothebetter/net-mssql"
+
+
 
       - name: Display Output File Content
         shell: bash
