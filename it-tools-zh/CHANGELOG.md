@@ -1,4 +1,59 @@
 # 更新日志
+## 2026年3月24日 更新
+镜像版本：dothebetter/it-tools-zh:20260324
+1. 升级基础镜像alpine版本为3.23。
+2. 更新S6版本为3.2.2.0。
+3. 更新上游仓库commits版本d378400，release版本2026.1.4。
+4. 新增工具（39个）
+    - GIF to MP4 ：媒体类工具，转换 GIF 动画为 MP4 视频
+    - Visual Subnet Calculator ：网络类工具，可视化子网计算器
+    - Jasypt Encryption ：加密类工具，Java 加密扩展工具
+    - Remove Image Background ：图像类工具，移除图片背景
+    - PGP File Encrypt/Decrypt ：加密类工具，PGP 文件加密/解密
+    - Kubernetes RBAC Policies Generator ：K8s 类工具，Kubernetes RBAC 策略生成器
+    - Docker Labels Pangolin Converter ：Docker 类工具，Docker 标签转换器
+    - Calendar Converter (World and computers) ：时间类工具，日历转换器（世界与计算机）
+    - Zalgo Generator/Cleaner ：文本类工具，Zalgo 文本生成/清理
+    - Bech32 tools ：加密类工具，Bech32 编码工具
+    - ISO-639 Language Searcher ：语言类工具，ISO-639 语言代码搜索器
+    - Docker Image Downloader ：Docker 类工具，Docker 镜像下载器
+    - EPUB to Markdown ：文档类工具，EPUB 转 Markdown
+    - Tabs to spaces ：代码类工具，Tab 转空格
+    - Markdown to plain text ：Markdown 类工具，Markdown 转纯文本
+    - Explain Shell ：速查表类工具，Shell 命令解释
+    - RSVP Reader ：邮件类工具，RSVP 邀请回复阅读器
+    - Volume Flow Rate Converter ：单位转换类工具，体积流量转换器
+    - Frequency Converter ：单位转换类工具，频率转换器
+    - Acceleration Converter ：单位转换类工具，加速度转换器
+    - Speed Converter ：单位转换类工具，速度转换器
+    - TCP/UDP Tester ：网络类工具，TCP/UDP 端口测试器
+    - RJ45 memo ：网络类工具，RJ45 网线标准备忘
+    - SI Prefixes Converter ：单位转换类工具，SI 前缀转换器
+    - Geo Coords Converter ：地理类工具，地理坐标转换器
+    - Wiktionary Search ：词典类工具，在线维基词典搜索
+    - HTML to XHTML ：Web 类工具，HTML 转 XHTML
+    - JavaScript Obfuscator ：代码类工具，JavaScript 混淆器
+    - Database Table Generator ：数据库类工具，数据库表生成器
+    - Database Creation Generator ：数据库类工具，数据库创建生成器
+    - PTR/ARPA generator/decoder ：网络类工具，PTR/ARPA 地址生成/解码
+    - Gitattributes Generator ：Git 类工具，.gitattributes 文件生成器
+    - Zellij Cheatsheet ：速查表类工具，Zellij 终端复用器备忘
+    - Fitness Calculator + Food Energy Converter ：健康类工具，健身计算器 + 食物能量转换器
+    - Shell Commands Formatter and Linearizer ：Shell 类工具，Shell 命令格式化和线性化
+    - ObjGen JSON and HTML ：代码生成类工具，JSON 和 HTML 对象生成器
+5. 有变动的工具（10个）
+    - JSON Viewer (JSON 查看器) ：添加了 unescape JSON string 功能，处理大浮点数，修复 JSON Schema 验证
+    - JSON Linter (JSON 语法检查器) ：处理大浮点数，修复 JSON 解析错误
+    - Lorem Ipsum Generators (Lorem Ipsum 生成器) ：添加下载按钮功能
+    - Unicode Search (Unicode 搜索) ：侧边栏滚动逻辑改进
+    - Docker Compose to Docker Run
+    - Case Converter (大小写转换器)
+    - Git Semantic Commit Memo (Git 语义提交备忘录)
+    - Docker Compose to Env File (Docker Compose 转 Env 文件) ：添加下载按钮功能
+    - Url Parser (URL 解析器) 
+    - Text Diff (文本差异对比) ：添加处理尾部空白选项
+
+
 ## 2026年1月1日 更新
 镜像版本：dothebetter/it-tools-zh:20260101
 1. 更新上游仓库commits版本c24f94c，release版本2025.12.7。
