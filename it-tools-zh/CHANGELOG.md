@@ -1,4 +1,32 @@
 # 更新日志
+## 2026年6月2日 更新
+镜像版本：dothebetter/it-tools-zh:202600602
+1. 更新上游仓库commits版本102bb99，release版本2026.1.4。
+2. 新增工具（10个）
+    - HTTPS Tester ：网络类工具，测试 HTTPS 连接
+    - Powershell Memo ：速查表类工具，Powershell 命令备忘
+    - DNS Propagation Tester ：网络类工具，测试 DNS 传播
+    - DNS Tester ：网络类工具，测试 DNS 解析
+    - Random Line Picker ：文本类工具，随机选择文本行
+    - JSON to .env converter ：配置类工具，JSON 转 .env 文件
+    - URL/HTML to PDF ：文档类工具，URL/HTML 转 PDF
+    - Shutdown Command Generator ：系统类工具，生成关机命令
+    - GIF to MP4 ：媒体类工具，GIF 转 MP4 视频
+    - Tip Calculator and Bill Splitter ：数学类工具，小费计算器和账单分摊工具
+3. 有变动的工具（12个）
+    - Data Storage Units Converter (数据存储单位转换器) ：修复 b/iB/B 转换问题
+    - Speed Converter (速度转换器) ：修复 m/h 实际上是 mi/h (英里) 的问题
+    - Amortization Calculator (分期付款计算器) ：排除历史货币
+    - x509 Certificate Generator (x509 证书生成器) ：添加 RSA 位数选项
+    - Geo Coordinates Converter (地理坐标转换器) ：修复标记显示，添加 DMS/Decimal/UTM 和交互式地图
+    - Pdf Signature Checker (PDF 签名检查器) ：修复不支持的证书问题
+    - UUID Generator (UUID 生成器) ：添加大小写和连字符选项
+    - Database Connection String Builder (数据库连接字符串构建器) ：显示主机/端口
+    - Visual Subnet Calculator (可视化子网计算器) ：更新 JavaScript
+    - Base64 File Converter (Base64 文件转换器) ：添加不输出 data uri 前缀选项，修复 data uri 前缀问题
+    - Passphrase Generator (密码短语生成器) ：添加密码短语最小长度
+    - Git Memo (Git 备忘录) ：扩展额外的命令和部分
+
 ## 2026年3月24日 更新
 镜像版本：dothebetter/it-tools-zh:20260324
 1. 升级基础镜像alpine版本为3.23。
