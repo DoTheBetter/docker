@@ -52,7 +52,7 @@
 
 ## 部署方法：
 
-> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用时可使用ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 
 ### Docker Run
   ```bash
@@ -65,14 +65,18 @@
   	-e IPV4_ADDRESS=1.2.3.4 \ #moon主机的公网ipv4地址
   	-p 9993:9993/udp \
   	-v /docker/zerotier-moon:/var/lib/zerotier-one \
-  	dothebetter/zerotier-moon:latest #ghcr.io/dothebetter/zerotier-moon:latest
+  	dothebetter/zerotier-moon:latest
+  	#ghcr.io/dothebetter/zerotier-moon:latest
+  	#registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-moon:latest
   ```
 ### docker-compose.yml
 ```yml
 version: '3'
 services:
   zerotier-moon:
-    image: dothebetter/zerotier-moon:latest #ghcr.io/dothebetter/zerotier-moon:latest
+    image: dothebetter/zerotier-moon:latest
+	#ghcr.io/dothebetter/zerotier-moon:latest
+	#registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-moon:latest
     container_name: zerotier-moon
     restart: always
     cap_add:

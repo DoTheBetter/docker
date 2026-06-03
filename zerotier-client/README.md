@@ -77,7 +77,7 @@ sysctl -p
 
 ## 部署方法：
 
-> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用时可使用ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 
 ### Docker Run
   ```bash
@@ -93,7 +93,9 @@ sysctl -p
   	-e GATEWAY_MODE=true \
   	-e ZEROTIER_ONE_NETWORK_IDS=1234567890 \
   	-v /docker/zerotier-client:/var/lib/zerotier-one \
-  	dothebetter/zerotier-client:latest  #ghcr.io/dothebetter/zerotier-client:latest
+  	dothebetter/zerotier-client:latest
+  	#ghcr.io/dothebetter/zerotier-client:latest
+  	#registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-client:latest
   ```
 ### docker-compose.yml
 ```yml
@@ -101,7 +103,9 @@ sysctl -p
 version: '3'
 services:
   zerotier-client:
-    image: dothebetter/zerotier-client:latest #ghcr.io/dothebetter/zerotier-client:latest
+    image: dothebetter/zerotier-client:latest
+	#ghcr.io/dothebetter/zerotier-client:latest
+	#registry.cn-hangzhou.aliyuncs.com/dothebetter/zerotier-client:latest
     container_name: zerotier-client
     restart: always
     network_mode: host

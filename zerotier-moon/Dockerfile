@@ -1,10 +1,11 @@
-ARG ZeroTierOne_VER=1.14.2
+ARG ZeroTierOne_VER=1.16.2
 
-FROM ghcr.io/dothebetter/baseimage_zerotier:latest AS builder
+FROM ghcr.io/dothebetter/baseimage_zerotier:${ZeroTierOne_VER}  AS builder
 
-FROM alpine:3.20
 
-ARG S6_VER=3.2.0.0
+FROM alpine:3.23
+ARG S6_VER=3.2.2.0
+
 ENV TZ=Asia/Shanghai \
     MOON_PORT=9993 \
     IPV4_ADDRESS= \
