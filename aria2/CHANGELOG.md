@@ -1,4 +1,11 @@
 # 更新日志
+## 2026年6月12日 更新
+镜像版本：dothebetter/aria2:1.37.0-202606012
+1. 改用Filebrowser Quantum，版本为v1.3.3-stable
+2. 改用AriaNG增强版
+3. 升级Alpine版本为3.24
+4. 升级s6-overlay版本为3.2.3.0
+5. 升级1.37.0 aria2c版本二进制文件依赖为最新版本
 
 ## 2025年7月7日 更新
 镜像版本：dothebetter/aria2:1.37.0-20250722

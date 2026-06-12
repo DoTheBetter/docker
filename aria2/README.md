@@ -16,16 +16,16 @@
 + 使用基于 [myfreeer/aria2-build-msys2](https://github.com/myfreeer/aria2-build-msys2) 补丁构建的全静态多构架 [aria2c](https://github.com/DoTheBetter/aria2_build) 二进制文件
 + 使用 [P3TERX/aria2.conf](https://github.com/P3TERX/aria2.conf) 配置方案，包含了配置文件、附加功能脚本等文件，用于实现 Aria2 功能的增强和扩展
 + 定时更新aria2 格式的 Tracker 列表，aria2 配置文件更新后自动重启 aria2c
-+ AriaNg访问地址：http://ip:8080
-+ FileBrowser访问地址：http://ip:8081 ，使用admin/admin登录
++ AriaNG增强版 访问地址：http://ip:8080
++ FileBrowser Quantum访问地址：http://ip:8081 ，使用admin/admin登录
 
 项目地址：https://github.com/DoTheBetter/docker/tree/master/aria2
 
 #### 官网地址
 
 - https://github.com/aria2/aria2
-- https://github.com/mayswind/AriaNg
-- https://github.com/filebrowser/filebrowser
+- https://github.com/alexhua/Aria2-Explorer
+- https://github.com/gtsteffaniak/filebrowser
 
 ## 相关参数：
 
@@ -46,8 +46,8 @@
 |`ENABLE_IPV6`|可选|`false`|启用IPv6支持，`true`：启用，`false`：禁用。开启时建议使用docker镜像的网络host模式|
 |     `ENABLE_ARIANG`     |   可选   |     `true`      |       启用AriaNg管理界面，`true`：启用，`false`：禁用        |
 |  `ENABLE_FILEBROWSER`   |   可选   |     `true`      |    启用FileBrowser文件管理器，`true`：启用，`false`：禁用    |
-| `HTTP_PORT` |   可选   |     `8080`  |    AriaNg Web界面访问端口    |
-| `FILEBROWSER_PORT` |   可选   |     `8081`  |    FileBrowser文件管理器访问端口    |
+| `HTTP_PORT` |   可选   |     `8080`  |    AriaNG增强版  Web界面访问端口    |
+| `FILEBROWSER_PORT` |   可选   |     `8081`  |    FileBrowser Quantum文件管理器访问端口    |
 
 #### 开放的端口
 
@@ -63,10 +63,10 @@
 
 下面的目录用于配置，并且可以映射为持久存储。
 
-|    文件或目录     |                 描述                 |
-| :---------------: | :----------------------------------: |
-|  `/aria2/config`  | 用于存储aria2和FileBrowser的配置文件 |
-| `/aria2/download` |       用于存储aria2下载的文件        |
+|    文件或目录     |                     描述                     |
+| :---------------: | :------------------------------------------: |
+|  `/aria2/config`  | 用于存储aria2和FileBrowser Quantum的配置文件 |
+| `/aria2/download` |           用于存储aria2下载的文件            |
 
 ## 部署方法：
 

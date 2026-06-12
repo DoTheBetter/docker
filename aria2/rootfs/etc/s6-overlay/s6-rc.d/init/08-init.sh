@@ -118,18 +118,26 @@ modify_config "${SCRIPT_DIR}/core" "SCRIPT_CONF" "${SCRIPT_CONF}"
 
 echo "3.配置FileBrowser"
 if [ "${ENABLE_FILEBROWSER}" = "true" ]; then
-    echo "→修改filebrowser.json"
-    FILEBROWSER_CONF="${ARIA2_CONF_DIR}/filebrowser.json"
+    echo "→修改FileBrowser Quantum配置文件"
+    FILEBROWSER_CONF="${ARIA2_CONF_DIR}/filebrowser_quantum_config.yaml"
     if [ ! -f "${FILEBROWSER_CONF}" ]; then
-      cp "/aria2/filebrowser_config.json" "${FILEBROWSER_CONF}"
+      cp "/aria2/filebrowser_quantum_config.yaml" "${FILEBROWSER_CONF}"
+    fi
+
+    # 创建缓存目录
+    CACHE_DIR="${ARIA2_CONF_DIR}/filebrowser_quantum_cache"
+    if [ ! -d "${CACHE_DIR}" ]; then
+      mkdir -p "${CACHE_DIR}"
+      echo "→创建缓存目录: ${CACHE_DIR}"
     fi
 
     # 替换配置文件中的路径
-    sed -i "s|[[:space:]]*\"port\":[[:space:]]*[0-9]*|  \"port\": ${FILEBROWSER_PORT}|" "${FILEBROWSER_CONF}"
-    sed -i "s|[[:space:]]*\"database\":[[:space:]]*\"[^\"]*\"|  \"database\": \"${ARIA2_CONF_DIR}/filebrowser.db\"|" "${FILEBROWSER_CONF}"
-    sed -i "s|[[:space:]]*\"root\":[[:space:]]*\"[^\"]*\"|  \"root\": \"${DOWNLOAD_DIR}\"|" "${FILEBROWSER_CONF}"
+    sed -i "s|^[[:space:]]*port:[[:space:]]*[0-9]*|  port: ${FILEBROWSER_PORT}|" "${FILEBROWSER_CONF}"
+    sed -i "s|^[[:space:]]*database:[[:space:]]*\"[^\"]*\"|  database: \"${ARIA2_CONF_DIR}/filebrowser_quantum.db\"|" "${FILEBROWSER_CONF}"
+    sed -i "s|^[[:space:]]*cacheDir:[[:space:]]*\"[^\"]*\"|  cacheDir: \"${CACHE_DIR}\"|" "${FILEBROWSER_CONF}"
+    sed -i "s|^[[:space:]]*- path:[[:space:]]*\"[^\"]*\"|    - path: \"${DOWNLOAD_DIR}\"|" "${FILEBROWSER_CONF}"
 else
-    echo "→filebrowser服务已禁用"
+    echo "→FileBrowser Quantum服务已禁用"
 fi
 
 echo "4.修改文件夹权限"
@@ -140,7 +148,9 @@ usermod -o -u "$UID" download
 # 检查配置目录权限
 chown -R download:download "${ARIA2_CONF_DIR}"
 chmod 755 "${ARIA2_CONF_DIR}"
-chmod -R 600 "${ARIA2_CONF_DIR}"/*
+# 设置目录权限为 755，文件权限为 600
+find "${ARIA2_CONF_DIR}" -type d -exec chmod 755 {} \;
+find "${ARIA2_CONF_DIR}" -type f -exec chmod 600 {} \;
 
 # 检查下载目录权限
 chown -R download:download "${DOWNLOAD_DIR}"

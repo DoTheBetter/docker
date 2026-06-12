@@ -1,11 +1,11 @@
-ARG ARIA2_DOCKER_VER=1.37.0-20250722
+ARG ARIA2_DOCKER_VER=1.37.0-202606012
 
-FROM alpine:3.22
+FROM alpine:3.24
 
 ARG ARIA2_VER=1.37.0
-ARG AriaNg_VER=1.3.11
-ARG FileBrowser_VER=2.40.2
-ARG S6_VER=3.2.1.0
+#ARG AriaNg_VER=1.3.11
+ARG FileBrowser_VER=1.3.3
+ARG S6_VER=3.2.3.0
 
 ENV PATH="/aria2/bin:${PATH}" \
     S6_VERBOSITY=1 \
@@ -22,15 +22,17 @@ ENV PATH="/aria2/bin:${PATH}" \
     ENABLE_ARIANG=true \
     ENABLE_FILEBROWSER=true \
     HTTP_PORT=8080 \
-    FILEBROWSER_PORT=8081
+    FILEBROWSER_PORT=8081 \
+    FILEBROWSER_FFMPEG_PATH="/usr/bin/ffmpeg" \
+    FILEBROWSER_DATABASE="/aria2/config/filebrowser_quantum.db"
 
 COPY --chmod=755 rootfs /
 
 RUN apk add --no-cache \
-    bash curl ca-certificates tzdata findutils jq mailcap shadow darkhttpd \
-    && if [ "$(uname -m)" = "x86_64" ]; then s6_arch=x86_64; aria2_arch=x86_64-linux-musl; filemanager_arch=amd64; \
-    elif [ "$(uname -m)" = "aarch64" ]; then s6_arch=aarch64; aria2_arch=aarch64-linux-musl; filemanager_arch=arm64; \
-    elif [ "$(uname -m)" = "armv7l" ]; then s6_arch=arm; aria2_arch=arm-linux-musleabi; filemanager_arch=armv7; \
+    bash curl ca-certificates tzdata findutils jq mailcap shadow ffmpeg darkhttpd \
+    && if [ "$(uname -m)" = "x86_64" ]; then s6_arch=x86_64; aria2_arch=x86_64-linux-musl; filebrowser_quantum_arch=amd64; \
+    elif [ "$(uname -m)" = "aarch64" ]; then s6_arch=aarch64; aria2_arch=aarch64-linux-musl; filebrowser_quantum_arch=arm64; \
+    elif [ "$(uname -m)" = "armv7l" ]; then s6_arch=arm; aria2_arch=armv7-linux-musleabihf; filebrowser_quantum_arch=armv7; \
     fi \
 # 安装s6-overlay
     && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-noarch.tar.xz \
@@ -39,17 +41,18 @@ RUN apk add --no-cache \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
 # 安装aria2
     && mkdir -p /aria2/bin \
-    && wget -P /tmp https://github.com/DoTheBetter/aria2_build/releases/download/v${ARIA2_VER}/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
+    && wget -P /tmp https://github.com/DoTheBetter/aria2_build/releases/download/${ARIA2_VER}/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
     && unzip /tmp/aria2-${ARIA2_VER}-${aria2_arch}_static.zip -d /aria2/bin \
     && chmod +x /aria2/bin/aria2c \
     && aria2c --version \
-# 安装AriaNg
+# 安装Aria2-Explorer的AriaNG增强版 
     && mkdir -p /aria2/www \
-    && wget -P /tmp https://github.com/mayswind/AriaNg/releases/download/${AriaNg_VER}/AriaNg-${AriaNg_VER}.zip \
-    && unzip /tmp/AriaNg-${AriaNg_VER}.zip -d /aria2/www \
-# 安装filebrowser
-    && wget -P /tmp https://github.com/filebrowser/filebrowser/releases/download/v${FileBrowser_VER}/linux-${filemanager_arch}-filebrowser.tar.gz \
-    && tar -C /aria2/bin -xzf "/tmp/linux-${filemanager_arch}-filebrowser.tar.gz" "filebrowser" \
+    && wget -P /tmp https://github.com/alexhua/Aria2-Explorer/archive/refs/heads/master.zip \
+    && mkdir -p /tmp/Aria2-Explorer \
+    && unzip /tmp/master.zip -d /tmp/Aria2-Explorer \
+    && cp -r /tmp/Aria2-Explorer/Aria2-Explorer-master/ui/ariang/* /aria2/www/ \
+# 安装FileBrowser Quantum
+    && wget -O /aria2/bin/filebrowser https://github.com/gtsteffaniak/filebrowser/releases/download/v${FileBrowser_VER}-stable/linux-${filebrowser_quantum_arch}-filebrowser \
     && chmod +x /aria2/bin/filebrowser \
     && filebrowser version \
 # 创建用户及组
