@@ -23,7 +23,6 @@ jobs:
 
           # 提取版本号
           CADDY_VER=$(grep -n "CADDY_VER=" caddy2/Dockerfile | awk -F= '{print $2}' | head -n1)
-          echo "CADDY_VER=$CADDY_VER" >> $GITHUB_ENV
 
           # 设置时区
           sudo timedatectl set-timezone "Asia/Shanghai"
@@ -78,11 +77,11 @@ jobs:
           push: true
           tags: |
             dothebetter/caddy2:latest
-            dothebetter/caddy2:${{ env.CADDY_VER }}
+            dothebetter/caddy2:${{ env.CADDY_DOCKER_VER }}
             ghcr.io/dothebetter/caddy2:latest
-            ghcr.io/dothebetter/caddy2:${{ env.CADDY_VER }}
+            ghcr.io/dothebetter/caddy2:${{ env.CADDY_DOCKER_VER }}
             registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2:latest
-            registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2:${{ env.CADDY_VER }}
+            registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2:${{ env.CADDY_DOCKER_VER }}
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v5
