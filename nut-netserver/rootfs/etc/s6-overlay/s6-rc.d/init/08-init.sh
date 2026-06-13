@@ -87,7 +87,7 @@ ups.timer.shutdown: 300   # 关机倒计时（秒）
 ups.test.interval: 604800  # 自检间隔（秒，默认7天）
 ups.test.result: OK       # 自检结果：OK（正常）, NG（异常）
 EOF
-    cat >/conf/nut/ups.conf <<EOF
+    cat >/conf/ups.conf <<EOF
 # 配置连接的 UPS 设备，指定驱动和参数
 # 可以通过 nut-scanner 命令扫描获得配置信息
 # 用法见 https://networkupstools.org/docs/man/nut-scanner.html
