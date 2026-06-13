@@ -36,7 +36,7 @@ echo "3. nut 相关设置"
 # 在 netserver 模式下，应该是要运行 upsd 作为服务器，让其他客户端可以连接到这个服务器获取 UPS 的状态
 # ups.conf 配置 UPS 设备，upsd.conf 配置服务器参数，upsd.users 设置用户权限，upsmon.conf 用于监控，nut.conf 设置运行模式等
 mkdir -p /conf
-cp -rf /nut/etc.bak/* /conf/
+cp -rf /nut/etc.bak/nut/* /conf/
 
 if [ ! -e /conf/nut.conf ]; then
     echo "→ 初始定义 NUT 运行模式为 netserver >> nut.conf"
@@ -183,19 +183,11 @@ EOF
         echo "→ 文件存在，跳过 hosts.conf 设置"
     fi
 
-    if [ ! -e /conf/upsstats.html ]; then
-        echo "→ 复制并重命名 upsstats.html.sample 为 upsstats.html"
-        cp /conf/upsstats.html.sample /conf/upsstats.html
-    else
-        echo "→ 文件 upsstats.html 已存在，跳过复制操作"
-    fi
+    echo "→ 复制并重命名 upsstats.html.sample 为 upsstats.html"
+    cp -f /conf/upsstats.html.sample /conf/upsstats.html
+    echo "→ 复制并重命名 upsstats-single.html.sample 为 upsstats-single.html"
+    cp -f /conf/upsstats-single.html.sample /conf/upsstats-single.html
 
-    if [ ! -e /conf/upsstats-single.html ]; then
-        echo "→ 复制并重命名 upsstats-single.html.sample 为 upsstats-single.html"
-        cp /conf/upsstats-single.html.sample /conf/upsstats-single.html
-    else
-        echo "→ 文件 upsstats-single.html 已存在，跳过复制操作"
-    fi
 else
     echo "→ 未设置启动 lighttpd 服务"
 fi
