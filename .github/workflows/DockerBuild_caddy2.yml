@@ -23,6 +23,7 @@ jobs:
 
           # 提取版本号
           CADDY_VER=$(grep -n "CADDY_VER=" caddy2/Dockerfile | awk -F= '{print $2}' | head -n1)
+          echo "CADDY_VER=$CADDY_VER" >> $GITHUB_ENV
 
           # 设置时区
           sudo timedatectl set-timezone "Asia/Shanghai"
