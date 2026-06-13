@@ -164,8 +164,7 @@ else
     echo "→ 文件存在，跳过 upsmon.conf 设置"
 fi
 
-rm -rf /nut/etc
-mkdir -p /nut/etc
+rm -rf /nut/etc/nut
 ln -sf /conf /nut/etc/nut
 
 echo "4. lighttpd 相关设置"
