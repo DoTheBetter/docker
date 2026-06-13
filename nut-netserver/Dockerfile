@@ -1,8 +1,8 @@
-ARG NUT_DOCKER_VER=2.8.3
+ARG NUT_DOCKER_VER=2.8.5
 
-FROM alpine:3.21 AS builder
+FROM alpine:3.24 AS builder
 
-ARG NUT_VER=2.8.3
+ARG NUT_VER=2.8.5
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base linux-headers autoconf automake \
@@ -53,8 +53,8 @@ RUN echo "/nut 目录结构：" \
     && /nut/sbin/upsmon -h \
     && /nut/sbin/upssched -h
 
-FROM alpine:3.21
-ARG S6_VER=3.2.1.0
+FROM alpine:3.24
+ARG S6_VER=3.2.3.0
 
 ENV PATH="/nut/bin:/nut/sbin:${PATH}" \
     LD_LIBRARY_PATH="/nut/lib:/usr/lib:/lib:/usr/local/lib" \

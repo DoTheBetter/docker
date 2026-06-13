@@ -1,4 +1,9 @@
 # 更新日志
+## 2026年6月13日 更新
+镜像版本：dothebetter/nut-netserver:2.8.5
+1. 更新NUT:v2.8.5
+2. 更新s6-overlay:v3.2.3.0
+3. 更新基础镜像alpine:3.24
 
 ## 2025年5月10日 更新
 镜像版本：dothebetter/nut-netserver:2.8.3
