@@ -72,7 +72,7 @@
 
 ## 部署方法：
 
-> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用时可使用ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 
 ### 1. 在源端使用时
 
