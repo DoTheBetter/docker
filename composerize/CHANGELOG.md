@@ -1,6 +1,12 @@
 # 更新日志
+## 2026年6月13日 更新
+镜像版本：dothebetter/composerize:20260613
+1. 更新composerize版本：1.7.6
+2. 更新composeverter版本：1.7.5
+3. 更新alpine版本3.24
+4. 更新s6-overlay:v3.2.3.0
 
-## 2025年5月9日 更新
+#### 2025年5月9日 更新
 镜像版本：dothebetter/composerize:20250509
 1. 更新composerize版本：1.7.2
 2. 更新s6-overlay:v3.2.1.0
