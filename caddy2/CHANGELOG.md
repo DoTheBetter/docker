@@ -1,4 +1,11 @@
 # 更新日志
+## 2026年6月13日 更新
+更新镜像版本：dothebetter/caddy2:2.11.4-20260613
+1. 更新基础镜像 alpine:3.24
+2. 更新 Caddy 版本 v2.11.4
+3. 更新 MaxMind GeoIP Update 程序至 v7.1.1
+4. 更新 s6-overlay 版本 v3.2.3.0，使用s6-overlay-v3构架
+5. 添加Caddyfile插件github.com/caddy-dns/acmedns
 
 ## 2025年1月9日 更新
 更新镜像版本：dothebetter/caddy2:2.9.1

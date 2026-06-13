@@ -2,6 +2,12 @@
 # https://caddyserver.com/docs/caddyfile
 #####################全局选项#############################
 {
+  # 日志配置（硬编码为 WARN 级别，console 格式）
+  log default {
+    output stderr
+    format console
+    level WARN
+  }
   ## 用于创建https证书ACME帐户
   #email email@example.com
   ## caddy-webdav

@@ -30,22 +30,24 @@
 | caddy-webdav                 | https://github.com/mholt/caddy-webdav               | 提供webdav服务                                               |
 | caddy-maxmind-geolocation    | https://github.com/porech/caddy-maxmind-geolocation | 根据geoip数据库 IP 地理位置过滤请求                          |
 | caddy-security               | https://github.com/greenpau/caddy-security          | 安全认证插件                                                 |
-| caddy-dns/cloudflare         | https://github.com/caddy-dns/cloudflare             | https证书签署dns认证                                         |
-| caddy-dns/dnspod             | https://github.com/caddy-dns/dnspod                 | https证书签署dns认证                                         |
+| acmedns                      | https://github.com/caddy-dns/acmedns                | 一个简化的DNS服务器，配备RESTful HTTP API，提供一种简单的方式来自动化ACME DNS-01 challenges |
 | caddy-dns/alidns             | https://github.com/caddy-dns/alidns                 | https证书签署dns认证                                         |
+| caddy-dns/tencentcloud       | https://github.com/caddy-dns/tencentcloud           | https证书签署dns认证                                         |
+| caddy-dns/huaweicloud        | https://github.com/caddy-dns/huaweicloud            | https证书签署dns认证                                         |
+| caddy-dns/cloudflare         | https://github.com/caddy-dns/cloudflare             | https证书签署dns认证                                         |
 | caddy-dns/godaddy            | https://github.com/caddy-dns/godaddy                | https证书签署dns认证                                         |
-| caddy-dns/googleclouddns     | https://github.com/caddy-dns/googleclouddns         | https证书签署dns认证                                         |
 | caddy-dns/namecheap          | https://github.com/caddy-dns/namecheap              | https证书签署dns认证                                         |
 | caddy-dns/namesilo           | https://github.com/caddy-dns/namesilo               | https证书签署dns认证                                         |
-| caddy-git                    | https://github.com/greenpau/caddy-git               | 通过在 Caddy 克隆来从 git 存储库的文件，克隆操作在启动或站点被访问时发生 |
+
 
 ## 相关参数：
 
 #### 环境变量
-下面是可用于自定义安装的可用选项的完整列表。  
+下面是可用于自定义安装的可用选项的完整列表。
 |变量名|是否必须|默认值|说明|
 | :------: | :--------: | :------: | :----: |
 |`TZ`|可选|`Asia/Shanghai`|设置时区|
+|`CADDY_DOCKER_LOG_LEVEL`|可选|`WARN`|caddy-docker-proxy 模块日志等级：`DEBUG`、`INFO`、`WARN`、`ERROR`|
 |`GEOIPUPDATE_AUTO`|可选|`false`|自动更新geoip数据库开关，`true`为开启。|
 |`GEOIPUPDATE_EDITION_IDS`|可选|`GeoLite2-Country`|geoip数据库类型：`GeoLite2-ASN`  `GeoLite2-City`  `GeoLite2-Country`。`GEOIPUPDATE_AUTO=true`时必须设置|
 |`GEOIPUPDATE_ACCOUNT_ID`|可选|无|Maxmind帐户,`GEOIPUPDATE_AUTO=true`时必须设置|
@@ -73,7 +75,7 @@
 
 ## 部署方法：
 
-> 本镜像在docker hub及ghcr.io同步推送，docker hub不能使用时可使用ghcr.io
+> 本镜像在 docker hub，ghcr.io 及 aliyuncs同步推送，docker hub 不能使用时可使用其他仓库
 
 #### Docker Run
 
@@ -96,7 +98,9 @@ docker run -d \
 	-v /var/run/docker.sock:/var/run/docker.sock:ro \
 	-v /docker/caddy2/config:/config \
 	-v /docker/caddy2/data:/data \
-	dothebetter/caddy2:latest  #ghcr.io/dothebetter/caddy2:latest
+	dothebetter/caddy2:latest
+	#ghcr.io/dothebetter/caddy2:latest
+	#registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2:latest
 ```
 
 #### docker-compose.yml
@@ -105,7 +109,9 @@ docker run -d \
 version: '3'
 services:
   caddy2:
-    image: dothebetter/caddy2:latest  #ghcr.io/dothebetter/caddy2:latest
+    image: dothebetter/caddy2:latest
+	#ghcr.io/dothebetter/caddy2:latest
+	#registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2:latest
     container_name: caddy2
     restart: always
     networks:
