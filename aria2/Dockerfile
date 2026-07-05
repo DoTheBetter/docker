@@ -1,10 +1,10 @@
-ARG ARIA2_DOCKER_VER=1.37.0-202606012
+ARG ARIA2_DOCKER_VER=1.37.0-20260705
 
 FROM alpine:3.24
 
 ARG ARIA2_VER=1.37.0
-#ARG AriaNg_VER=1.3.11
-ARG FileBrowser_VER=1.3.3
+ARG AriaNg_VER=2.8.2
+ARG FileBrowser_VER=1.4.0
 ARG S6_VER=3.2.3.0
 
 ENV PATH="/aria2/bin:${PATH}" \
@@ -41,7 +41,7 @@ RUN apk add --no-cache \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
 # 安装aria2
     && mkdir -p /aria2/bin \
-    && wget -P /tmp https://github.com/DoTheBetter/aria2_build/releases/download/${ARIA2_VER}/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
+    && wget -P /tmp https://github.com/DoTheBetter/aria2_build/releases/download/continuous/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
     && unzip /tmp/aria2-${ARIA2_VER}-${aria2_arch}_static.zip -d /aria2/bin \
     && chmod +x /aria2/bin/aria2c \
     && aria2c --version \
