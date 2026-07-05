@@ -1,4 +1,23 @@
 # 更新日志
+## 2026年7月5日 更新
+镜像版本：dothebetter/it-tools-zh:20260705
+1. 升级基础镜像alpine版本为3.24。
+2. 更新S6版本为3.2.3.0。
+3. 更新上游仓库commits版本652ac82，release版本2026.1.4。
+4. 新增工具（4个）
+    - SAML Parser ：安全类工具，解析 SAML 断言
+    - URL Builder ：开发类工具，构建 URL 地址
+    - Crop Image ：图像类工具，裁剪图片
+    - Running Pace Calculator ：健康类工具，跑步配速计算器
+5. 有变动的工具（7个）
+    - DNS Tester (DNS 测试器) ：添加 resolver dropdown（解析器下拉选择）
+    - Bash Memo (Bash 备忘录) ：添加中文翻译和增强动态加载
+    - JWT Parser (JWT 解析器) ：显示完整日期（含时区）用于日期声明
+    - Certificate Key Parser (证书密钥解析器) ：添加选项以添加缺失的 BEGIN/END
+    - Open Graph Meta Generator (Open Graph 元数据生成器) ：显示子类型（Music等）和修复缺失的翻译键
+    - Image to SVG (图像转 SVG) ：集成 esm-potrace-wasm 和 VTracer 用于彩色模式
+    - Fitness Computer (健身计算器) ：修复 BMI 计算（参数顺序错误）
+
 ## 2026年6月2日 更新
 镜像版本：dothebetter/it-tools-zh:202600602
 1. 更新上游仓库commits版本102bb99，release版本2026.1.4。
