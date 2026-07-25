@@ -1,4 +1,10 @@
 # 更新日志
+## 2026年7月25日 更新
+镜像版本：dothebetter/aria2:1.37.0-20260725
+1. 升级Filebrowser Quantum版本为v1.5.0-stable
+2. 升级s6-overlay版本为3.2.3.2
+3. 升级1.37.0 aria2c版本二进制文件依赖为最新版本
+
 ## 2026年7月5日 更新
 镜像版本：dothebetter/aria2:1.37.0-20260705
 1. 升级Filebrowser Quantum版本为v1.4.0-stable
