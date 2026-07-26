@@ -1,4 +1,36 @@
 # 更新日志
+## 2026年7月26日 更新
+镜像版本：dothebetter/it-tools-zh:20260726
+1. 更新S6版本为3.2.3.2。
+2. 更新上游仓库commits版本f1358d5，release版本2026.7.11。
+3. 新增工具（14个）
+    - Ping ：网络类工具，执行 Ping 测试
+    - Keyboard Tester ：硬件类工具，键盘按键测试
+    - Cron Expression Generator ：开发类工具，Cron 表达式生成器
+    - DNS/RDAP queries ：网络类工具，DNS/RDAP 查询
+    - CSS/JS Prettify & Minify ：Web 类工具，CSS/JS 美化与压缩
+    - Markdown Diff ：Markdown 类工具，Markdown 差异对比
+    - Markdown Preview ：Markdown 类工具，Markdown 预览
+    - Markdown Table Generator ：Markdown 类工具，Markdown 表格生成器
+    - nmap Command Builder ：网络类工具，nmap 命令构建器
+    - k6 Generator ：测试类工具，k6 性能测试脚本生成器
+    - JSON Patch Tools ：JSON 类工具，JSON Patch 操作工具
+    - Picomatch tester ：开发类工具，Picomatch 模式匹配测试
+    - Docker Label Generator ：Docker 类工具，Docker 标签生成器
+    - HTML/Markdown to data ：数据类工具，HTML/Markdown 转 data URI
+4. 有变动的工具（11个）
+    - Case Converter (大小写转换器) ：添加语言特定的 Title Case 支持，允许多行输入
+    - Color Converter (颜色转换器) ：添加 oklab/oklch 和 lab 作为 CSS 颜色格式
+    - Math OCR (数学 OCR) ：将 MathJAX 替换为 KaTeX
+    - Integer Base Converter (整数基数转换器) ：添加空格分隔符支持
+    - IBAN Validator and Parser (IBAN 验证和解析器) ：添加银行信息
+    - Base64 String Converter (Base64 字符串转换器) ：支持 utf8 以外的文本编码
+    - Token Generator (令牌生成器) ：默认排除易混淆字符
+    - Docker Compose to .env ：添加更新的 Docker compose
+    - Docker Compose Memo ：添加中文翻译和重构基于 locale 的备忘加载
+    - Bash Cheatsheet (Bash 速查表) ：修复默认语言为 en
+    - Cron Expression Generator (Cron 表达式生成器) ：处理输入 cron 和标准格式
+
 ## 2026年7月5日 更新
 镜像版本：dothebetter/it-tools-zh:20260705
 1. 升级基础镜像alpine版本为3.24。
