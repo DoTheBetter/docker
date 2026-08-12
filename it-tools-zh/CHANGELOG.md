@@ -1,4 +1,17 @@
 # 更新日志
+## 2026年8月12日 更新
+镜像版本：dothebetter/it-tools-zh:20260812
+1. 更新上游仓库commits版本69f5084，release版本2026.7.11。
+2. 新增工具（1个）
+    - Markdown Format Converter ：Markdown 类工具，Markdown 格式转换器
+3. 有变动的工具（6个）
+    - k8s Memo (Kubernetes 备忘录) ：添加国际化 (i18n) 支持
+    - Common Regex Memo (常用正则备忘) ：添加国际化 (i18n) 支持
+    - Units Converter (单位转换器) ：使单位可翻译，确保标签适配
+    - Regex Tester (正则表达式测试器) ：修复 shadowroot 导致的导航 bug
+    - Code Block Copyable (代码块复制) ：启用 lineWrapping（自动换行）
+    - Mermaid Live Preview ：新增 Mermaid 实时预览功能
+
 ## 2026年7月26日 更新
 镜像版本：dothebetter/it-tools-zh:20260726
 1. 更新S6版本为3.2.3.2。
