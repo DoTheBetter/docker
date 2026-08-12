@@ -35,24 +35,24 @@ RUN apk add --no-cache \
     elif [ "$(uname -m)" = "armv7l" ]; then s6_arch=arm; aria2_arch=armv7-linux-musleabihf; filebrowser_quantum_arch=armv7; \
     fi \
 # 安装s6-overlay
-    && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-noarch.tar.xz \
+    && curl -fsSL --retry 3 --connect-timeout 30 -o /tmp/s6-overlay-noarch.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-noarch.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
-    && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
+    && curl -fsSL --retry 3 --connect-timeout 30 -o /tmp/s6-overlay-${s6_arch}.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
 # 安装aria2
     && mkdir -p /aria2/bin \
-    && wget -P /tmp https://github.com/DoTheBetter/aria2_build/releases/download/continuous/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
-    && unzip /tmp/aria2-${ARIA2_VER}-${aria2_arch}_static.zip -d /aria2/bin \
+    && curl -fsSL --retry 3 --connect-timeout 30 -o /tmp/aria2.zip https://github.com/DoTheBetter/aria2_build/releases/download/continuous/aria2-${ARIA2_VER}-${aria2_arch}_static.zip \
+    && unzip /tmp/aria2.zip -d /aria2/bin \
     && chmod +x /aria2/bin/aria2c \
     && aria2c --version \
 # 安装Aria2-Explorer的AriaNG增强版 
     && mkdir -p /aria2/www \
-    && wget -P /tmp https://github.com/alexhua/Aria2-Explorer/archive/refs/heads/master.zip \
+    && curl -fsSL --retry 3 --connect-timeout 30 -o /tmp/ariang.zip https://github.com/alexhua/Aria2-Explorer/archive/refs/heads/master.zip \
     && mkdir -p /tmp/Aria2-Explorer \
-    && unzip /tmp/master.zip -d /tmp/Aria2-Explorer \
+    && unzip /tmp/ariang.zip -d /tmp/Aria2-Explorer \
     && cp -r /tmp/Aria2-Explorer/Aria2-Explorer-master/ui/ariang/* /aria2/www/ \
 # 安装FileBrowser Quantum
-    && wget -O /aria2/bin/filebrowser https://github.com/gtsteffaniak/filebrowser/releases/download/v${FileBrowser_VER}-stable/linux-${filebrowser_quantum_arch}-filebrowser \
+    && curl -fsSL --retry 3 --connect-timeout 30 -o /aria2/bin/filebrowser https://github.com/gtsteffaniak/filebrowser/releases/download/v${FileBrowser_VER}-stable/linux-${filebrowser_quantum_arch}-filebrowser \
     && chmod +x /aria2/bin/filebrowser \
     && filebrowser version \
 # 创建用户及组
