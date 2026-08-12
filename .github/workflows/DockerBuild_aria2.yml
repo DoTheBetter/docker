@@ -74,11 +74,19 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_SUMMARY: "false"
+          DOCKER_BUILD_RECORD_UPLOAD: "false"
+          DOCKER_BUILD_CHECKS_ANNOTATIONS: "false"
         with:
           context: ./aria2
           file: ./aria2/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
+          # 关闭构建溯源证明，消除不兼容的oci.empty.v1+json manifest
+          provenance: false
+          # 同步关闭sbom，避免额外OCI artifact引发兼容问题
+          sbom: false
           tags: |
             dothebetter/aria2:latest
             dothebetter/aria2:${{ env.ARIA2_DOCKER_VER }}
