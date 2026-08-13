@@ -4,7 +4,7 @@
 
 | 镜像仓库 | 镜像版本 | 镜像大小 | 支持架构 | 拉取地址 |
 |---------|------|-----|----------|----------|
-|[dothebetter/aria2](https://github.com/dothebetter/docker/tree/master/aria2)|1.37.0-20260725|90.26MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/aria2</li><li>ghcr.io/dothebetter/aria2</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/aria2</li></ul>|
+|[dothebetter/aria2](https://github.com/dothebetter/docker/tree/master/aria2)|1.37.0-20260813|90.26MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/aria2</li><li>ghcr.io/dothebetter/aria2</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/aria2</li></ul>|
 |[dothebetter/banban-docker](https://github.com/dothebetter/docker/tree/master/banban-docker)|202601024|49.90MB|amd64|<ul><li>docker.io/dothebetter/banban-docker</li><li>ghcr.io/dothebetter/banban-docker</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/banban-docker</li></ul>|
 |[dothebetter/caddy2](https://github.com/dothebetter/docker/tree/master/caddy2)|2.11.4-20260613|39.75MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/caddy2</li><li>ghcr.io/dothebetter/caddy2</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/caddy2</li></ul>|
 |[dothebetter/composerize](https://github.com/dothebetter/docker/tree/master/composerize)|20260613|8.70MB|amd64<br>arm/v7<br>arm64|<ul><li>docker.io/dothebetter/composerize</li><li>ghcr.io/dothebetter/composerize</li><li>registry.cn-hangzhou.aliyuncs.com/dothebetter/composerize</li></ul>|
