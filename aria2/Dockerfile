@@ -4,7 +4,7 @@ FROM alpine:3.24
 
 ARG ARIA2_VER=1.37.0
 ARG AriaNg_VER=2.8.2
-ARG FileBrowser_VER=1.5.1
+ARG FileBrowser_VER=1.5.2
 ARG S6_VER=3.2.3.2
 
 ENV PATH="/aria2/bin:${PATH}" \
