@@ -75,6 +75,8 @@ jobs:
           file: ./it-tools-zh/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
+          provenance: false
+          sbom: false
           tags: |
             dothebetter/it-tools-zh:latest
             dothebetter/it-tools-zh:${{ env.IT_TOOLS_ZH_DOCKER_VER }}

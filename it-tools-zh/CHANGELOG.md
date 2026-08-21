@@ -1,4 +1,15 @@
 # 更新日志
+## 2026年8月21日 更新
+镜像版本：dothebetter/it-tools-zh:20260821
+1. 更新上游仓库commits版本002a211，release版本2026.7.11。
+2. 新增工具（0个）
+    - 本次更新无新增工具。
+3. 有变动的工具（2个）
+    - WebSocket Tester (WebSocket 测试器)：重构为使用原生 WebSocket，替代 w-websocket-client 依赖
+    - Base64 File Converter (Base64 文件转换器)：修复清理 base64 data URI 的正则表达式
+4. 其他重要变更
+    - 支持从任意子路径提供服务：通过运行时 BASE_URL 环境变量
+
 ## 2026年8月12日 更新
 镜像版本：dothebetter/it-tools-zh:20260812
 1. 更新上游仓库commits版本69f5084，release版本2026.7.11。

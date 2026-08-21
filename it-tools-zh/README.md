@@ -14,6 +14,8 @@
 
 自用的IT Tools中文翻译版，基于Alpine，支持多种架构，包括amd64、arm64v8和arm32v7。
 
+跟随官方修改支持通过 `BASE_URL` 环境变量从任意子路径提供服务，便于反向代理子路径部署。
+
 采用的IT Tools代码仓库为`sharevb/it-tools`，该仓库比it-tools官方仓库`CorentinTh/it-tools`更新更及时，工具更多。
 
 项目地址：https://github.com/DoTheBetter/docker/tree/master/it-tools-zh
@@ -30,6 +32,8 @@
 |变量名|是否必须|默认值|说明|
 | :------: | :--------: | :------: | :----: |
 |`TZ`|可选|`Asia/Shanghai`|设置时区|
+|`BASE_URL`|可选|`/`|部署子路径，如`/it-tools/`，设置后可通过子路径访问，便于反向代理部署|
+|`PORT`|可选|`8080`|web 服务监听端口|
 
 #### 开放的端口
 
@@ -62,6 +66,18 @@ docker run -d \
     #registry.cn-hangzhou.aliyuncs.com/dothebetter/it-tools-zh:latest
 ```
 
+子路径部署示例（通过 `http://host:8080/it-tools/` 访问）：
+
+```bash
+docker run -d \
+    --name it-tools-zh \
+    --restart always \
+    -e TZ=Asia/Shanghai \
+    -e BASE_URL=/it-tools/ \
+    -p 8080:8080 \
+    dothebetter/it-tools-zh:latest
+```
+
 #### docker-compose.yml
 
 ```yaml
@@ -74,6 +90,7 @@ services:
         restart: always
         environment:
             - TZ=Asia/Shanghai
+            # - BASE_URL=/it-tools/
         ports:
             - 8080:8080
 ```

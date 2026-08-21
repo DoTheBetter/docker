@@ -7,22 +7,48 @@
 	}
 }
 
-:8080 {
-    root * /www
-    file_server {
-        index index.html
-    }
-	encode zstd gzip
+# 全部使用 {$X} 解析期替换（值来自 with-contenv 注入的进程环境）
+# BASE_URL             规范化后的部署路径（如 /it-tools/）
+# BASE_URL_RE          正则安全形式（'.' 已转义；根路径时为 /）
+# BASE_URL_NOSLASH_RE  无尾斜杠形式；根路径时为空 → ^$ 永不匹配（同 nginx 渲染技巧）
+:{$PORT:8080} {
+	root * /www
 
-    header {
-        X-Frame-Options SAMEORIGIN
-        X-Content-Type-Options nosniff
-        Referrer-Policy "strict-origin-when-cross-origin"
-        X-Permitted-Cross-Domain-Policies none
-        Cross-Origin-Resource-Policy same-site
-        Cross-Origin-Opener-Policy same-origin
-        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
-    }
+	header {
+		Cross-Origin-Opener-Policy same-origin
+		Cross-Origin-Embedder-Policy require-corp
+	}
 
-    try_files {path} {path}/ /index.html
+	route {
+		# 排除 hashed 资产与 wasm（插件需缓冲响应体；matcher 看到的是 rewrite 前的原始
+		# path，故透传/剥离两种前缀风格都要排除）
+		@html not path /assets/* */assets/* *.wasm
+		# 插件注册的 Caddyfile 指令名为 replace（模块 ID 为 http.handlers.replace_response）
+		replace @html `<base href="/">` `<base href="{$BASE_URL}">`
+
+		# 补尾斜杠 301，相对 Location；根路径时正则退化为 ^$
+		@need_slash path_regexp ^{$BASE_URL_NOSLASH_RE}$
+		redir @need_slash {$BASE_URL} 301
+
+		# assets 缺失必须真 404，禁止落入 SPA 回退
+		@assets path_regexp assets_re ^/(?:.*/)?assets/(.+)$
+		handle @assets {
+			rewrite * /assets/{re.assets_re.1}
+			file_server
+		}
+
+		# 剥部署前缀（根路径时为 ^/(.*)$ 的 no-op 重写）+ SPA 回退
+		@prefixed path_regexp prefixed_re ^{$BASE_URL_RE}(.*)$
+		handle @prefixed {
+			rewrite * /{re.prefixed_re.1}
+			try_files {path} /index.html
+			file_server
+		}
+
+		# 代理已剥离前缀的直连请求
+		handle {
+			try_files {path} /index.html
+			file_server
+		}
+	}
 }
