@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  check-image-info:
+  Check-image-info:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependencies
@@ -144,9 +144,14 @@ jobs:
     needs: [check-image-info]
     if: always()
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     steps:
       - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@main
+        uses: Mattraks/delete-workflow-runs@v2
         with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
           retain_days: 1
           keep_minimum_runs: 2
