@@ -44,7 +44,7 @@ printf '%s' "$base"            > /run/s6/container_environment/BASE_URL
 printf '%s' "$base_re"         > /run/s6/container_environment/BASE_URL_RE
 printf '%s' "$base_noslash_re" > /run/s6/container_environment/BASE_URL_NOSLASH_RE
 
-echo "→访问路径=$base、正则形式=$base_re、无尾斜杠正则形式='$base_noslash_re'"
+echo "→访问路径：$base （正则形式：$base_re、无尾斜杠正则形式：$base_noslash_re）"
 
 echo "3.修改文件夹权限"
 chown -R http:http /www
