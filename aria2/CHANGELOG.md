@@ -1,4 +1,8 @@
 # 更新日志
+## 2026年8月23日 更新
+镜像版本：dothebetter/aria2:1.37.0-20260823
+1. 升级Filebrowser Quantum版本为v1.5.3-stable
+
 ## 2026年8月15日 更新
 镜像版本：dothebetter/aria2:1.37.0-20260815
 1. 升级Filebrowser Quantum版本为v1.5.2-stable
