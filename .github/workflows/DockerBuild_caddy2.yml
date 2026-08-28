@@ -75,6 +75,8 @@ jobs:
           file: ./caddy2/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
+          provenance: false
+          sbom: false
           tags: |
             dothebetter/caddy2:latest
             dothebetter/caddy2:${{ env.CADDY_DOCKER_VER }}

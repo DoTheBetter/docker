@@ -2,11 +2,12 @@
 # https://caddyserver.com/docs/caddyfile
 #####################全局选项#############################
 {
-  # 日志配置（硬编码为 WARN 级别，console 格式）
-  log default {
-    output stderr
-    format console
-    level WARN
+  # 日志配置（console 格式，本地时间）
+  log {
+    format console {
+      time_format wall
+      time_local
+    }
   }
   ## 用于创建https证书ACME帐户
   #email email@example.com
@@ -17,29 +18,64 @@
   #  access_key_id {env.ALIYUN_ACCESS_KEY_ID}
   #  access_key_secret {env.ALIYUN_ACCESS_KEY_SECRET}
   #}
+  ## caddy-geo-ops插件geoip管理（数据库目录/data/GeoIP，首次启动由内置GeoIP Update服务自动初始下载数据库）
+  ## 按需启用（geo_ops块/db_path为基础，两种用法都必须启用）：
+  ## 1.仅用geo_ops匹配器过滤（如@cn geo_ops ...）→ 无需order geo_ops first；
+  ## 2.站点内使用geo_ops指令输出{geo.*}占位符 → 需同时启用order geo_ops first；
+  ## 3.需插件通过MaxMind官方协议自动更新（需同时配置GEOIPUPDATE_ACCOUNT_ID/GEOIPUPDATE_LICENSE_KEY环境变量）→ 追加启用auto_update相关四行（此后GeoIP Update服务完成初始下载即自动退出，两种更新方式二选一）
+  #order geo_ops first
+  #geo_ops {
+  #  db_path /data/GeoIP
+  #  auto_update #定时自动更新数据库（仅配置MaxMind凭证时生效）
+  #  update_frequency {env.GEOIPUPDATE_FREQUENCY}h #更新检查间隔（仅auto_update启用时生效）
+  #  account_id {env.GEOIPUPDATE_ACCOUNT_ID} #MaxMind账号ID
+  #  license_key {env.GEOIPUPDATE_LICENSE_KEY} #MaxMind许可密钥
+  #}
+  ## CDN/前置代理场景需信任代理头，否则geoip与{client_ip}取到的是CDN节点IP
+  servers {
+    trusted_proxies static private_ranges
+    client_ip_headers X-Forwarded-For
+  }
 }
 
 ####################自定义块##########################
-#GeoLite2-Country.mmdb下载地址：https://www.maxmind.com/en/accounts/current/geoip/downloads
-#国家代码https://dev.maxmind.com/geoip/legacy/codes 
+#geoip数据库由caddy-geo-ops插件统一管理（文件变更热重载 + auto_update定时更新），存放于/data/GeoIP目录
+#示例以P3TERX镜像源的geolite2-country.mmdb为例
+#可通过环境变量GEOIPUPDATE_EDITION_IDS扩展下载数据库（如GeoLite2-City、GeoLite2-ASN），对应占位符库名为geolite2-city/geolite2-asn
+#国家代码https://dev.maxmind.com/geoip/legacy/codes
+##示例：仅允许国内IP访问，非国内IP输出提示语和访客IP与国家（需先在全局选项中启用geo_ops基础三行）
 #(mygeofilter) {
-#  @geofilter {
-#    not maxmind_geolocation {
-#      db_path "/config/GeoIP/GeoLite2-Country.mmdb"
-#      allow_countries CN
-#    }
-#    #白名单ip
-#    not remote_ip 192.168.10.0/24
+#  geo_ops #启用占位符，供下方提示语引用
+#  @cn geo_ops geolite2-country.country.iso_code CN #国内IP（多国家码可空格并列）
+#  @whitelist remote_ip 192.168.10.0/24 #白名单ip
+#  handle @cn { #handle块互斥，先命中的优先生效（空块=放行）
+#    #放行，站点其余指令正常处理
 #  }
-#  respond @geofilter 403
-#  #redir @geofilter https://www.bing.com
+#  handle @whitelist {
+#    #放行，站点其余指令正常处理
+#  }
+#  handle {
+#    header Content-Type "text/html; charset=utf-8"
+#    respond <<HTML
+#      <!DOCTYPE html>
+#      <html>
+#      <head><meta charset="utf-8"><title>Access restricted</title></head>
+#      <body style="font-family:sans-serif;text-align:center;padding-top:80px">
+#        <h1>403 Access restricted</h1>
+#        <p>Your IP: {client_ip} ({geo.geolite2-country.country.names.en})</p>
+#      </body>
+#      </html>
+#    HTML 403
+#  }
 #}
 
 ####################站点####################
+## 未引用mygeofilter自定义块的站点，如需{geo.*}占位符请单独添加geo_ops指令（需配合全局选项中已启用的order geo_ops first）
 #webdav.example.com {
-#  import mygeofilter #引用自定义块
+#  import mygeofilter #引用自定义块（已内含geo_ops指令，无需重复添加）
+#  header +X-Geo-Country {geo.geolite2-country.country.iso_code} #向客户端响应头输出访客国家
 #  encode zstd gzip # optional compression
-#  basicauth { # optional auth
+#  basic_auth { # optional auth
 #    example-user HASHED_PASSWORD
 #  }
 #  webdav {
@@ -53,6 +89,7 @@
 #  }
 #}
 
+## 若启用了mygeofilter并import到其他站点，本默认站点不受影响（未引用即不过滤）
 :80 {
     ## 网站根目录
     root * /usr/share/caddy
