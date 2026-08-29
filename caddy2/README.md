@@ -53,10 +53,14 @@
 |`GEOIPUPDATE_FREQUENCY`|可选|`72`|geoip数据库更新间隔（小时），注意不能为***0***。|
 |`GEOIPUPDATE_ACCOUNT_ID`|可选|无|MaxMind账号ID，与`GEOIPUPDATE_LICENSE_KEY`同时配置并在Caddyfile中启用`auto_update`后，geoip数据库由caddy-geo-ops插件通过MaxMind官方协议自动更新（GeoIP Update服务完成数据库补齐后自动退出）|
 |`GEOIPUPDATE_LICENSE_KEY`|可选|无|MaxMind许可证密钥，作用同上|
+|`GEOFILTER_COUNTRIES`|可选|`CN`|Geo过滤放行的国家码（多个用英文逗号分隔），init脚本据此自动生成`/config/geofilter.caddy`过滤片段（反向拒绝逻辑：`@denied`匹配器内联`not geo_ops`国家条件）|
+|`GEOFILTER_WHITELIST`|可选|无|Geo过滤放行的白名单IP/CIDR（多个用英文逗号分隔），即使访客国家码不在`GEOFILTER_COUNTRIES`放行列表内也予放行；为空则跳过白名单|
 
 > **注意**：geoip数据库由[caddy-geo-ops](https://github.com/ubiuser/caddy-geo-ops)插件统一管理（文件变更热重载，配置示例详见Caddyfile.default）。开启`GEOIPUPDATE_AUTO=true`后，首次启动若 `/data/GeoIP` 目录为空，会在容器初始化阶段（Caddy启动前）自动从[P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb)镜像源下载GeoLite2免费初始库（无需注册账号），确保Caddy加载geoip数据库时库已就位（下载失败不阻塞启动，由GeoIP Update服务按周期重试补齐）：
 > - **未配置MaxMind凭证**：由GeoIP Update服务按`GEOIPUPDATE_FREQUENCY`定时从镜像源更新；
 > - **配置了 `GEOIPUPDATE_ACCOUNT_ID`/`GEOIPUPDATE_LICENSE_KEY`**（MaxMind免费账号注册地址：https://www.maxmind.com/en/geolite2/signup ）：在Caddyfile中启用`auto_update`及凭证配置后，由插件通过MaxMind官方协议自动更新（GeoIP Update服务完成数据库补齐后自动退出）。
+
+> **Geo过滤片段**：容器初始化阶段，init脚本会根据`GEOFILTER_COUNTRIES`/`GEOFILTER_WHITELIST`自动生成`/config/geofilter.caddy`过滤逻辑（反向拒绝规则：`@denied`匹配器内联`not geo_ops <国家码>`与`not remote_ip <白名单>`条件，既非放行国家又非白名单的请求返回403，放行请求自然 fall through 到站点后续 handler；覆盖写入、每次重启重新生成）。站点无需手写过滤逻辑，在对应`handle`块内 `import /config/geofilter.caddy` 即可（示例见Caddyfile.default）。
 
 #### 开放的端口
 

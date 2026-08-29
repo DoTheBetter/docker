@@ -1,11 +1,10 @@
 # 更新日志
 ## 2026年8月28日 更新
 更新镜像版本：dothebetter/caddy2:2.11.4-20260828
-1. geoip插件由caddy-maxmind-geolocation切换为caddy-geo-ops，数据源为P3TERX/GeoLite.mmdb镜像源（无需账号）
+1. geoip插件由caddy-maxmind-geolocation切换为caddy-geo-ops
 2. 移除Maxmind官方GeoIP Update程序，内置下载服务改为curl实现；添加GEOIPUPDATE_DL_URL环境变量（默认P3TERX/GeoLite.mmdb镜像源，支持自定义镜像源或国内加速前缀）
-3. 下载服务逻辑：数据库初始下载移至容器初始化阶段（Caddy启动前执行，确保geo_ops加载时库已就位，下载失败不阻塞启动）；库不全时快速补齐（60秒重试间隔、仅下载缺失库）；未配置MaxMind凭证时按GEOIPUPDATE_FREQUENCY定时从镜像源更新；配置凭证且库齐全后服务自动退出，定时更新由caddy-geo-ops插件auto_update通过MaxMind官方协议接管
-4. 移除caddy-security插件
-5. Caddyfile.default更新geo-ops插件全局配置及过滤、占位符输出、反代传参使用示例
+3. 移除caddy-security插件
+4. Caddyfile.default更新geo-ops插件全局配置及过滤、占位符输出、反代传参使用示例
 
 ## 2026年6月13日 更新
 更新镜像版本：dothebetter/caddy2:2.11.4-20260613

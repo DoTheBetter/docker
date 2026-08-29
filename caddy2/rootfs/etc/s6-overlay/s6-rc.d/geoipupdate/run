@@ -18,9 +18,8 @@ if [ -n "$GEOIPUPDATE_ACCOUNT_ID" ] && [ -n "$GEOIPUPDATE_LICENSE_KEY" ]; then
     exit 0
 fi
 
-export GEOIPUPDATE_DB_DIR=${XDG_DATA_HOME}/GeoIP
+GEOIP_DB_DIR=${XDG_DATA_HOME}/GeoIP
 frequency=$((GEOIPUPDATE_FREQUENCY * 60 * 60))
-base_url=${GEOIPUPDATE_DL_URL:-https://github.com/P3TERX/GeoLite.mmdb/releases/latest/download}
 
 echo "+正在启动 GeoIP Update 服务..."
 
@@ -29,9 +28,10 @@ echo "+正在启动 GeoIP Update 服务..."
 download_db() {
     edition=$1
     db_name=$(echo "$edition" | tr 'A-Z' 'a-z')
-    db_file=$GEOIPUPDATE_DB_DIR/${db_name}.mmdb
-    tmp_file=$GEOIPUPDATE_DB_DIR/.${db_name}.mmdb.tmp
-    if curl -fSL --retry 3 --connect-timeout 30 -o "$tmp_file" "$base_url/${edition}.mmdb" && [ "$(wc -c < "$tmp_file")" -gt 1000000 ]; then
+    db_file=$GEOIP_DB_DIR/${db_name}.mmdb
+    tmp_file=$GEOIP_DB_DIR/.${db_name}.mmdb.tmp
+    # timeout 300 限制单次下载整体耗时（连接建立后的传输挂起也受控），避免卡死周期循环；与 init 阶段 timeout 120 一致的防护思路
+    if timeout 300 curl -fSL --retry 3 --connect-timeout 30 -o "$tmp_file" "$GEOIPUPDATE_DL_URL/${edition}.mmdb" && [ "$(wc -c < "$tmp_file")" -gt 1000000 ]; then
         mv -f "$tmp_file" "$db_file"
         echo "[GeoIP Update] $(date "+%Y-%m-%d %H:%M:%S")：【${db_name}.mmdb 下载更新成功】"
     else
@@ -44,7 +44,7 @@ download_db() {
 all_dbs_present() {
     for edition in $(echo $GEOIPUPDATE_EDITION_IDS | tr ',' ' '); do
         db_name=$(echo "$edition" | tr 'A-Z' 'a-z')
-        if [ ! -f "$GEOIPUPDATE_DB_DIR/${db_name}.mmdb" ]; then
+        if [ ! -f "$GEOIP_DB_DIR/${db_name}.mmdb" ]; then
             return 1
         fi
     done
@@ -56,7 +56,7 @@ if ! all_dbs_present; then
     echo "[GeoIP Update] $(date "+%Y-%m-%d %H:%M:%S")：【检测到geoip数据库不全，正在下载缺失库...】"
     for edition in $(echo $GEOIPUPDATE_EDITION_IDS | tr ',' ' '); do
         db_name=$(echo "$edition" | tr 'A-Z' 'a-z')
-        [ -f "$GEOIPUPDATE_DB_DIR/${db_name}.mmdb" ] || download_db $edition
+        [ -f "$GEOIP_DB_DIR/${db_name}.mmdb" ] || download_db $edition
     done
     # 补全结果不阻塞流程：仍有缺失（如镜像源故障）时由下方周期循环继续重试（download_db幂等，更新即补全）
     all_dbs_present && echo "[GeoIP Update] $(date "+%Y-%m-%d %H:%M:%S")：【数据库补全完成】" \

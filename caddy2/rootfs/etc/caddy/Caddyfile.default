@@ -1,6 +1,6 @@
-# caddy reload --config /config/Caddyfile
-# https://caddyserver.com/docs/caddyfile
-#####################全局选项#############################
+# 手动重载配置：caddy reload --config /config/Caddyfile
+# Caddyfile 语法文档：https://caddyserver.com/docs/caddyfile
+######################全局选项######################
 {
   # 日志配置（console 格式，本地时间）
   log {
@@ -9,73 +9,43 @@
       time_local
     }
   }
-  ## 用于创建https证书ACME帐户
+  # 创建 HTTPS 证书的 ACME 账户邮箱（自动 HTTPS 需要时填写）
   #email email@example.com
-  ## caddy-webdav
+  # caddy-webdav 插件：调整指令执行顺序
   #order webdav before file_server
-  ## 用于创建https证书dns帐户
+  # 阿里云 DNS 挑战账号（签发泛域名/内网证书用）
   #acme_dns alidns {
   #  access_key_id {env.ALIYUN_ACCESS_KEY_ID}
   #  access_key_secret {env.ALIYUN_ACCESS_KEY_SECRET}
   #}
-  ## caddy-geo-ops插件geoip管理（数据库目录/data/GeoIP，首次启动由内置GeoIP Update服务自动初始下载数据库）
-  ## 按需启用（geo_ops块/db_path为基础，两种用法都必须启用）：
-  ## 1.仅用geo_ops匹配器过滤（如@cn geo_ops ...）→ 无需order geo_ops first；
-  ## 2.站点内使用geo_ops指令输出{geo.*}占位符 → 需同时启用order geo_ops first；
-  ## 3.需插件通过MaxMind官方协议自动更新（需同时配置GEOIPUPDATE_ACCOUNT_ID/GEOIPUPDATE_LICENSE_KEY环境变量）→ 追加启用auto_update相关四行（此后GeoIP Update服务完成初始下载即自动退出，两种更新方式二选一）
-  #order geo_ops first
-  #geo_ops {
-  #  db_path /data/GeoIP
-  #  auto_update #定时自动更新数据库（仅配置MaxMind凭证时生效）
-  #  update_frequency {env.GEOIPUPDATE_FREQUENCY}h #更新检查间隔（仅auto_update启用时生效）
-  #  account_id {env.GEOIPUPDATE_ACCOUNT_ID} #MaxMind账号ID
-  #  license_key {env.GEOIPUPDATE_LICENSE_KEY} #MaxMind许可密钥
-  #}
-  ## CDN/前置代理场景需信任代理头，否则geoip与{client_ip}取到的是CDN节点IP
+  # caddy-geo-ops 插件：GeoIP 数据库管理（目录 /data/GeoIP；首次启动由 init 脚本在 Caddy 启动前下载初始化）
+  # 自动更新：已配置 GEOIPUPDATE_ACCOUNT_ID / GEOIPUPDATE_LICENSE_KEY 时，init 会在 /config/geoopts.caddy 中追加 auto_update 配置（走 MaxMind 官方协议）；未配置则仅加载库供 {geo.*} 匹配
+  #order geo_ops first          # 仅需使用 {geo.*} 占位符时才启用
+  #import /config/geoopts.caddy # geo_ops 块配置（由 init 脚本根据环境变量自动生成）
+  # 经 CDN/反向代理访问时需信任代理头，否则 geoip 与 {client_ip} 取到的是 CDN 节点 IP
   servers {
     trusted_proxies static private_ranges
     client_ip_headers X-Forwarded-For
   }
 }
 
-####################自定义块##########################
-#geoip数据库由caddy-geo-ops插件统一管理（文件变更热重载 + auto_update定时更新），存放于/data/GeoIP目录
-#示例以P3TERX镜像源的geolite2-country.mmdb为例
-#可通过环境变量GEOIPUPDATE_EDITION_IDS扩展下载数据库（如GeoLite2-City、GeoLite2-ASN），对应占位符库名为geolite2-city/geolite2-asn
-#国家代码https://dev.maxmind.com/geoip/legacy/codes
-##示例：仅允许国内IP访问，非国内IP输出提示语和访客IP与国家（需先在全局选项中启用geo_ops基础三行）
-#(mygeofilter) {
-#  geo_ops #启用占位符，供下方提示语引用
-#  @cn geo_ops geolite2-country.country.iso_code CN #国内IP（多国家码可空格并列）
-#  @whitelist remote_ip 192.168.10.0/24 #白名单ip
-#  handle @cn { #handle块互斥，先命中的优先生效（空块=放行）
-#    #放行，站点其余指令正常处理
-#  }
-#  handle @whitelist {
-#    #放行，站点其余指令正常处理
-#  }
-#  handle {
-#    header Content-Type "text/html; charset=utf-8"
-#    respond <<HTML
-#      <!DOCTYPE html>
-#      <html>
-#      <head><meta charset="utf-8"><title>Access restricted</title></head>
-#      <body style="font-family:sans-serif;text-align:center;padding-top:80px">
-#        <h1>403 Access restricted</h1>
-#        <p>Your IP: {client_ip} ({geo.geolite2-country.country.names.en})</p>
-#      </body>
-#      </html>
-#    HTML 403
-#  }
-#}
+####################GeoIP 过滤说明####################
+# geoip 数据库由 caddy-geo-ops 插件统一管理（文件变更自动热重载 + auto_update 定时更新），存放于 /data/GeoIP
+# 可通过环境变量 GEOIPUPDATE_EDITION_IDS 扩展下载多个数据库（如 GeoLite2-City、GeoLite2-ASN），对应 {geo.*} 占位符库名为 geolite2-city / geolite2-asn
+# 国家码对照：https://dev.maxmind.com/geoip/legacy/codes
+# geo 过滤逻辑已由 init 脚本根据环境变量自动生成于 /config/geofilter.caddy：
+#   - 放行 GEOFILTER_COUNTRIES 指定国家码 + GEOFILTER_WHITELIST 白名单 IP/CIDR
+#   - 其余请求返回 403 提示页
+# 站点 handle 内使用 import /config/geofilter.caddy 引入即可，无需手动书写过滤逻辑
+# 单独文件的目的：规避 caddy-docker-proxy 重序列化对 heredoc 空行 / 空 handle 块的破坏
 
-####################站点####################
-## 未引用mygeofilter自定义块的站点，如需{geo.*}占位符请单独添加geo_ops指令（需配合全局选项中已启用的order geo_ops first）
+######################站点######################
+# 未 import geo 过滤片段的站点，如需 {geo.*} 占位符，请单独添加 geo_ops 指令（需配合全局选项中的 order geo_ops first）
 #webdav.example.com {
-#  import mygeofilter #引用自定义块（已内含geo_ops指令，无需重复添加）
-#  header +X-Geo-Country {geo.geolite2-country.country.iso_code} #向客户端响应头输出访客国家
-#  encode zstd gzip # optional compression
-#  basic_auth { # optional auth
+#  import /config/geofilter.caddy      # 引用 geo 过滤逻辑（放行国内+白名单，已内含 geo_ops 指令）
+#  header +X-Geo-Country {geo.geolite2-country.country.iso_code}  # 向客户端响应头输出访客国家
+#  encode zstd gzip                     # 可选：启用压缩
+#  basic_auth {                         # 可选：基础认证
 #    example-user HASHED_PASSWORD
 #  }
 #  webdav {
@@ -89,14 +59,14 @@
 #  }
 #}
 
-## 若启用了mygeofilter并import到其他站点，本默认站点不受影响（未引用即不过滤）
+# 默认站点：未 import geo 过滤片段，不对访问做地理过滤
 :80 {
-    ## 网站根目录
+    # 网站根目录
     root * /usr/share/caddy
-    ## 运行静态文件服务.
+    # 运行静态文件服务
     file_server
-    ## 反向代理
+    # 反向代理（可选）
     # reverse_proxy localhost:8080
-    ## php-fpm
+    # php-fpm（可选）
     # php_fastcgi localhost:9000
 }

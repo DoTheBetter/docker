@@ -21,14 +21,17 @@ ENV TZ=Asia/Shanghai \
     GEOIPUPDATE_FREQUENCY=72 \
     #MaxMind凭证：与GEOIPUPDATE_AUTO配合，配置后geoip数据库由caddy-geo-ops插件auto_update通过MaxMind官方协议自动更新
     GEOIPUPDATE_ACCOUNT_ID= \
-    GEOIPUPDATE_LICENSE_KEY=
+    GEOIPUPDATE_LICENSE_KEY= \
+    #Geo过滤片段（init生成/config/geofilter.caddy供站点handle内import）：允许国家码、白名单IP/CIDR（均逗号分隔）
+    GEOFILTER_COUNTRIES=CN \
+    GEOFILTER_WHITELIST=
 
 COPY --from=caddybuilder /usr/bin/caddy /usr/bin/caddy
 COPY --chmod=755 rootfs /
 
 RUN apk upgrade --update --no-cache \
 # 安装应用
-	&& apk add --no-cache ca-certificates curl tzdata \
+	&& apk add --no-cache ca-certificates curl libcap tzdata \
 # 安装s6-overlay
     && if [ "$(uname -m)" = "x86_64" ]; then s6_arch=x86_64; \
     elif [ "$(uname -m)" = "aarch64" ]; then s6_arch=aarch64; \
@@ -37,7 +40,9 @@ RUN apk upgrade --update --no-cache \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
     && curl -fSL --retry 3 --connect-timeout 30 -o /tmp/s6-overlay-${s6_arch}.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-${s6_arch}.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz \
-# 设置执行权限
+# 授予caddy绑定低端口(80/443)的cap_net_bind_service能力，支持非root/drop-cap运行时（COPY会丢失builder阶段文件的capability，须在此重新设置）
+	&& setcap cap_net_bind_service=+ep /usr/bin/caddy \
+# 校验caddy可执行并输出版本
 	&& caddy version \
 # 清除缓存
 	&& rm -rf /var/cache/apk/* \
