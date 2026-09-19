@@ -1,4 +1,9 @@
 # 更新日志
+## 2026年9月19日 更新
+镜像版本：dothebetter/rsync:3.5.0
+1. 更新rsync版本3.5.0
+2. 更新s6-overlay版本3.2.3.2
+
 ## 2026年6月13日 更新
 镜像版本：dothebetter/rsync:3.4.4
 1. 更新rsync版本3.4.4
