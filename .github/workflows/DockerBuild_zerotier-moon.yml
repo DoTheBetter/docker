@@ -54,11 +54,19 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_SUMMARY: "false"
+          DOCKER_BUILD_RECORD_UPLOAD: "false"
+          DOCKER_BUILD_CHECKS_ANNOTATIONS: "false"
         with:
           context: ./zerotier-moon
           file: ./zerotier-moon/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
+          # 关闭构建溯源证明，消除不兼容的oci.empty.v1+json manifest
+          provenance: false
+          # 同步关闭sbom，避免额外OCI artifact引发兼容问题
+          sbom: false
           tags: |
             dothebetter/zerotier-moon:latest
             dothebetter/zerotier-moon:${{ env.ZeroTierOne_VER }}

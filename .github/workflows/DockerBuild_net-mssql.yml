@@ -106,11 +106,19 @@ jobs:
       # 构建并推送
       - name: Build and push
         uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_SUMMARY: "false"
+          DOCKER_BUILD_RECORD_UPLOAD: "false"
+          DOCKER_BUILD_CHECKS_ANNOTATIONS: "false"
         with:
           context: ./net-mssql
           file: ./net-mssql/Dockerfile
           platforms: linux/amd64
           push: true
+          # 关闭构建溯源证明，消除不兼容的oci.empty.v1+json manifest
+          provenance: false
+          # 同步关闭sbom，避免额外OCI artifact引发兼容问题
+          sbom: false
           tags: |
             dothebetter/net-mssql:${{ env.NET_MSSQL_VER }}
             ghcr.io/dothebetter/net-mssql:${{ env.NET_MSSQL_VER }}
