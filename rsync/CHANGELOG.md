@@ -1,4 +1,8 @@
 # 更新日志
+## 2026年9月28日 更新
+镜像版本：dothebetter/rsync:3.5.1
+1. 更新rsync版本3.5.1
+
 ## 2026年9月19日 更新
 镜像版本：dothebetter/rsync:3.5.0
 1. 更新rsync版本3.5.0
