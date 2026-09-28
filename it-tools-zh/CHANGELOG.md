@@ -1,4 +1,18 @@
 # 更新日志
+## 2026年9月28日 更新
+镜像版本：dothebetter/it-tools-zh:20260928
+1. 更新上游仓库commits版本fad759e，release版本2026.9.27。
+2. 新增工具（3个）
+    - Restic Command Generator (Restic 命令生成器) ：备份类工具，生成 Restic 备份命令
+    - EPC QR Code Generator (EPC 二维码生成器) ：支付类工具，生成欧洲 SEPA 标准支付二维码
+    - URL Redirection Checker (URL 重定向检查器) ：网络类工具，检测 URL 重定向链及最终目标地址
+3. 有变动的工具（5个）
+    - Keys Generator (密钥生成器) ：RSA/ECDSA/Ed25519 三种密钥生成器均添加指纹 (fingerprint) 显示功能
+    - JSON Editor (JSON 编辑器) ：添加数据持久化存储和自动高度选项
+    - Timezone Converter (时区转换器) ：添加 POSIX 时区字符串可筛选列表
+    - QR Code Generator (二维码生成器) ：添加可嵌入链接和裁剪 data url 功能
+    - c-link 组件 ：修复`href` 用法问题
+
 ## 2026年8月21日 更新
 镜像版本：dothebetter/it-tools-zh:20260821
 1. 更新上游仓库commits版本002a211，release版本2026.7.11。
