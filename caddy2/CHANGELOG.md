@@ -1,4 +1,9 @@
 # 更新日志
+## 2026年10月2日 更新
+更新镜像版本：dothebetter/caddy2:2.11.6-20261002
+1. 更新 Caddy 版本 v2.11.6
+2. 更新 s6-overlay 版本 v3.2.3.2
+
 ## 2026年8月28日 更新
 更新镜像版本：dothebetter/caddy2:2.11.4-20260828
 1. geoip插件由caddy-maxmind-geolocation切换为caddy-geo-ops

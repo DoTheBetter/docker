@@ -1,10 +1,10 @@
-ARG CADDY_VER=2.11.4
-ARG CADDY_DOCKER_VER=2.11.4-20260828
+ARG CADDY_VER=2.11.6
+ARG CADDY_DOCKER_VER=2.11.6-20261002
 
 FROM ghcr.io/dothebetter/baseimage_caddy2:${CADDY_VER} AS caddybuilder
 
 FROM alpine:3.24
-ARG S6_VER=3.2.3.0
+ARG S6_VER=3.2.3.2
 
 ENV TZ=Asia/Shanghai \
     S6_VERBOSITY=1 \
