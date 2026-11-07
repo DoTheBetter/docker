@@ -1,4 +1,56 @@
 # 更新日志
+## 2026年11月7日 更新
+镜像版本：dothebetter/it-tools-zh:20261107
+1. 更新上游仓库commits版本e775893，release版本2026.10.25。
+2. 新增工具（2个）
+    - Fraction Decimal Converter（分数小数转换器）：数学类工具，分数 ↔ 小数互转，支持英寸/毫米  与分数分辨率
+    - Sound Tester（声音测试仪）：取证类工具，扬声器/音频测试（音调、扫频、白/粉噪声、左右声道、高低频、自定义频率）
+3. 有变动的工具（44个）
+    - Coin Flipper（抛硬币工具）：改用 0/1 随机取整决定正反面，修正原先 0–10 奇偶判断的偏差
+    - Countdown（倒计时）：Beep.mp3 改为按应用 base URL 解析，支持子路径部署
+    - Cron/Weekday Alarm（Cron/工作日闹钟）：Beep.mp3 改为按应用 base URL 解析
+    - Time Alarm（时间闹钟）：Beep.mp3 改为按应用 base URL 解析
+    - Pomodoro Timer（番茄钟计时器）：内置 Varela Round 字体（不再请求 Google Fonts），Beep.mp3 使用应用 base URL
+    - Currency Converter（货币转换器）：移除 currency-exchanger-js，自行拉取最新汇率并一次性换算全部目标货币；支持内网汇率镜像
+    - Database Creation Builder（数据库创建语句生成器）：按方言转义库名/用户/密码，Oracle 含双引号时报错，密码改用加密随机
+    - FStab Generator（/etc/fstab 生成器）：挂载选项说明按 key 读取工具级 locales，新增 en/zh/zh-TW 翻译
+    - Geographic Coordinates Converter（地理坐标转换器）：支持配置内网瓦片 URL 与 attribution；离线且无瓦片源时隐藏地图
+    - GIF to MP4（GIF 转 MP4）：ffmpeg core/wasm 随应用打包，不再从 jsDelivr 下载
+    - GitIgnore Generator（GitIgnore 生成器）：模板列表支持回退到随应用打包的快照（离线或 GitHub 不可达时）
+    - Gitattributes Generator（Gitattributes 生成器）：模板列表同样支持打包快照回退
+    - Hash text（文本哈希）：修复切换摘要编码或输入变化时“附加哈希”不刷新的问题（共享对象被复用）
+    - HTML to markdown（HTML 转 Markdown）：移除从未生效的文本节点转义 Turndown 规则
+    - HTML to data（HTML 转数据）：移除从未生效的文本节点转义 Turndown 规则
+    - Epub to Markdown（EPUB 转 Markdown）：移除从未生效的文本节点转义 Turndown 规则
+    - Iptables Generator（iptables 生成器）：指定序号时改用 -I；端口仅 tcp/udp 下生成并禁用 输入；序号最小为 1
+    - JSON Editor（JSON 编辑器）：Schema 选择器支持内网 catalog 镜像，离线无镜像时不请求目录
+    - JSON Linter（JSON 语法检查器）：Schema 选择器支持内网 catalog 镜像与离线降级
+    - JSON prettify and format（JSON 格式化与美化）：同上；并改为单次反转义，避免 \\n 被二次    反转义
+    - YAML prettify and format（YAML 格式化与美化）：Schema 选择器支持内网 catalog 镜像与离 线降级
+    - Lorem ipsum generator（Lorem ipsum 生成器）：对 URL 参数做类型校验和范围限制，避免超大    值卡死页面
+    - Markdown Editor（Markdown 编辑器）：内置 highlight.js、KaTeX、mermaid、echarts、  prettier、cropper、screenfull，移除 unpkg CDN 依赖
+    - Markdown Table Generator（Markdown 表格生成器）：单元格转义同时处理反斜杠，避免结尾反斜   杠把 \| 还原成 |
+    - Math OCR（数学 OCR）：改用内置 ONNX runtime，支持 models-url 镜像，无镜像时标记为需要 联网
+    - OCRize image and PDF（图片和 PDF 文字识别）：内置 Tesseract worker/core 与 eng、  chi_sim 语言包；其他语言支持 lang-url 镜像；离线仅保留内置语言
+    - Passphrase Generator（密码短语生成器）：自实现生成服务（加密随机、数字/盐/分隔符/首字母大 写），长度过滤改为闭区间
+    - Pin Code Generator（PIN 码生成器）：改用加密随机 randIndex，不再使用 Math.random
+    - Regex cheatsheet（正则表达式速查表）：修复“转义字符”表格的列错位与 \| 行
+    - Remove Image Background（移除图片背景）：改用内置 ONNX runtime，支持模型镜像
+    - Shutdown Command Generator（关机命令生成器）：修复翻译中的 &nbsp; 被当作文本显示，单位    标签改用真实空格
+    - Token generator（令牌生成器）：改用加密随机生成，空字符集返回空串
+    - Text Translator（文本翻译器）：改用内置 ONNX runtime，支持 models-url 镜像
+    - Unicode Formatter（Unicode 格式化工具）：内置 Open Sans 字体，不再请求 Google Fonts
+    - ZPool Cheatsheet（ZPool 速查表）：新增简体中文内容并按语言切换，分类由 Network 调整为     Cheatsheets
+    - Explain Shell Command（Shell 命令解释器）：离线模式强制使用 tools-settings 配置的自托 管地址并隐藏地址配置
+    - DNS Propagation Tester（DNS 传播测试器）：标记 requiresInternet，离线模式隐藏
+    - DNS Queries（DNS 查询）：标记 requiresInternet，离线模式隐藏
+    - Cloudflare DNS/RDAP Queries（Cloudflare DNS/RDAP 查询）：标记 requiresInternet，  离线模式隐藏
+    - DNSBL Checker（DNSBL 检查器）：标记 requiresInternet，离线模式隐藏
+    - Whois Checker（Whois 检查器）：标记 requiresInternet，离线模式隐藏
+    - IP Geo Location（IP 地理位置）：标记 requiresInternet，离线模式隐藏
+    - My IP Address（我的 IP 地址）：标记 requiresInternet，离线模式隐藏
+    - Online Dictionary（在线词典）：标记 requiresInternet，离线模式隐藏
+
 ## 2026年9月28日 更新
 镜像版本：dothebetter/it-tools-zh:20260928
 1. 更新上游仓库commits版本fad759e，release版本2026.9.27。
