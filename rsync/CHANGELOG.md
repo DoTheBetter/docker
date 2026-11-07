@@ -1,7 +1,8 @@
 # 更新日志
-## 2026年10月1日 更新
+## 2026年11月7日 更新
 镜像版本：dothebetter/rsync:3.5.2
 1. 更新rsync版本3.5.2
+2. 修复s6-overlay启动警告：user bundle定义从/etc/s6-overlay/s6-rc.d迁移至/etc/s6-overlay/user-bundles.d
 
 ## 2026年9月28日 更新
 镜像版本：dothebetter/rsync:3.5.1
